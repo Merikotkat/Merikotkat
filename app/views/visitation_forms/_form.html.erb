@@ -1,0 +1,25 @@
+<%= form_for(@visitation_form) do |f| %>
+  <% if @visitation_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@visitation_form.errors.count, "error") %> prohibited this visitation_form from being saved:</h2>
+
+      <ul>
+      <% @visitation_form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :photographer_name %><br>
+    <%= f.text_field :photographer_name %>
+  </div>
+  <div class="field">
+    <%= f.label :visit_date %><br>
+    <%= f.datetime_select :visit_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

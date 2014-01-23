@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Photographer name:</strong>
+  <%= @visitation_form.photographer_name %>
+</p>
+
+<p>
+  <strong>Visit date:</strong>
+  <%= @visitation_form.visit_date %>
+</p>
+
+<%= link_to 'Edit', edit_visitation_form_path(@visitation_form) %> |
+<%= link_to 'Back', visitation_forms_path %>

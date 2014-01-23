@@ -1,0 +1,29 @@
+<h1>Listing visitation_forms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Photographer name</th>
+      <th>Visit date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @visitation_forms.each do |visitation_form| %>
+      <tr>
+        <td><%= visitation_form.photographer_name %></td>
+        <td><%= visitation_form.visit_date %></td>
+        <td><%= link_to 'Show', visitation_form %></td>
+        <td><%= link_to 'Edit', edit_visitation_form_path(visitation_form) %></td>
+        <td><%= link_to 'Destroy', visitation_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Visitation form', new_visitation_form_path %>
