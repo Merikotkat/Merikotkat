@@ -19,6 +19,34 @@
     <%= f.label :visit_date %><br>
     <%= f.datetime_select :visit_date %>
   </div>
+
+  <h2>Camera info</h2>
+
+  <div class="field">
+    <%= f.label :camera %><br>
+    <%= f.text_field :camera %>
+  </div>
+  <div class="field">
+    <%= f.label :lens %><br>
+    <%= f.text_field :lens %>
+  </div>
+  <div class="field">
+    <%= f.label :teleconverter %><br>
+    <%= f.text_field :teleconverter %>
+  </div>
+
+  <h2>Nest location</h2>
+
+  <div class="field">
+    <%= f.label :municipality %><br>
+    <%= f.text_field :municipality %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nest, "Nest name" %><br>
+    <%= f.text_field :nest %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

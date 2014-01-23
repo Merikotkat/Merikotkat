@@ -10,5 +10,34 @@
   <%= @visitation_form.visit_date %>
 </p>
 
+<h2>Camera info</h2>
+
+<p>
+  <strong>Camera:</strong>
+  <%= @visitation_form.camera %>
+</p>
+
+<p>
+  <strong>Lens:</strong>
+  <%= @visitation_form.lens %>
+</p>
+
+<p>
+  <strong>Teleconverter:</strong>
+  <%= @visitation_form.teleconverter %>
+</p>
+
+<h2>Nest location</h2>
+
+<p>
+  <strong>Municipality:</strong>
+  <%= @visitation_form.municipality %>
+</p>
+
+<p>
+  <strong>Nest name:</strong>
+  <%= @visitation_form.nest %>
+</p>
+
 <%= link_to 'Edit', edit_visitation_form_path(@visitation_form) %> |
 <%= link_to 'Back', visitation_forms_path %>

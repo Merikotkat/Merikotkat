@@ -11,13 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123111945) do
+ActiveRecord::Schema.define(version: 20140123131402) do
 
   create_table "visitation_forms", force: true do |t|
     t.string   "photographer_name"
     t.datetime "visit_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "camera"
+    t.string   "lens"
+    t.string   "teleconverter"
+    t.string   "municipality"
+    t.string   "nest"
   end
 
 end
