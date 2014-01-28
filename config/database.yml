@@ -10,9 +10,9 @@ development:
   timeout: 5000
 
 #development:
-#  adapter: oracle
+#  adapter: oracle_enhanced
 #  database: salkku.it.helsinki.fi/ltkm
-#  username: <username>
+#  username: lintukuvat_dev
 #  password: <password>
 
 # Warning: The database defined as "test" will be erased and
