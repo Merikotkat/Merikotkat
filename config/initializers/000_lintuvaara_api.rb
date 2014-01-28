@@ -5,7 +5,7 @@ module Lintuvaara
   
     # Defaults              
     api_password               = "youwillneverguessthispassword"
-    api_account                = "NAME_OF_THIS_CLIENT"
+    api_account                = "linssi"
     lintuvaara_api_proto       = "http://"
     lintuvaara_api_host        = "lv.local"
     lintuvaara_api_uri         = "/api"
