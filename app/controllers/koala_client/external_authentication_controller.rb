@@ -1,4 +1,4 @@
-class ExternalAuthenticationController < ApplicationController
+class KoalaClient::ExternalAuthenticationController < ApplicationController
   
   skip_before_filter :authentication_required
   
@@ -8,9 +8,9 @@ class ExternalAuthenticationController < ApplicationController
                                                           :key => params["key"],
                                                           :data => params["data"]}, :encrypted)                                            
       user = KoalaClient::ExternalAuthentication.new(login_token.plain_data)
-    rescue 
+    rescue
       flash[:warning] = I18n.t('flash.service_login_failed')
-      redirect_to failed_external_authentication_url and return #todo check if this really should look like this or if url should be lintuvaara?
+      redirect_to failed_external_authentication_url and return
     end
     
     # Authenticated!
