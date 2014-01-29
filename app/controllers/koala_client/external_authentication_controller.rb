@@ -6,15 +6,15 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
   
   def new
     begin
-      login_token = KoalaClient::AuthenticationToken.new({:iv => params["iv"],
-                                                          :key => params["key"],
-                                                          :data => params["data"]}, :encrypted)                                            
+      login_token = KoalaClient::AuthenticationToken.new({:iv => params['iv'],
+                                                          :key => params['key'],
+                                                          :data => params['data']}, :encrypted)
       user = KoalaClient::ExternalAuthentication.new(login_token.plain_data)
     rescue  # uncomment to get errors in browser...
       flash[:warning] = I18n.t('flash.service_login_failed')
       redirect_to failed_external_authentication_url and return
     end
-    
+
     # Authenticated!
     session[:user] = user.login_id
     session[:user_type] = user.login_type
@@ -56,11 +56,11 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
   # 3) /kihla/admin/poolfiles?locale=XX
   #    --> /kihla/admin/poolfiles?locale=XX
   def add_locale_param_to_uri(uri, locale)
-    if uri.include?("locale=")
+    if uri.include?('locale=')
       return uri
     end
     
-    if uri.include?("?")
+    if uri.include?('?')
       return uri + "&locale=#{locale}"
     else
       return uri + "?locale=#{locale}"
