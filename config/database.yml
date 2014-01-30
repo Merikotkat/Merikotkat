@@ -9,6 +9,7 @@ development:
   pool: 5
   timeout: 5000
 
+# Varmita ettei tiedosto päädy gittiin, jos täytät salasanan.
 #development:
 #  adapter: oracle_enhanced
 #  database: salkku.it.helsinki.fi/ltkm
