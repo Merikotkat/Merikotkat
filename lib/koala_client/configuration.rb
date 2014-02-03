@@ -10,7 +10,7 @@ module KoalaClient
     def initialize
       @client_setup          = true # TODO: server setup
       @private_key_file      = ""   # TODO
-      @public_key_file       = "unconfigured_public_key_file.pem"
+      @public_key_file       = 'lintuvaara_public_key.pem'
       @auth_success_url      = :root  # ":root" is translated to "root_url"
       
       @session_expires_after = 15 # minutes

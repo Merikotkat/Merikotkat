@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def correct_user_type?
-    ["rengastaja", "maallikko", "rengastuskeskus"].include?(session[:user_type])
+    ["rengastaja", "maallikko", "rengastuskeskus", "admin"].include?(session[:user_type])
   end
 
   def set_user_variable

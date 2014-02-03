@@ -6,8 +6,8 @@ module Lintuvaara
     # Defaults              
     api_password               = "youwillneverguessthispassword"
     api_account                = "linssi"
-    lintuvaara_api_proto       = "http://"
-    lintuvaara_api_host        = "lv.local"
+    lintuvaara_api_proto       = 'https://'             #"http://"
+    lintuvaara_api_host        = 'lintuvaara.ihku.fi'   #"lv.local"
     lintuvaara_api_uri         = "/api"
     lintuvaara_auth_uri        = "/sessions"
     lintuvaara_preferences_uri = "/user_preferences"

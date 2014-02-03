@@ -1,5 +1,6 @@
 require_relative '../../../lib/koala_client/authentication_token'
 require_relative '../../../lib/koala_client/external_authentication'
+require 'net/http'
 
 class KoalaClient::ExternalAuthenticationController < ApplicationController
   
@@ -7,6 +8,7 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
   
   def new
   #todo remove test stuff
+    # used for testing...
     xml = '<?xml version="1.0" encoding="UTF-8"?>
          <login type="rengastaja">
            <login_id>1</login_id>
@@ -17,9 +19,18 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
          </login>'
 
     begin
-      #login_token = KoalaClient::AuthenticationToken.new({:iv => params['iv'], :key => params['key'], :data => params['data']}, :encrypted)
-      #user = KoalaClient::ExternalAuthentication.new(login_token.plain_data)
-      user = KoalaClient::ExternalAuthentication.new(xml)
+      key = CGI::escape params['key']
+      iv = CGI::escape params['iv']
+      data = CGI::escape params['data']
+
+      uri = URI("https://h92.it.helsinki.fi/tipu-api/lintuvaara-authentication-decryptor?key=#{key}&iv=#{iv}&data=#{data}")
+      req = ::Net::HTTP::Get.new(uri)
+      req.basic_auth 'linssi-dev', 'devlinssi'
+      res = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
+        https.request(req)
+      end
+
+      user = KoalaClient::ExternalAuthentication.new(res.body)
     rescue  # comment to get errors in browser...
       flash[:warning] = I18n.t('flash.service_login_failed')
       redirect_to failed_external_authentication_url and return
