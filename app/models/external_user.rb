@@ -1,3 +1,5 @@
+require 'active_resource'
+
 class ExternalUser < ActiveResource::Base
   include KoalaClient::ExternalUser
   self.site     = Lintuvaara::ApiConfig::SERVER_API_ADDRESS

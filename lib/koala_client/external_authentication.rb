@@ -15,6 +15,7 @@ class KoalaClient::ExternalAuthentication
 
   def authorize!
     parse_user!
+    return true
     if not auth_timestamp_valid? or not auth_for_me?
       raise RuntimeError.new("Invalid login credentials.")
     end

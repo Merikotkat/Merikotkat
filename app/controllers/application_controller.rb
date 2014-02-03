@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
   def correct_user_type?
     ["rengastaja", "maallikko", "rengastuskeskus"].include?(session[:user_type])
   end
+
+  def set_user_variable
+    @user = {:login_id => session[:user], :type => session[:user_type]}
+  end
 end

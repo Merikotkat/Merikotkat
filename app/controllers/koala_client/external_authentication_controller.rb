@@ -1,16 +1,26 @@
 require_relative '../../../lib/koala_client/authentication_token'
+require_relative '../../../lib/koala_client/external_authentication'
 
 class KoalaClient::ExternalAuthenticationController < ApplicationController
   
   skip_before_filter :authentication_required
   
   def new
+  #todo remove test stuff
+    xml = '<?xml version="1.0" encoding="UTF-8"?>
+         <login type="rengastaja">
+           <login_id>1</login_id>
+           <name>Johannes Korpi</name>
+           <email>petrus.repo@iki.fi</email>
+           <expires_at>162904036</expires_at>
+           <auth_for>linssi</auth_for>
+         </login>'
+
     begin
-      login_token = KoalaClient::AuthenticationToken.new({:iv => params['iv'],
-                                                          :key => params['key'],
-                                                          :data => params['data']}, :encrypted)
-      user = KoalaClient::ExternalAuthentication.new(login_token.plain_data)
-    rescue  # uncomment to get errors in browser...
+      #login_token = KoalaClient::AuthenticationToken.new({:iv => params['iv'], :key => params['key'], :data => params['data']}, :encrypted)
+      #user = KoalaClient::ExternalAuthentication.new(login_token.plain_data)
+      user = KoalaClient::ExternalAuthentication.new(xml)
+    rescue  # comment to get errors in browser...
       flash[:warning] = I18n.t('flash.service_login_failed')
       redirect_to failed_external_authentication_url and return
     end

@@ -44,5 +44,6 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'ruby-oci8'
-
+gem 'activeresource'
+gem 'hpricot'
 # gem 'activerecord-oracle_enhanced-adapter'
