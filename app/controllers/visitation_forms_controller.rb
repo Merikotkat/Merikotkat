@@ -4,6 +4,7 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
+    puts 'logged on user: ' + session[:user]  # debug stuff
     @visitation_forms = VisitationForm.all
   end
 

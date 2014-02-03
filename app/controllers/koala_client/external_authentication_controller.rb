@@ -7,17 +7,6 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
   skip_before_filter :authentication_required
   
   def new
-  #todo remove test stuff
-    # used for testing...
-    xml = '<?xml version="1.0" encoding="UTF-8"?>
-         <login type="rengastaja">
-           <login_id>1</login_id>
-           <name>Johannes Korpi</name>
-           <email>petrus.repo@iki.fi</email>
-           <expires_at>162904036</expires_at>
-           <auth_for>linssi</auth_for>
-         </login>'
-
     begin
       key = CGI::escape params['key']
       iv = CGI::escape params['iv']
@@ -25,13 +14,13 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
 
       uri = URI("https://h92.it.helsinki.fi/tipu-api/lintuvaara-authentication-decryptor?key=#{key}&iv=#{iv}&data=#{data}")
       req = ::Net::HTTP::Get.new(uri)
-      req.basic_auth 'linssi-dev', 'devlinssi'
+      req.basic_auth Lintuvaara::ApiConfig::SERVER_ACCOUNT, Lintuvaara::ApiConfig::SERVER_PASSWORD
       res = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
         https.request(req)
       end
 
       user = KoalaClient::ExternalAuthentication.new(res.body)
-    rescue  # comment to get errors in browser...
+    rescue
       flash[:warning] = I18n.t('flash.service_login_failed')
       redirect_to failed_external_authentication_url and return
     end
