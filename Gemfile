@@ -45,4 +45,4 @@ end
 # gem 'debugger', group: [:development, :test]
 gem 'ruby-oci8'
 
-# gem 'activerecord-oracle_enhanced-adapter'
+gem 'activerecord-oracle_enhanced-adapter'
