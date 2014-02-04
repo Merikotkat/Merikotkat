@@ -43,6 +43,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-gem 'ruby-oci8', group: [:development, :production]
+gem 'ruby-oci8'
 
 # gem 'activerecord-oracle_enhanced-adapter'
