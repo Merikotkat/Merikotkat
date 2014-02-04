@@ -2,6 +2,3 @@
 branches:
   only:
     - master
-
-env:
-  - TAG_FILTER=~js DB=test RAILS_ENV=test
