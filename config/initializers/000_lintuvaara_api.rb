@@ -4,8 +4,8 @@ module Lintuvaara
   module ApiConfig
   
     # Defaults              
-    api_password               = "devlinssi" #todo change password
-    api_account                = "linssi-dev" #todo change username
+    api_password               = "changeme" #todo change password
+    api_account                = "changeme" #todo change username
     lintuvaara_api_proto       = 'https://'
     lintuvaara_api_host        = 'lintuvaara.ihku.fi'
     lintuvaara_api_uri         = "/api"
