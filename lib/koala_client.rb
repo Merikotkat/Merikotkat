@@ -1,4 +1,4 @@
-require 'koala_client/configuration'
-require 'koala_client/routes'
-require 'koala_client/authentication'
+require_relative '../lib/koala_client/configuration'
+require_relative '../lib/koala_client/routes'
+require_relative '../lib/koala_client/authentication'
 #require 'koala_client/user'
