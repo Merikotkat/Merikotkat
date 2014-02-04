@@ -4,5 +4,9 @@ branches:
     - master
 
 
-env:
-  - TAG_FILTER=~js DB=test RAILS_ENV=test
+  
+language: ruby
+rvm:
+  - 2.0.0-p353
+  
+bundler_args: --without production
