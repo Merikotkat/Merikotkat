@@ -43,7 +43,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'hpricot'
-
+gem 'activeresource'
 group :production do 
   gem 'ruby-oci8'
   gem 'activerecord-oracle_enhanced-adapter'
