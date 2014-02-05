@@ -28,6 +28,7 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
     # Authenticated!
     session[:user] = user.login_id
     session[:user_type] = user.login_type
+    session[:user_name] = user.name
     
     # Redirect to index or do we have a specific URI from Lintuvaara
     if params[:service_uri].blank?

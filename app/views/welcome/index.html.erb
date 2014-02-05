@@ -1,4 +1,4 @@
-<h1>Tervetuloa Linssiin *<:-)</h1>
+<h1>Tervetuloa Linssiin <%= session[:user_name] %> (<%=session[:user] %>)  *<:-)</h1>
 <p>
   <%= link_to "Listaa lomakkeet", visitation_forms_path %> <br />
   <%= link_to "Luo uusi lomake", new_visitation_form_path %>
