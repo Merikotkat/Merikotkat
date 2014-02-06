@@ -8,6 +8,9 @@ Merikotkat::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  resources :images
+  post 'visitation_forms/:id/upload_image' => 'visitation_forms#upload_image'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

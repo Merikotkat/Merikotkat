@@ -41,3 +41,16 @@
 
 <%= link_to 'Edit', edit_visitation_form_path(@visitation_form) %> |
 <%= link_to 'Back', visitation_forms_path %>
+
+<h2>Kuvat</h2>
+<%= form_tag({action: :upload_image}, multipart: true) do %>
+    <%= label_tag :file, "Tiedosto:" %>
+    <%= file_field_tag :file %>
+    <%= submit_tag("Lisää tiedosto") %>
+<% end %>
+<p>
+  <% @images.reverse_each do |img| %>
+    <%= img[:original_filename] %> <br />
+    <%= image_tag( img[:temp_path] ) %> <br /><br/>
+  <% end %>
+</p>

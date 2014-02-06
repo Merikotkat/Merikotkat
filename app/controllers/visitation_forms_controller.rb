@@ -4,13 +4,14 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
-    puts 'logged on user: ' + session[:user]  # debug stuff
+    #puts 'logged on user: ' + session[:user]  # debug stuff
     @visitation_forms = VisitationForm.all
   end
 
   # GET /visitation_forms/1
   # GET /visitation_forms/1.json
   def show
+    @images = Image.get_images(params[:id])
   end
 
   # GET /visitation_forms/new
@@ -60,6 +61,17 @@ class VisitationFormsController < ApplicationController
       format.html { redirect_to visitation_forms_url }
       format.json { head :no_content }
     end
+  end
+
+  def upload_image
+    img = Image.new
+    img.visitation_form_id = params[:id]
+    img.filename = params[:file].original_filename
+    img.data = params[:file].read
+
+    img.save
+
+    redirect_to visitation_form_path(params[:id])
   end
 
   private
