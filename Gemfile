@@ -42,6 +42,7 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+gem 'rspec'
 gem 'hpricot'
 gem 'activeresource'
 group :production do 
