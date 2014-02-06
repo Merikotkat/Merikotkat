@@ -49,8 +49,10 @@
     <%= submit_tag("Lisää tiedosto") %>
 <% end %>
 <p>
-  <% @images.reverse_each do |img| %>
-    <%= img[:original_filename] %> <br />
-    <%= image_tag( img[:temp_path] ) %> <br /><br/>
+  <% if @images != nil && @images.count > 0 %>
+      <% @images.reverse_each do |img| %>
+        <%= img[:original_filename] %> <br />
+        <%= image_tag( img[:temp_path] ) %> <br /><br/>
+      <% end %>
   <% end %>
 </p>

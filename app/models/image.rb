@@ -7,6 +7,10 @@ class Image < ActiveRecord::Base
 
     arr = Array.new
 
+    if form.images.count == 0
+      return arr
+    end
+
     img_index = 0
     form.images.each do |img|
       File.open('public/images/temp' + img_index.to_s, 'wb') { |file| file.write(img.data) }
