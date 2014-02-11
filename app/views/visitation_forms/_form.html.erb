@@ -15,6 +15,10 @@
   <button id="insert_name_button">Use my name</button>
 
   <div class="field">
+    <%= f.label :photographer_id, "Photographer id" %><br>
+    <%= f.text_field :photographer_id %>
+  </div>
+  <div class="field">
     <%= f.label :photographer_name %><br>
     <%= f.text_field :photographer_name %>
   </div>
@@ -38,8 +42,12 @@
     <%= f.text_field :teleconverter %>
   </div>
 
-  <h2>Nest location</h2>
+  <h2>Nest info</h2>
 
+  <div class="field">
+    <%= f.label :nest_id, "Nest id" %><br>
+    <%= f.text_field :nest_id %>
+  </div>
   <div class="field">
     <%= f.label :municipality %><br>
     <%= f.text_field :municipality %>

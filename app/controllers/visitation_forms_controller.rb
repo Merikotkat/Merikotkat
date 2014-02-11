@@ -28,6 +28,8 @@ class VisitationFormsController < ApplicationController
   def create
     @visitation_form = VisitationForm.new(visitation_form_params)
 
+    @visitation_form.form_saver_id = @user[:login_id]
+
     respond_to do |format|
       if @visitation_form.save
         format.html { redirect_to @visitation_form, notice: 'Visitation form was successfully created.' }
@@ -82,6 +84,6 @@ class VisitationFormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visitation_form_params
-      params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest)
+      params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :form_saver_id)
     end
 end

@@ -1,6 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>This form saved by id:</strong>
+  <%= @visitation_form.form_saver_id %>
+</p>
+
+<p>
+  <strong>Photographer id:</strong>
+  <%= @visitation_form.photographer_id %>
+</p>
+
+<p>
   <strong>Photographer name:</strong>
   <%= @visitation_form.photographer_name %>
 </p>
@@ -28,6 +38,11 @@
 </p>
 
 <h2>Nest location</h2>
+
+<p>
+  <strong>Nest id:</strong>
+  <%= @visitation_form.nest_id %>
+</p>
 
 <p>
   <strong>Municipality:</strong>
