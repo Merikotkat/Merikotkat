@@ -15,51 +15,51 @@
   <button id="insert_name_button">Use my name</button>
 
   <div class="field">
-    <%= f.label :photographer_id, "Photographer id" %><br>
+    <%= f.label :photographer_id, t('photographer_id') %><br>
     <%= f.text_field :photographer_id %>
   </div>
   <div class="field">
-    <%= f.label :photographer_name %><br>
+    <%= f.label :photographer_name, t('photographer_name') %><br>
     <%= f.text_field :photographer_name %>
   </div>
   <div class="field">
-    <%= f.label :visit_date %><br>
+    <%= f.label :visit_date, t('visit_date') %><br>
     <%= f.datetime_select :visit_date %>
   </div>
 
-  <h2>Camera info</h2>
+  <h2><%= t('camera_info') %></h2>
 
   <div class="field">
-    <%= f.label :camera %><br>
+    <%= f.label :camera, t('camera') %><br>
     <%= f.text_field :camera %>
   </div>
   <div class="field">
-    <%= f.label :lens %><br>
+    <%= f.label :lens, t('lens') %><br>
     <%= f.text_field :lens %>
   </div>
   <div class="field">
-    <%= f.label :teleconverter %><br>
+    <%= f.label :teleconverter, t('teleconverter') %><br>
     <%= f.text_field :teleconverter %>
   </div>
 
-  <h2>Nest info</h2>
+  <h2><%= t('nest_info') %></h2>
 
   <div class="field">
-    <%= f.label :nest_id, "Nest id" %><br>
+    <%= f.label :nest_id, t('nest_id') %><br>
     <%= f.text_field :nest_id %>
   </div>
   <div class="field">
-    <%= f.label :municipality %><br>
+    <%= f.label :municipality, t('municipality') %><br>
     <%= f.text_field :municipality %>
   </div>
 
   <div class="field">
-    <%= f.label :nest, "Nest name" %><br>
+    <%= f.label :nest, t('nest_name') %><br>
     <%= f.text_field :nest %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit(t('submit_visitation_form')) %>
   </div>
 
   <script>

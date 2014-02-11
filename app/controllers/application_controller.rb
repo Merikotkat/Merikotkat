@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
     before_filter :update_session_expiry
   end
 
+  before_action :set_locale
+
+  def set_locale
+    I18n.locale = params[:locale]
+  end
+
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

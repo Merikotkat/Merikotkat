@@ -1,12 +1,11 @@
-<h1>Listing visitation_forms</h1>
+<h1></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Photographer name</th>
-      <th>Visit date</th>
-      <th>Nest</th>
-      <th></th>
+      <th><%= t('photographer_name') %></th>
+      <th><%= t('visit_date') %></th>
+      <th><%= t('nest_name') %></th>
       <th></th>
       <th></th>
     </tr>
@@ -18,9 +17,8 @@
         <td><%= visitation_form.photographer_name %></td>
         <td><%= visitation_form.visit_date %></td>
         <td><%= visitation_form.nest %></td>
-        <td><%= link_to 'Show', visitation_form %></td>
-        <td><%= link_to 'Edit', edit_visitation_form_path(visitation_form) %></td>
-        <td><%= link_to 'Destroy', visitation_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('show'), visitation_form %></td>
+        <td><%= link_to t('edit'), edit_visitation_form_path(visitation_form) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Visitation form', new_visitation_form_path %>
+<%= link_to t('new_visitation_form'), new_visitation_form_path %>
