@@ -1,67 +1,62 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>This form saved by id:</strong>
-  <%= @visitation_form.form_saver_id %>
-</p>
-
-<p>
-  <strong>Photographer id:</strong>
+  <strong><%= t('photographer_id') %>:</strong>
   <%= @visitation_form.photographer_id %>
 </p>
 
 <p>
-  <strong>Photographer name:</strong>
+  <strong><%= t('photographer_name') %>:</strong>
   <%= @visitation_form.photographer_name %>
 </p>
 
 <p>
-  <strong>Visit date:</strong>
+  <strong><%= t('visit_date') %>:</strong>
   <%= @visitation_form.visit_date %>
 </p>
 
-<h2>Camera info</h2>
+<h2><%= t('camera_info') %></h2>
 
 <p>
-  <strong>Camera:</strong>
+  <strong><%= t('camera') %>:</strong>
   <%= @visitation_form.camera %>
 </p>
 
 <p>
-  <strong>Lens:</strong>
+  <strong><%= t('lens') %>:</strong>
   <%= @visitation_form.lens %>
 </p>
 
 <p>
-  <strong>Teleconverter:</strong>
+  <strong><%= t('teleconverter') %>:</strong>
   <%= @visitation_form.teleconverter %>
 </p>
 
-<h2>Nest location</h2>
+<h2><%= t('nest_info') %></h2>
 
 <p>
-  <strong>Nest id:</strong>
+  <strong><%= t('nest_id') %>:</strong>
   <%= @visitation_form.nest_id %>
 </p>
 
 <p>
-  <strong>Municipality:</strong>
+  <strong><%= t('municipality') %>:</strong>
   <%= @visitation_form.municipality %>
 </p>
 
 <p>
-  <strong>Nest name:</strong>
+  <strong><%= t('nest_name') %>:</strong>
   <%= @visitation_form.nest %>
 </p>
 
-<%= link_to 'Edit', edit_visitation_form_path(@visitation_form) %> |
-<%= link_to 'Back', visitation_forms_path %>
+<%= link_to t('edit'), edit_visitation_form_path(@visitation_form) %> |
+<%= link_to t('back'), visitation_forms_path %>
 
-<h2>Kuvat</h2>
+<h2><%= t('images') %></h2>
 <%= form_tag({action: :upload_image}, multipart: true) do %>
-    <%= label_tag :file, "Tiedosto:" %>
+    <%= label_tag :file, t('file') %>
     <%= file_field_tag :file %>
-    <%= submit_tag("Lisää tiedosto") %>
+    <%= submit_tag(t('add_file')) %>
 <% end %>
 <p>
   <% if @images != nil && @images.count > 0 %>
