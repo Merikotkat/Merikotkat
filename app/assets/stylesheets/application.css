@@ -11,3 +11,411 @@
  *= require_self
  *= require_tree .
  */
+
+
+
+
+
+
+/*
+ * Jaettu CSS-ulkoasu Rengastustoimiston palveluihin.
+ * TÃ¤llÃ¤ hetkellÃ¤ ulkoasua kÃ¤yttÃ¤vÃ¤t Lintuvaara ja Kihla.
+ *
+ * MikÃ¤li linkitÃ¤t tÃ¤mÃ¤n CSS-tiedoston projektiisi,
+ * ilmoita asiasta petrus.repo@iki.fi.
+ *
+ * Esimerkki HTML5-rakenteesta on saatavilla esimerkiksi tiedostosta
+ * https://rengastus.helsinki.fi/404.html
+ *
+ * -- 2007-2010 Petrus Repo
+ *
+ * Sticky Footer code found from http://www.cssstickyfooter.com
+ *
+ */
+
+body {
+    margin: 0px;
+    padding: 0px;
+    color: #000000;
+    font-family: "Trebuchet MS", Helvetica, Arial, Verdana, sans-serif;
+    font-size: 14px;
+    line-height: 1.3em;
+}
+
+
+h1, h2, h3, h4 {
+    margin: 0px;
+    padding: 0px;
+    color: #777777;
+    border-bottom: 2px solid #d6a14e;
+}
+
+h1 {
+    padding-bottom: 0.1em; /* tÃ¤smÃ¤Ã¤ vaakamarginaali div#menuContainer */
+    margin-bottom: 0.25em;
+}
+
+h2 {
+    margin-top: 1.65em;
+    margin-bottom: 0.25em;
+}
+
+p {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+legend {
+    font-weight: bold;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+}
+
+em {
+    font-weight: normal;
+    font-style: italic;
+}
+
+#menu ul {
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 0.5em;
+}
+
+a {
+    text-decoration: none;
+    color: #000099;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0000ff;
+}
+
+#menu a {
+    text-decoration: none;
+}
+
+#menu li {
+    list-style-type: none;
+    padding-left: 0.4em;
+    padding-bottom: 0em;
+    padding-top: 0.1em;
+}
+
+img {
+    border: 0;
+}
+
+
+/** TABLE */
+
+th {
+    font-weight: bold;
+    text-align: left;
+    background-color: #ffd88b;
+    padding: 0.5em;
+    border-bottom: 1px #d6a14e solid;
+    border-right: 1px #d6a14e solid;
+}
+
+td, th {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.background-even {
+    background: white;
+}
+
+.background-odd {
+    background: #ffffdc;
+}
+
+ul#infoTabs, ul#infoTabs li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul#infoTabs li {
+    float: right;
+    margin-right: 3px;
+    text-align: center
+}
+
+ul#infoTabs a {
+    background: #f9f5a8;
+    color: #000099;
+    border: 1px #d6a14e solid;
+    margin-top: -1px; /* Overlap this border with div#header's border */
+    padding: 0.4em;
+    text-decoration: none;
+    float: left;
+
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+ul#infoTabs a:hover {
+    /*    text-decoration:underline;*/
+    background-color: #ffffff;
+}
+
+ul#infoTabs li#currentUserInfo {
+    padding-right: 1em;
+    text-align:    left;
+    font-size:     0.8em;
+    line-height:   1.3em;
+    font-weight:   bold;
+}
+
+
+/** FLASH */
+div#flashContainer {
+    text-align: center;
+}
+
+div#flash {
+    width: 100%;
+    padding: 0.3em;
+    margin-bottom: 1em;
+    text-align: center;
+    font-size: 1.2em;
+    color: #FFFFFF;
+}
+
+div#flash.warning {
+    background-color: #660000;
+    border: 0.2em dotted #CC0000;
+}
+
+div#flash.message, div#flash.notice {
+    background-color: #009900;
+    border: 0.2em double #00FF00;
+}
+
+
+/** DIV */
+
+div#globalSpinner {
+    position: fixed;
+    top: 0;
+    padding: 0;
+    height: 20px;
+    margin: 0;
+    width: 100%;
+    background-color: #FFFF99;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3em;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    padding-top: 5px;
+}
+
+div#menuContainer {
+    clear: both;
+    float: left;
+    width: 11em;
+    padding-top: 2.1em; /* == padding(#content h1) + padding(div#contentContainer)  */
+    padding-bottom: 2em;
+}
+
+div#menu {
+    margin-left: 0.6em;
+}
+
+div#infoContainer {
+    max-width: 67em;
+    text-align: right;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 2em;
+    float: left;
+}
+
+div#info {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+div#contentContainer {
+    margin-left: 12.5em;
+    padding-top: 2.1em; /* TÃ¤smÃ¤Ã¤ vaakamarginaali div#menuContainer */
+    margin-bottom: 2.5em; /* distance to footer */
+    max-width: 56em;
+}
+
+div#content {
+    margin-left: 1em;
+    min-height: 20em;
+}
+
+div#mainlogo {
+    float: left;
+}
+
+div#header {
+    background-color: #ffd88b;
+    border-top: 2px solid #d6a14e;
+    border-bottom: 2px solid #d6a14e;
+    height: 91px; /* height of #mainlogo image (which does not give height to div#header otherwise) */
+}
+
+div#footer {
+    font-size: 93%;
+    clear: both;
+    background-color: #f1f1f1;
+    border-top: 2px #d6a14e solid;
+    color: #777777;
+}
+
+div#footer > p {
+    margin-top: 21px; /* Vaakalinjassa img#footerLogon ekan tekstirivin kanssa */
+}
+
+div#footer > p:last-child {
+    margin-top: 13px; /* Vaakalinjassa img#footerLogon viimeisen tekstirivin kanssa */
+}
+
+#footerLogo {
+    margin-left: 10px; /* Pystylinjassa contentContainerin sisÃ¤llÃ¶n kanssa:              */
+    margin-right: 7px; /* margin-left + margin-right = contentContainerin vasen sisennys */
+    margin-top:   15px;
+    float:        left;
+}
+
+.fieldWithErrors input {
+    border: 1px red dotted;
+}
+
+.errorExplanation {
+    border: 1px red dotted;
+    padding: 10px;
+}
+
+.formError {
+    color: red;
+}
+
+.statusFalse {
+    color: red;
+}
+
+.statusTrue {
+    color: green;
+}
+
+:invalid {
+    background: yellow;
+}
+
+/*
+ * Sticky Bottom Footer
+ * http://www.cssstickyfooter.com
+ */
+html, body, #wrap {
+    height: 100%;
+}
+
+body > #wrap {
+    height: auto;
+    min-height: 100%;
+}
+
+#main {
+    padding-bottom: 100px;
+}  /* Ensured space (and white space) between main content and footer */
+
+#footer {
+    /* Margin-top is the negative value of footer height.
+     * Extra 2px because Firefox appearently mixes in the bottom-border in header.
+     * Might be some other reason, but I could not figure out what.
+     * Without extra pixels vertical scroll bar will appear.
+     * -- Petrus 30.12.2009
+     */
+    margin-top: -102px;
+    position: relative;
+    height: 100px;
+    clear: both;
+}
+
+/* Clearfix needed because of multi-column layout with floating divs.
+ * Without this div#main does not get proper height and its padding-bottom
+ * does not have desired effect.
+ * -- Petrus 9.1.2010
+ */
+.clearfix:after {content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+
+
+/*header styles
+*/
+
+#small-lv-header {
+    /*width: 100%;*/
+    background-color: rgb(253, 214, 136);
+    border-right-style: double;
+    border-right-width: 5px;
+    height: 32px;
+}
+
+#lintuvaaraLink {
+    position: absolute;
+    left: 40px;
+    top: 5px;
+}
+
+#lintuvaaraLink a {
+    font-family: arial;
+    font-size: 16px;
+    text-decoration: none;
+    font-family: Verdana, sans-serif;
+    font-size: 1.1em;
+    color: black;
+}
+
+#lintuvaaraLink a:hover {
+    color: rgb(190,90,100);
+    text-decoration: underline;
+}
+
+#infoContainer {
+    position: absolute;
+    right: 15px;
+    top: 2px;
+}
+
+#kyyhkyLink {
+    position: absolute;
+    left: 290px;
+    top: 5px;
+}
+
+#kyyhkyLink a {
+    font-family: arial;
+    font-size: 25px;
+    text-decoration: none;
+    font-family: Verdana, sans-serif;
+    font-size: 1.9em;
+    color: black;
+}
+
+#kyyhkyLink a:hover {
+    color: rgb(190,90,100);
+    text-decoration: underline;
+}

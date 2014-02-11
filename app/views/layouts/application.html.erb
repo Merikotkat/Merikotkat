@@ -9,7 +9,81 @@
 </head>
 <body>
 
-<%= yield %>
+
+
+
+
+<div id="wrap">
+  <div id="small-lv-header">
+    <div id="mainlogo">
+      <%= image_tag('lintuvaara.gif') %>
+      <!-- <span style="padding-left: 100px; color: red; font-size: 15px; font-weight: bold;">TESTIYMPÄRISTÖ</span> -->
+    </div>
+
+    <div id="lintuvaaraLink">
+      <a href="/"> Lintuvaara </a>
+    </div>
+
+    <div id="kyyhkyLink"><a href="/"> Linssi </a></div>
+
+    <div id="infoContainer">
+      <div id="info">
+        <ul id="infoTabs">
+          <li><a href="/kyyhky/application/nullify_session_and_logout">Kirjaudu ulos</a></li>
+          <li id="currentUserInfo">Tervetuloa,<br/> <%= session[:user_name] %></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!--      </div> -->
+
+  <div id="main" class="clearfix">
+    <div id="menuContainer">
+      <div id="menu">
+
+        <h3 class="menu"><%= link_to "Listaa lomakkeet", visitation_forms_path %></h3>
+
+        <h3 class="menu"><%= link_to "Luo uusi lomake", new_visitation_form_path %></h3>
+
+      </div>
+    </div>
+
+
+
+
+    <div id="contentContainer">
+      <%= yield %>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div id="footer">
+  <a href="http://www.helsinki.fi/yliopisto/">
+    <img src="/images/shared/hy-logo3kielta.gif" id="footerLogo" alt="Helsingin yliopisto (logo)" />
+  </a>
+
+  <p>
+    <a href="http://www.luomus.fi/elaintiede/rengastus/">Luonnontieteellisen keskusmuseon rengastustoimisto</a>
+    |
+    <a href="http://www.luomus.fi/elaintiede/rengastus/tietosuojaseloste.htm">Tietosuojaseloste</a>
+    |
+    <a href="http://www.luomus.fi/palaute">Palaute</a>
+    |
+    <a href="http://www.luomus.fi/elaintiede/yhteystiedot/rengastustoimisto.htm">Yhteystiedot</a>
+
+  </p>
+
+  <p>
+    &copy; 2014 Helsingin yliopisto
+  </p>
+
+</div>
+
 
 </body>
 </html>
