@@ -1,4 +1,5 @@
 Merikotkat::Application.routes.draw do
+  get "api/getringer"
   resources :visitation_forms
 
 

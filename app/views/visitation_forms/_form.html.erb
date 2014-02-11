@@ -11,7 +11,49 @@
     </div>
   <% end %>
 
-  <!--<input id="insert_name_button" type="button" value="Use my name" />-->
+
+    <script type="text/javascript">
+        $(function() {
+            $("#hurr").autocomplete({
+                source: function( request, response ) {
+                    $.ajax({
+                        url: "/api/getringer.json?filter=" + $("#hurr").val(),
+                        success: function( data ) {
+                            if(data.ringers != ''){
+                                response( $.map( data.ringers.ringer, function( item ) {
+                                    return {
+                                        label: item.name,
+                                        value: item.id
+                                    }
+                                }));
+                            }
+                        }
+                    });
+                },
+                minLength: 3,
+                select: function( event, ui ) {
+                    $("#hurr").val('');
+                    $("#visitation_form_photographer_id").val(ui.item.value);
+                    $("#visitation_form_photographer_name").val(ui.item.label);
+                    return false; // prevent jquery from setting hurr to value...
+                },
+                open: function() {
+                    $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+                },
+                close: function() {
+                    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+                }
+            });
+        });
+    </script>
+
+    <div class="field">
+      <label for="hurr">Hurr </label><br/>
+      <input type="text" id="hurr" placeholder="Search"><span id="hurrname"></span>
+    </div>
+
+
+
   <button id="insert_name_button"><%= t('fill_own_info') %></button>
 
   <div class="field">
