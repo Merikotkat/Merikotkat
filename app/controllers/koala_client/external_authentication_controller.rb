@@ -53,8 +53,9 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
 
   def logout
     reset_session
-    lintuvaara_logout_url = add_locale_param_to_uri(KoalaClient.configuration.server_logout_url, I18n.locale)
-    redirect_to lintuvaara_logout_url
+    #todo fix this locale adding thingy...
+    #lintuvaara_logout_url = add_locale_param_to_uri(KoalaClient.configuration.server_logout_url, I18n.locale)
+    redirect_to Lintuvaara::ApiConfig::SERVER_LOGOUT_URL
   end
 
   protected
@@ -67,11 +68,11 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
   # 3) /kihla/admin/poolfiles?locale=XX
   #    --> /kihla/admin/poolfiles?locale=XX
   def add_locale_param_to_uri(uri, locale)
-    if uri.include?('locale=')
+    if uri.include? 'locale='
       return uri
     end
     
-    if uri.include?('?')
+    if uri.include? '?'
       return uri + "&locale=#{locale}"
     else
       return uri + "?locale=#{locale}"

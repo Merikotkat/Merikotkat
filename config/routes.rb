@@ -4,7 +4,7 @@ Merikotkat::Application.routes.draw do
 
   resources :external_authentication, controller: 'koala_client/external_authentication'
 
-
+  get "logout" => 'koala_client/external_authentication#logout'
 
   get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
