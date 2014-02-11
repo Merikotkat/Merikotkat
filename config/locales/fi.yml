@@ -1,4 +1,6 @@
 fi:
+  welcome_to_linssi: "Tervetuloa Linssiin"
+  list_forms: "Listaa lomakkeet"
   back: "Edellinen"
   edit: "Muokkaa"
   show: "Näytä"
@@ -7,6 +9,7 @@ fi:
   images: "Kuvat"
   photographer_id: "Kuvaajan id"
   photographer_name: "Kuvaajan nimi"
+  fill_own_info: "Käytä omia tietoja"
   visit_date: "Vierailun päivämäärä"
   camera_info: "Kameran tiedot"
   camera: "Kamera"
@@ -18,6 +21,7 @@ fi:
   nest_name: "Pesän nimi"
   submit_visitation_form: "Tallenna lomake"
   new_visitation_form: "Luo uusi lomake"
+  edit_visitation_form: "Muokkaa lomaketta"
   date:
       month_names:
         - "tammikuu"
