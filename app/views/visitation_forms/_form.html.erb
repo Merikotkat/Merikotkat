@@ -11,6 +11,9 @@
     </div>
   <% end %>
 
+  <!--<input id="insert_name_button" type="button" value="Use my name" />-->
+  <button id="insert_name_button">Use my name</button>
+
   <div class="field">
     <%= f.label :photographer_name %><br>
     <%= f.text_field :photographer_name %>
@@ -50,4 +53,12 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+  <script>
+    var user = "<%= session[:user] %>";
+    $("#insert_name_button").on("click", function (e) {
+        e.preventDefault();
+        $("#visitation_form_photographer_name").val(user);
+    });
+  </script>
 <% end %>
