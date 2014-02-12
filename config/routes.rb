@@ -1,5 +1,6 @@
 Merikotkat::Application.routes.draw do
   get "api/getringer"
+  get "api/getmunicipalities"
   resources :visitation_forms
 
 

@@ -53,7 +53,6 @@
     </div>
 
 
-
   <button id="insert_name_button"><%= t('fill_own_info') %></button>
 
   <div class="field">
@@ -92,7 +91,8 @@
   </div>
   <div class="field">
     <%= f.label :municipality, t('municipality') %><br>
-    <%= f.text_field :municipality %>
+    <%= f.select :municipality, TipuApiHelper.GetMunicipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
+    <%#= f.text_field :municipality %>
   </div>
 
   <div class="field">
