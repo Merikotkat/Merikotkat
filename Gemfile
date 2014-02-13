@@ -50,3 +50,7 @@ group :production do
   gem 'activerecord-oracle_enhanced-adapter'
   gem 'therubyracer', platforms: :ruby
 end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.14.1'
+end
