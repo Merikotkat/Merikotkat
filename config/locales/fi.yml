@@ -19,9 +19,14 @@ fi:
   nest_id: "Pesän ID"
   municipality: "Kunta"
   nest_name: "Pesän nimi"
-  submit_visitation_form: "Tallenna lomake"
+  save_visitation_form: "Välitallenna"
+  leave_without_saving: "Poistu tallentamatta"
+  submit_visitation_form: "Lähetä"
   new_visitation_form: "Luo uusi lomake"
   edit_visitation_form: "Muokkaa lomaketta"
+  errors_in_form: "Lomakkeen tallentaminen ei onnistunut seuraavien virheiden vuoksi:"
+  error_value_must_be_number: "Kentän arvoksi hyväksytään vain numeroita"
+  error_value_too_long: "Kenttään syötetty teksti on liian pitkä"
   date:
       month_names:
         - "tammikuu"

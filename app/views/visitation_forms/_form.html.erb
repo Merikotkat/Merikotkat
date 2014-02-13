@@ -1,7 +1,7 @@
 <%= form_for(@visitation_form) do |f| %>
   <% if @visitation_form.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@visitation_form.errors.count, "error") %> prohibited this visitation_form from being saved:</h2>
+      <h2><%= t('errors_in_form') %></h2>
 
       <ul>
       <% @visitation_form.errors.full_messages.each do |msg| %>
@@ -97,11 +97,10 @@
   </div>
 
   <div class="actions">
-    <%= f.submit(t('submit_visitation_form')) %>
+    <%= f.submit(t('save_visitation_form')) %>
   </div>
 
   <script>
-
     $("#insert_name_button").on("click", function (e) {
         e.preventDefault();
         var userid = "<%= session[:user] %>";
@@ -109,5 +108,10 @@
         $("#visitation_form_photographer_name").val(username);
         $("#visitation_form_photographer_id").val(userid);
     });
+
+        // Forcing nest id to only numbers
+        $('#visitation_form_nest_id').keyup(function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
   </script>
 <% end %>
