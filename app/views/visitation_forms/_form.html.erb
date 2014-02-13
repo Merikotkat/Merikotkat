@@ -14,10 +14,10 @@
 
     <script type="text/javascript">
         $(function() {
-            $("#hurr").autocomplete({
+            $("#visitation_form_photographer_name").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url: "/api/getringer.json?filter=" + $("#hurr").val(),
+                        url: "/api/getringer.json?filter=" + $("#visitation_form_photographer_name").val(),
                         success: function( data ) {
                             if(data.ringers != ''){
                                 response( $.map( data.ringers.ringer, function( item ) {
@@ -32,7 +32,6 @@
                 },
                 minLength: 3,
                 select: function( event, ui ) {
-                    $("#hurr").val('');
                     $("#visitation_form_photographer_id").val(ui.item.value);
                     $("#visitation_form_photographer_name").val(ui.item.label);
                     return false; // prevent jquery from setting hurr to value...
@@ -47,18 +46,15 @@
         });
     </script>
 
-    <div class="field">
-      <label for="hurr">Hurr </label><br/>
-      <input type="text" id="hurr" placeholder="Search"><span id="hurrname"></span>
-    </div>
-
 
   <button id="insert_name_button"><%= t('fill_own_info') %></button>
 
-  <div class="field">
-    <%= f.label :photographer_id, t('photographer_id') %><br>
-    <%= f.text_field :photographer_id %>
-  </div>
+  <!--<div class="field"><br>-->
+    <%#= f.label :photographer_id, t('photographer_id') %>
+    <%#= f.text_field :photographer_id %>
+  <!--</div>-->
+
+  <%= f.hidden_field :photographer_id %>
   <div class="field">
     <%= f.label :photographer_name, t('photographer_name') %><br>
     <%= f.text_field :photographer_name %>
@@ -105,10 +101,13 @@
   </div>
 
   <script>
-    var user = "<%= session[:user] %>";
+
     $("#insert_name_button").on("click", function (e) {
         e.preventDefault();
-        $("#visitation_form_photographer_name").val(user);
+        var userid = "<%= session[:user] %>";
+        var username = "<%= session[:user_name] %>";
+        $("#visitation_form_photographer_name").val(username);
+        $("#visitation_form_photographer_id").val(userid);
     });
   </script>
 <% end %>
