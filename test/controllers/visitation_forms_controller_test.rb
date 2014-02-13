@@ -2,9 +2,9 @@ require 'test_helper'
 
 class VisitationFormsControllerTest < ActionController::TestCase
   setup do
-    #@user = User.create!(:login_id => 'harald')
-    #@user = @user[:login_id]
+    user = { login_id: 'harald' }
     @visitation_form = visitation_forms(:one)
+    @controller.instance_variable_set(:@user, user)
   end
 
   test "should get index" do
