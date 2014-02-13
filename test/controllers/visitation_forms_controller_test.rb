@@ -2,7 +2,7 @@ require 'test_helper'
 
 class VisitationFormsControllerTest < ActionController::TestCase
   setup do
-    @user = User.create (:login_id => 'harald')
+    #@user = User.create!(:login_id => 'harald')
     #@user = @user[:login_id]
     @visitation_form = visitation_forms(:one)
   end
