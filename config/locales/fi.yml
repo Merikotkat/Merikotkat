@@ -7,6 +7,7 @@ fi:
   file: "Tiedosto"
   add_file: "Lisää tiedosto"
   images: "Kuvat"
+  form_already_sent: "Tämä lomake on lähetetty tarkistettavaksi. Sitä ei voi enää muokata"
   photographer_id: "Kuvaajan id"
   photographer_name: "Kuvaajan nimi"
   fill_own_info: "Käytä omia tietoja"
@@ -27,6 +28,7 @@ fi:
   errors_in_form: "Lomakkeen tallentaminen ei onnistunut seuraavien virheiden vuoksi:"
   error_value_must_be_number: "Kentän arvoksi hyväksytään vain numeroita"
   error_value_too_long: "Kenttään syötetty teksti on liian pitkä"
+  error_invalid_municipality: "Annettua kuntaa ei ole olemassa"
   date:
       month_names:
         - "tammikuu"

@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<% if @visitation_form.sent %>
+    <%= t('form_already_sent') %>
+<% end %>
+
 <p>
   <strong><%= t('photographer_id') %>:</strong>
   <%= @visitation_form.photographer_id %>

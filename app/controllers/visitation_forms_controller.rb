@@ -30,13 +30,20 @@ class VisitationFormsController < ApplicationController
 
     @visitation_form.form_saver_id = @user[:login_id]
 
-    respond_to do |format|
+    if params[:submit]
+      @visitation_form.sent = true
       if @visitation_form.save
-        format.html { redirect_to @visitation_form, notice: 'Visitation form was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @visitation_form }
+        redirect_to @visitation_form
       else
-        format.html { render action: 'new' }
-        format.json { render json: @visitation_form.errors, status: :unprocessable_entity }
+        render action: 'new'
+      end
+    end
+
+    if params[:save]
+      if @visitation_form.save :validate => false
+        redirect_to @visitation_form
+      else
+        render action: 'new'
       end
     end
   end
@@ -44,13 +51,20 @@ class VisitationFormsController < ApplicationController
   # PATCH/PUT /visitation_forms/1
   # PATCH/PUT /visitation_forms/1.json
   def update
-    respond_to do |format|
-      if @visitation_form.update(visitation_form_params)
-        format.html { redirect_to @visitation_form, notice: 'Visitation form was successfully updated.' }
-        format.json { head :no_content }
+    if params[:submit]
+      @visitation_form.sent = true
+      if @visitation_form.save
+        redirect_to @visitation_form
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @visitation_form.errors, status: :unprocessable_entity }
+        render action: 'new'
+      end
+    end
+
+    if params[:save]
+      if @visitation_form.save :validate => false
+        redirect_to @visitation_form
+      else
+        render action: 'new'
       end
     end
   end
