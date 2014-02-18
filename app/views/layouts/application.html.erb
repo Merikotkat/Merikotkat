@@ -9,85 +9,80 @@
   <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 </head>
+
+
+
+
 <body>
+<script>
+    $(function() {
+        if ($("body").attr("class") === "oldie") {
+            var text = 'Your browser is not supported. Please use for example Mozilla Firefox or Google Chrome (both are reccomended) or newer version of IE (10,11) (not reccomended)';
+            $("html").html(text);
+            alert(text);
+        }
+
+        $(".button").button();
+    });
+</script>
 
 
 
 
+<div id="masthead" role="banner">
+  <div id="masthead-inner">
 
-<div id="wrap">
-  <div id="small-lv-header">
-    <div id="mainlogo">
-      <%= image_tag('lintuvaara.gif') %>
-      <!-- <span style="padding-left: 100px; color: red; font-size: 15px; font-weight: bold;">TESTIYMPÄRISTÖ</span> -->
+    <!-- if user -->
+    <div id="userinfo">
+      <ul>
+        <li><a href="/logout" class="button">Kirjaudu ulos</a></li>
+        <li><span class="name"><%= session[:user_name] %></span> (<%= session[:user] %>)</li>
+      </ul>
     </div>
+    <!-- end of if user -->
 
-    <div id="lintuvaaraLink">
-      <a href="/"> Lintuvaara </a>
-    </div>
+    <a href="https://rengastus.helsinki.fi">
+      <div id="logo">&nbsp;</div>
+    </a>
 
-    <div id="mainlogo">
-      <%= image_tag('linssi.png') %>
-    </div>
+    <a href="/">
+      <div id="sitetitle">
+       <!-- <%= image_tag('linssi.png') %>  -->&nbsp; Linssi
+      </div>
+    </a>
 
-    <div id="kyyhkyLink">&nbsp;<a href="/">Linssi </a></div>
+    <!-- if devmode --><span class="devmode">TEST ENVIROMENT</span><!-- end of if devmode-->
 
-    <div id="infoContainer">
-      <div id="info">
-        <ul id="infoTabs">
-          <li><a href="/logout">Kirjaudu ulos</a></li>
-          <li id="currentUserInfo">Tervetuloa,<br/> <%= session[:user_name] %></li>
+    <div id="navigation-wrap" role="navigation">
+      <!-- jos lokalisointia
+      <nav id="utilitymenu">
+             <ul role="menu">
+              <li role="menuitem"><a href="?locale=fi">suomeksi</a></li>
+              <li role="menuitem"><a href="?locale=sv">på svenska</a></li>
+              <li role="menuitem"><a href="?locale=en">in English</a></li>
+          </ul>
+      </nav>
+      end of jos lokalisointia -->
+
+      <nav id="mainmenu" role="navigation">
+        <ul class="nav-bar" role="menu">
+          <li role="menuitem"><%= link_to "Listaa lomakkeet", visitation_forms_path %></li>
+          <li role="menuitem"><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>
         </ul>
-      </div>
+      </nav>
     </div>
-
   </div>
-
-  <!--      </div> -->
-
-  <div id="main" class="clearfix">
-    <div id="menuContainer">
-      <div id="menu">
-
-        <h3 class="menu"><%= link_to "Listaa lomakkeet", visitation_forms_path %></h3>
-
-        <h3 class="menu"><%= link_to "Luo uusi lomake", new_visitation_form_path %></h3>
-
-      </div>
-    </div>
-
-
-
-
-    <div id="contentContainer">
-      <%= yield %>
-    </div>
-
-  </div>
-
 </div>
 
+<!-- Content section -->
+<div id="main-area" role="main">
+  <div id="content-wrapper">
 
-<div id="footer">
-  <a href="http://www.helsinki.fi/yliopisto/">
-    <%= image_tag('hy-logo3kielta.gif', :id => 'footerLogo', :alt => 'Helsingin yliopisto (logo)') %>
-  </a>
-
-  <p>
-    <a href="http://www.luomus.fi/elaintiede/rengastus/">Luonnontieteellisen keskusmuseon rengastustoimisto</a>
-    |
-    <a href="http://www.luomus.fi/elaintiede/rengastus/tietosuojaseloste.htm">Tietosuojaseloste</a>
-    |
-    <a href="http://www.luomus.fi/palaute">Palaute</a>
-    |
-    <a href="http://www.luomus.fi/elaintiede/yhteystiedot/rengastustoimisto.htm">Yhteystiedot</a>
-
-  </p>
-
-  <p>
-    &copy; 2014 Helsingin yliopisto
-  </p>
-
+    <div id="content" class="page-content">
+      <%= yield %>
+    </div>
+    <div class="clear"></div>
+  </div>
 </div>
 
 
