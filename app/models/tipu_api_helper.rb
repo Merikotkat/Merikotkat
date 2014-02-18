@@ -21,4 +21,8 @@ class TipuApiHelper
       end
       return res.body
     end
+
+    def self.GetRingerById(ringer_id)
+      JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/ringers/#{ringer_id}?format=json"))
+    end
 end
