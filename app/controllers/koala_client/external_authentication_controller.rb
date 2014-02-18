@@ -1,5 +1,6 @@
-require_relative '../../../lib/koala_client/authentication_token'
-require_relative '../../../lib/koala_client/external_authentication'
+require_dependency '../../../lib/koala_client/authentication_token'
+require_dependency '../../../lib/koala_client/external_authentication'
+require_dependency '../../../lib/koala_client'
 require 'net/http'
 
 class KoalaClient::ExternalAuthenticationController < ApplicationController
