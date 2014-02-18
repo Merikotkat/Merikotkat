@@ -2,7 +2,7 @@ require 'test_helper'
 
 class VisitationFormsControllerTest < ActionController::TestCase
   setup do
-    user = { login_id: 'harald', user_name: 'Harald Hirmuinen', type: 'admin' }
+    user = { login_id: 'harald', user_name: 'Harald Hirmuinen',  }
     @visitation_form = visitation_forms(:one)
     @controller.instance_variable_set(:@user, user)
   end
