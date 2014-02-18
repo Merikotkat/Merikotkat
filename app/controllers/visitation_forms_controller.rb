@@ -27,54 +27,44 @@ class VisitationFormsController < ApplicationController
   # POST /visitation_forms.json
   def create
     @visitation_form = VisitationForm.new(visitation_form_params)
-
     @visitation_form.form_saver_id = @user[:login_id]
 
-    if params[:submit]
-      @visitation_form.sent = true
-      if @visitation_form.save
-        upload_image @visitation_form.id
-
-        redirect_to @visitation_form
-      else
-        render action: 'new'
-      end
-    end
-
-    if params[:save]
-      if @visitation_form.save :validate => false
-        upload_image @visitation_form.id
-
-        redirect_to @visitation_form
-      else
-        render action: 'new'
-      end
-    end
+    save_form
   end
 
   # PATCH/PUT /visitation_forms/1
   # PATCH/PUT /visitation_forms/1.json
   def update
-    if params[:submit]
-      @visitation_form.sent = true
-      if @visitation_form.save
-        upload_image @visitation_form.id
+    @visitation_form.attributes = visitation_form_params
+
+   save_form
+  end
+
+  def save_form
+    # first save without validation
+    if @visitation_form.save :validate => false
+      # upload image now that our form has an ID
+      upload_image @visitation_form.id
+
+      # then save again with validation if needed. Beautiful!
+      if @visitation_form.save :validate => params[:save].nil?
+        # and lastly, mark form as 'sent' if needed
+        if params[:submit]
+          send_form @visitation_form
+        end
 
         redirect_to @visitation_form
       else
         render action: 'new'
       end
+    else
+      render action: 'new'
     end
+  end
 
-    if params[:save]
-      if @visitation_form.save :validate => false
-        upload_image @visitation_form.id
-
-        redirect_to @visitation_form
-      else
-        render action: 'new'
-      end
-    end
+  def send_form(form)
+    form.sent = true
+    form.save
   end
 
   def upload_image(form_id)
