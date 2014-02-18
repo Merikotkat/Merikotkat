@@ -26,9 +26,6 @@
     });
 </script>
 
-
-
-
 <div id="masthead" role="banner">
   <div id="masthead-inner">
 
@@ -36,7 +33,7 @@
     <div id="userinfo">
       <ul>
         <li><a href="/logout" class="button">Kirjaudu ulos</a></li>
-        <li><span class="name"><%= session[:user_name] %></span> (<%= session[:user] %>)</li>
+        <li><span class="name"><%= @user[:user_name] %></span> (<%= @user[:user] %>)</li>
       </ul>
     </div>
     <!-- end of if user -->

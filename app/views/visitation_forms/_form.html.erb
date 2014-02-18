@@ -1,15 +1,15 @@
-<%= form_for(@visitation_form) do |f| %>
-  <% if @visitation_form.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@visitation_form.errors.count, "error") %> prohibited this visitation_form from being saved:</h2>
+<%= form_for(@visitation_form, multipart: true) do |f| %>
+    <% if @visitation_form.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@visitation_form.errors.count, "error") %> prohibited this visitation_form from being saved:</h2>
 
-      <ul>
-      <% @visitation_form.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% @visitation_form.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
 
     <script type="text/javascript">
@@ -47,72 +47,78 @@
     </script>
 
 
-  <button id="insert_name_button"><%= t('fill_own_info') %></button>
+    <button id="insert_name_button"><%= t('fill_own_info') %></button>
 
-  <!--<div class="field"><br>-->
+    <!--<div class="field"><br>-->
     <%#= f.label :photographer_id, t('photographer_id') %>
     <%#= f.text_field :photographer_id %>
-  <!--</div>-->
+    <!--</div>-->
 
-  <%= f.hidden_field :photographer_id %>
-  <div class="field">
-    <%= f.label :photographer_name, t('photographer_name') %><br>
-    <%= f.text_field :photographer_name %>
-  </div>
-  <div class="field">
-    <%= f.label :visit_date, t('visit_date') %><br>
-    <%= f.datetime_select :visit_date %>
-  </div>
+    <%= f.hidden_field :photographer_id %>
+    <div class="field">
+      <%= f.label :photographer_name, t('photographer_name') %><br>
+      <%= f.text_field :photographer_name %>
+    </div>
+    <div class="field">
+      <%= f.label :visit_date, t('visit_date') %><br>
+      <%= f.datetime_select :visit_date %>
+    </div>
 
-  <h2><%= t('camera_info') %></h2>
+    <h2><%= t('camera_info') %></h2>
 
-  <div class="field">
-    <%= f.label :camera, t('camera') %><br>
-    <%= f.text_field :camera %>
-  </div>
-  <div class="field">
-    <%= f.label :lens, t('lens') %><br>
-    <%= f.text_field :lens %>
-  </div>
-  <div class="field">
-    <%= f.label :teleconverter, t('teleconverter') %><br>
-    <%= f.text_field :teleconverter %>
-  </div>
+    <div class="field">
+      <%= f.label :camera, t('camera') %><br>
+      <%= f.text_field :camera %>
+    </div>
+    <div class="field">
+      <%= f.label :lens, t('lens') %><br>
+      <%= f.text_field :lens %>
+    </div>
+    <div class="field">
+      <%= f.label :teleconverter, t('teleconverter') %><br>
+      <%= f.text_field :teleconverter %>
+    </div>
 
-  <h2><%= t('nest_info') %></h2>
+    <h2><%= t('nest_info') %></h2>
 
-  <div class="field">
-    <%= f.label :nest_id, t('nest_id') %><br>
-    <%= f.text_field :nest_id %>
-  </div>
-  <div class="field">
-    <%= f.label :municipality, t('municipality') %><br>
-    <%= f.select :municipality, TipuApiHelper.GetMunicipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
-    <%#= f.text_field :municipality %>
-  </div>
+    <div class="field">
+      <%= f.label :nest_id, t('nest_id') %><br>
+      <%= f.text_field :nest_id %>
+    </div>
+    <div class="field">
+      <%= f.label :municipality, t('municipality') %><br>
+      <%= f.select :municipality, TipuApiHelper.GetMunicipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
+      <%#= f.text_field :municipality %>
+    </div>
 
-  <div class="field">
-    <%= f.label :nest, t('nest_name') %><br>
-    <%= f.text_field :nest %>
-  </div>
+    <div class="field">
+      <%= f.label :nest, t('nest_name') %><br>
+      <%= f.text_field :nest %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit(t('save_visitation_form'), :name => 'save') %>
-    <%= f.submit(t('submit_visitation_form'), :name => 'submit') %>
-  </div>
+    <h2><%= t('add_image') %></h2>
+    <div class="field">
+      <%= f.label :file, t('file') %>
+      <%= f.file_field :file %>
+    </div>
 
-  <script>
-    $("#insert_name_button").on("click", function (e) {
-        e.preventDefault();
-        var userid = "<%= session[:user] %>";
-        var username = "<%= session[:user_name] %>";
-        $("#visitation_form_photographer_name").val(username);
-        $("#visitation_form_photographer_id").val(userid);
-    });
+    <div class="actions">
+      <%= f.submit(t('save_visitation_form'), :name => 'save') %>
+      <%= f.submit(t('submit_visitation_form'), :name => 'submit') %>
+    </div>
+
+    <script>
+        $("#insert_name_button").on("click", function (e) {
+            e.preventDefault();
+            var userid = "<%= @user[:login_id] %>";
+            var username = "<%= @user[:user_name] %>";
+            $("#visitation_form_photographer_name").val(username);
+            $("#visitation_form_photographer_id").val(userid);
+        });
 
         // Forcing nest id to only numbers
         $('#visitation_form_nest_id').keyup(function() {
             this.value = this.value.replace(/\D/, '');
         });
-  </script>
+    </script>
 <% end %>

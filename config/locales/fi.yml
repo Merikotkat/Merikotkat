@@ -6,6 +6,7 @@ fi:
   show: "Näytä"
   file: "Tiedosto"
   add_file: "Lisää tiedosto"
+  add_image: "Lisää kuva"
   images: "Kuvat"
   form_already_sent: "Tämä lomake on lähetetty tarkistettavaksi. Sitä ei voi enää muokata"
   photographer_id: "Kuvaajan id"
@@ -29,6 +30,8 @@ fi:
   error_value_must_be_number: "Kentän arvoksi hyväksytään vain numeroita"
   error_value_too_long: "Kenttään syötetty teksti on liian pitkä"
   error_invalid_municipality: "Annettua kuntaa ei ole olemassa"
+  error_invalid_photographer_id: "Annettu kuvaajan id ei kelpaa"
+  error_must_have_one_image: "Lomakkeeseen tulee olla liitettynä vähintään yksi kuva"
   date:
       month_names:
         - "tammikuu"

@@ -33,6 +33,8 @@ class VisitationFormsController < ApplicationController
     if params[:submit]
       @visitation_form.sent = true
       if @visitation_form.save
+        upload_image @visitation_form.id
+
         redirect_to @visitation_form
       else
         render action: 'new'
@@ -41,6 +43,8 @@ class VisitationFormsController < ApplicationController
 
     if params[:save]
       if @visitation_form.save :validate => false
+        upload_image @visitation_form.id
+
         redirect_to @visitation_form
       else
         render action: 'new'
@@ -54,6 +58,8 @@ class VisitationFormsController < ApplicationController
     if params[:submit]
       @visitation_form.sent = true
       if @visitation_form.save
+        upload_image @visitation_form.id
+
         redirect_to @visitation_form
       else
         render action: 'new'
@@ -62,11 +68,26 @@ class VisitationFormsController < ApplicationController
 
     if params[:save]
       if @visitation_form.save :validate => false
+        upload_image @visitation_form.id
+
         redirect_to @visitation_form
       else
         render action: 'new'
       end
     end
+  end
+
+  def upload_image(form_id)
+    if params[:visitation_form][:file].nil?
+      return
+    end
+
+    img = Image.new
+    img.visitation_form_id = form_id
+    img.filename = params[:visitation_form][:file].original_filename
+    img.data = params[:visitation_form][:file].read
+
+    img.save
   end
 
   # DELETE /visitation_forms/1
@@ -77,17 +98,6 @@ class VisitationFormsController < ApplicationController
       format.html { redirect_to visitation_forms_url }
       format.json { head :no_content }
     end
-  end
-
-  def upload_image
-    img = Image.new
-    img.visitation_form_id = params[:id]
-    img.filename = params[:file].original_filename
-    img.data = params[:file].read
-
-    img.save
-
-    redirect_to visitation_form_path(params[:id])
   end
 
   private
