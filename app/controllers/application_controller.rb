@@ -25,6 +25,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user_variable
-    @user = {:login_id => session[:user], :type => session[:user_type]}
+    @user = {:login_id => session[:user], :type => session[:user_type], :user_name => session[:user_name]}
   end
 end

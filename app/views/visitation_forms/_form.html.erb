@@ -104,8 +104,8 @@
   <script>
     $("#insert_name_button").on("click", function (e) {
         e.preventDefault();
-        var userid = "<%= session[:user] %>";
-        var username = "<%= session[:user_name] %>";
+        var userid = "<%= @user[:login_id] %>";
+        var username = "<%= @user[:user_name] %>";
         $("#visitation_form_photographer_name").val(username);
         $("#visitation_form_photographer_id").val(userid);
     });

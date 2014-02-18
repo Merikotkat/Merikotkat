@@ -5,7 +5,8 @@ require 'net/http'
 class KoalaClient::ExternalAuthenticationController < ApplicationController
   
   skip_before_filter :authentication_required
-  
+  skip_before_filter :update_session_expiry
+
   def new
     begin
       key = CGI::escape params['key']
