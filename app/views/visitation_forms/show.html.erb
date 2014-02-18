@@ -57,11 +57,6 @@
 <%= link_to t('back'), visitation_forms_path %>
 
 <h2><%= t('images') %></h2>
-<%= form_tag({action: :upload_image}, multipart: true) do %>
-    <%= label_tag :file, t('file') %>
-    <%= file_field_tag :file %>
-    <%= submit_tag(t('add_file')) %>
-<% end %>
 <p>
   <% if @images != nil && @images.count > 0 %>
       <% @images.reverse_each do |img| %>
