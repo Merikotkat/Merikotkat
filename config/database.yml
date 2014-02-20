@@ -9,12 +9,12 @@ development:
   pool: 5
   timeout: 5000
 
-# Varmita ettei tiedosto päädy gittiin, jos täytät salasanan.
-#development:
-#  adapter: oracle_enhanced
-#  database: salkku.it.helsinki.fi/ltkm
-#  username: lintukuvat_dev
-#  password: <password>
+# Varmista ettei tiedosto päädy gittiin, jos täytät salasanan.
+production:
+  adapter: oracle_enhanced
+  database: LTKM
+  username: lintukuvat_dev
+  password: <password>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,10 +25,5 @@ test:
   pool: 5
   timeout: 5000
 
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
 
 
