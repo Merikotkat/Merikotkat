@@ -52,5 +52,13 @@ group :production do
 end
 
 group :development, :test do
+  gem 'byebug'
   gem 'rspec-rails', '~> 2.14.1'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'simplecov', require: false
 end
