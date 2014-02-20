@@ -1,0 +1,12 @@
+class AddInfoFieldsToImage < ActiveRecord::Migration
+  def change
+    add_column :images, :rengastettu, :boolean
+    add_column :images, :gender, :string
+    add_column :images, :shyness, :integer
+    add_column :images, :left_ring_code, :string
+    add_column :images, :left_ring_color, :string
+    add_column :images, :right_ring_code, :string
+    add_column :images, :right_ring_color, :string
+    add_column :images, :image_type, :integer
+  end
+end

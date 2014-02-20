@@ -17,6 +17,7 @@ Merikotkat::Application.routes.draw do
 
   resources :images
   post 'visitation_forms/:id/upload_image' => 'visitation_forms#upload_image'
+  get 'images/delete/:id' => 'images#delete'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

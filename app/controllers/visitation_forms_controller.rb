@@ -11,7 +11,11 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms/1
   # GET /visitation_forms/1.json
   def show
-    @images = Image.get_images(params[:id])
+    @bird1_images = Image.get_bird1_images(params[:id])
+    @bird2_images = Image.get_bird2_images(params[:id])
+    @young_images = Image.get_young_images(params[:id])
+    @landscape_images = Image.get_landscape_images(params[:id])
+    @nest_images = Image.get_nest_images(params[:id])
   end
 
   # GET /visitation_forms/new
@@ -43,8 +47,8 @@ class VisitationFormsController < ApplicationController
   def save_form
     # first save without validation
     if @visitation_form.save :validate => false
-      # upload image now that our form has an ID
-      upload_image @visitation_form.id
+      # upload images now that our form has an ID
+      upload_images @visitation_form.id
 
       # then save again with validation if needed. Beautiful!
       if @visitation_form.save :validate => params[:save].nil?
@@ -67,17 +71,78 @@ class VisitationFormsController < ApplicationController
     form.save
   end
 
-  def upload_image(form_id)
-    if params[:visitation_form][:file].nil?
-      return
+  def upload_images(form_id)
+    # Bird 1
+    unless params[:visitation_form][:images][:bird1].nil?
+      params[:visitation_form][:images][:bird1].each do |name, data|
+        img = Image.new
+        img.visitation_form_id = form_id
+        img.gender = params[:visitation_form][:images][:bird1_info][:gender]
+        img.filename = data.original_filename
+        img.data = data.read
+
+        img.image_type = 1
+
+        img.save
+      end
     end
 
-    img = Image.new
-    img.visitation_form_id = form_id
-    img.filename = params[:visitation_form][:file].original_filename
-    img.data = params[:visitation_form][:file].read
+    # Bird 2
+    unless params[:visitation_form][:images][:bird2].nil?
+      params[:visitation_form][:images][:bird2].each do |name, data|
+        img = Image.new
+        img.visitation_form_id = form_id
+        img.gender = params[:visitation_form][:images][:bird2_info][:gender]
+        img.filename = data.original_filename
+        img.data = data.read
 
-    img.save
+        img.image_type = 2
+
+        img.save
+      end
+    end
+
+    # Young birds
+    unless params[:visitation_form][:images][:young].nil?
+      params[:visitation_form][:images][:young].each do |name, data|
+        img = Image.new
+        img.visitation_form_id = form_id
+        img.filename = data.original_filename
+        img.data = data.read
+
+        img.image_type = 3
+
+        img.save
+      end
+    end
+
+    # Landscape
+    unless params[:visitation_form][:images][:landscape].nil?
+      params[:visitation_form][:images][:landscape].each do |name, data|
+        img = Image.new
+        img.visitation_form_id = form_id
+        img.filename = data.original_filename
+        img.data = data.read
+
+        img.image_type = 4
+
+        img.save
+      end
+    end
+
+    # Nest
+    unless params[:visitation_form][:images][:nest].nil?
+      params[:visitation_form][:images][:nest].each do |name, data|
+        img = Image.new
+        img.visitation_form_id = form_id
+        img.filename = data.original_filename
+        img.data = data.read
+
+        img.image_type = 5
+
+        img.save
+      end
+    end
   end
 
   # DELETE /visitation_forms/1

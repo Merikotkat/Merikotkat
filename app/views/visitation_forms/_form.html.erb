@@ -88,7 +88,6 @@
     <div class="field">
       <%= f.label :municipality, t('municipality') %><br>
       <%= f.select :municipality, TipuApiHelper.GetMunicipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
-      <%#= f.text_field :municipality %>
     </div>
 
     <div class="field">
@@ -96,11 +95,53 @@
       <%= f.text_field :nest %>
     </div>
 
-    <h2><%= t('add_image') %></h2>
+
+
+    <h2><%= t('bird') %> 1</h2>
+
     <div class="field">
-      <%= f.label :file, t('file') %>
-      <%= f.file_field :file %>
+      <%= label_tag "visitation_form[images][bird1_info][gender]", t('gender') %>
+      <%= text_field_tag "visitation_form[images][bird1_info][gender]" %>
     </div>
+
+    <div class="field">
+      <%= f.label"images[bird1][img1]", t('file') + " 1" %>
+      <%= f.file_field "images[bird1][img1]" %>
+    </div>
+
+    <h2><%= t('bird') %> 2</h2>
+
+    <div class="field">
+      <%= label_tag "visitation_form[images][bird2_info][gender]", t('gender') %>
+      <%= text_field_tag "visitation_form[images][bird2_info][gender]" %>
+    </div>
+
+    <div class="field">
+      <%= f.label "images[bird2][img1]", t('file') %>
+      <%= f.file_field "images[bird2][img1]" %>
+    </div>
+
+    <h2><%= t('young_images') %></h2>
+
+    <div class="field">
+      <%= f.label "images[young][img1]", t('file') %>
+      <%= f.file_field "images[young][img1]" %>
+    </div>
+
+    <h2><%= t('nest_images') %></h2>
+
+    <div class="field">
+      <%= f.label "images[nest][img1]", t('file') %>
+      <%= f.file_field "images[nest][img1]" %>
+    </div>
+
+    <h2><%= t('landscape_images') %></h2>
+    <div class="field">
+      <%= f.label "images[landscape][img1]", t('file') %>
+      <%= f.file_field "images[landscape][img1]" %>
+    </div>
+
+
 
     <div class="actions">
       <%= f.submit(t('save_visitation_form'), :name => 'save') %>

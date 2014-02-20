@@ -56,12 +56,53 @@
 <%= link_to t('edit'), edit_visitation_form_path(@visitation_form) %> |
 <%= link_to t('back'), visitation_forms_path %>
 
-<h2><%= t('images') %></h2>
+<h2><%= t('bird') %> 1</h2>
 <p>
-  <% if @images != nil && @images.count > 0 %>
-      <% @images.reverse_each do |img| %>
-        <%= img[:original_filename] %> <br />
-        <%= image_tag( img[:temp_path] ) %> <br /><br/>
-      <% end %>
+  <% if @bird1_images.count > 0 %>
+    <strong><%= t('gender') %></strong> <%= @bird1_images[0][:gender] %> <br />
+  <% end %>
+
+  <% @bird1_images.reverse_each do |img| %>
+    <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
+    <%= image_tag( img[:temp_path] ) %> <br /><br/>
+  <% end %>
+</p>
+
+<h2><%= t('bird') %> 2</h2>
+<p>
+  <% if @bird2_images.count > 0 %>
+      <strong><%= t('gender') %></strong> <%= @bird2_images[0][:gender] %> <br />
+  <% end %>
+
+  <% @bird2_images.reverse_each do |img| %>
+      <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
+      <%= image_tag( img[:temp_path] ) %> <br /><br/>
+  <% end %>
+</p>
+
+<h2><%= t('young_images') %></h2>
+<p>
+  <% @young_images.reverse_each do |img| %>
+      <%= img[:original_filename] %> <br />
+      <%= image_tag( img[:temp_path] ) %> <br />
+      <%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %> <br/>
+  <% end %>
+</p>
+
+<h2><%= t('landscape_images') %></h2>
+<p>
+  <% @landscape_images.reverse_each do |img| %>
+      <%= img[:original_filename] %> <br />
+      <%= image_tag( img[:temp_path] ) %> <br />
+      <%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %> <br/>
+  <% end %>
+</p>
+
+<h2><%= t('nest_images') %></h2>
+<p>
+  <% @nest_images.reverse_each do |img| %>
+      <%= img[:original_filename] %> <br />
+      <%= image_tag( img[:temp_path] ) %> <br />
+      <%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %> <br/>
   <% end %>
 </p>
