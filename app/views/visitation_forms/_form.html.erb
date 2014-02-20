@@ -17,7 +17,7 @@
             $("#visitation_form_photographer_name").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url: "/api/getringer.json?filter=" + $("#visitation_form_photographer_name").val(),
+                        url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + $("#visitation_form_photographer_name").val(),
                         success: function( data ) {
                             if(data.ringers != ''){
                                 response( $.map( data.ringers.ringer, function( item ) {
