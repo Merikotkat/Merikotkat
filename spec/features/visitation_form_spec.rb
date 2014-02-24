@@ -26,6 +26,14 @@ describe VisitationForm do
 
   end
 
+  it "Municipality is invalid" do
+    formitesti = visitationform
+    formitesti.municipality="gigigigigi"
+    expect(formitesti.valid?).to be(false)
+
+  end
+
+
 
   def visitationform
   formi = VisitationForm.new
