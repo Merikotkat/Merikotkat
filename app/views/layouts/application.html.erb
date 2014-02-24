@@ -32,7 +32,7 @@
     <!-- if user -->
     <div id="userinfo">
       <ul>
-        <li><a href="/logout" class="button">Kirjaudu ulos</a></li>
+        <li><%= link_to t('logout'), {controller: 'koala_client/external_authentication', action: 'logout'},  class: 'button' %></li>
         <li><span class="name"><%= @user[:user_name] %></span> (<%= @user[:login_id] %>)</li>
       </ul>
     </div>
