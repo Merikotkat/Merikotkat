@@ -2,9 +2,8 @@ FactoryGirl.define do
   factory :image do
     filename "Bird.jpg"
     data nil
-    visitation_form :visitation_form
+    visitation_form nil
     checksum nil
-    category nil
   end
 
   factory :visitation_form, class: VisitationForm do
@@ -18,5 +17,6 @@ FactoryGirl.define do
     nest_id 268
     photographer_id 2890
     form_saver_id 2890
+
   end
 end

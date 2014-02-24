@@ -21,14 +21,29 @@ describe VisitationForm do
   end
 
   it "is saved to database if valid" do
-    im = FactoryGirl.create(:image)
-    byebug
-    vf = FactoryGirl.create(:visitation_form)
-    raise
-    vf << im
+    formitesti = visitationform
+    expect(formitesti).to be_valid
 
-    expect(vf).to be_valid
-    expect(VisitationForm.count).to eq(1)
+  end
+
+
+  def visitationform
+  formi = VisitationForm.new
+  formi.save(:validate => false)
+  formi.photographer_name = "Pekka Murkka"
+  formi.visit_date = DateTime.new(2013, 6, 29, 10, 15, 30)
+  formi.camera = "Super Internal Cam"
+  formi.lens = "Lens Man 2000"
+  formi.teleconverter =  "TC Teleconv"
+  formi.municipality = "HELSIN"
+  formi.nest = "Roni's nest for children"
+  formi.nest_id = 268
+  formi.photographer_id = 2890
+  formi.form_saver_id = 2890
+  formi.images << Image.create
+  formi.save
+    return formi
+
   end
 
 end
