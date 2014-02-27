@@ -46,9 +46,6 @@
         });
     </script>
 
-
-    <button id="insert_name_button"><%= t('fill_own_info') %></button>
-
     <!--<div class="field"><br>-->
     <%#= f.label :photographer_id, t('photographer_id') %>
     <%#= f.text_field :photographer_id %>
@@ -58,7 +55,11 @@
     <div class="field">
       <%= f.label :photographer_name, t('photographer_name') %><br>
       <%= f.text_field :photographer_name %>
+
+      <button id="insert_name_button"><%= t('fill_own_info') %></button>
+
     </div>
+
     <div class="field">
       <%= f.label :visit_date, t('visit_date') %><br>
       <%= f.datetime_select :visit_date %>
@@ -153,7 +154,7 @@
             e.preventDefault();
             var userid = "<%= @user[:login_id] %>";
             var username = "<%= @user[:user_name] %>";
-            $("#visitation_form_photographer_name").val(username);
+            $("#visitation_form_photographer_name").val(username + " (" + userid + ")");
             $("#visitation_form_photographer_id").val(userid);
         });
 
