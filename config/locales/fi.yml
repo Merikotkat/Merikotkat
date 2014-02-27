@@ -23,18 +23,9 @@ fi:
   add_image: "Lisää kuva"
   images: "Kuvat"
   form_already_sent: "Tämä lomake on lähetetty tarkistettavaksi. Sitä ei voi enää muokata"
-  photographer_id: "Kuvaajan id"
-  photographer_name: "Kuvaaja"
   fill_own_info: "Käytä omia tietoja"
-  visit_date: "Käynnin päivämäärä"
   camera_info: "Kameran tiedot"
-  camera: "Kamera"
-  lens: "Objektiivi"
-  teleconverter: "Telejatke"
   nest_info: "Pesän tiedot"
-  nest_id: "Pesän ID"
-  municipality: "Kunta"
-  nest_name: "Pesän nimi"
   save_visitation_form: "Välitallenna"
   leave_without_saving: "Poistu tallentamatta"
   submit_visitation_form: "Lähetä"
@@ -47,6 +38,25 @@ fi:
   error_invalid_photographer_id: "Annettu kuvaajan id ei kelpaa"
   error_must_have_one_image: "Lomakkeeseen tulee olla liitettynä vähintään yksi kuva"
   error_must_be_present: "Kenttä on pakollinen"
+  error_date_in_future: "Annettu päivämäärä on tulevaisuudessa"
+  activerecord:
+    attributes:
+      visitation_form:
+        nest_id: "Pesän id"
+        municipality: "Kunta"
+        camera: "Kamera"
+        lens: "Objektiivi"
+        teleconverter: "Telejatke"
+        nest_name: "Pesän nimi"
+        photographer_id: "Kuvaajan id"
+        photographer_name: "Kuvaaja"
+        visit_date: "Käynnin päivämäärä"
+        images: "Kuvat"
+    errors:
+      template:
+        header:
+          one: "Lomakkeen tallentaminen ei onnistunut seuraavien virheiden vuoksi:"
+          other: "Lomakkeen tallentaminen ei onnistunut seuraavien virheiden vuoksi:"
   date:
       month_names:
         - "tammikuu"

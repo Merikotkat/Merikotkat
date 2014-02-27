@@ -1,7 +1,7 @@
 <%= form_for(@visitation_form, multipart: true) do |f| %>
     <% if @visitation_form.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@visitation_form.errors.count, "error") %> prohibited this visitation_form from being saved:</h2>
+          <h2><%= t('errors_in_form') %></h2>
 
           <ul>
             <% @visitation_form.errors.full_messages.each do |msg| %>
@@ -53,7 +53,7 @@
 
     <%= f.hidden_field :photographer_id %>
     <div class="field">
-      <%= f.label :photographer_name, t('photographer_name') %><br>
+      <%= f.label :photographer_name %><br>
       <%= f.text_field :photographer_name %>
 
       <button id="insert_name_button"><%= t('fill_own_info') %></button>
@@ -61,38 +61,38 @@
     </div>
 
     <div class="field">
-      <%= f.label :visit_date, t('visit_date') %><br>
+      <%= f.label :visit_date %><br>
       <%= f.text_field :visit_date %>
     </div>
 
     <h2><%= t('camera_info') %></h2>
 
     <div class="field">
-      <%= f.label :camera, t('camera') %><br>
+      <%= f.label :camera %><br>
       <%= f.text_field :camera %>
     </div>
     <div class="field">
-      <%= f.label :lens, t('lens') %><br>
+      <%= f.label :lens %><br>
       <%= f.text_field :lens %>
     </div>
     <div class="field">
-      <%= f.label :teleconverter, t('teleconverter') %><br>
+      <%= f.label :teleconverter %><br>
       <%= f.text_field :teleconverter %>
     </div>
 
     <h2><%= t('nest_info') %></h2>
 
     <div class="field">
-      <%= f.label :nest_id, t('nest_id') %><br>
+      <%= f.label :nest_id %><br>
       <%= f.text_field :nest_id %>
     </div>
     <div class="field">
-      <%= f.label :municipality, t('municipality') %><br>
+      <%= f.label :municipality %><br>
       <%= f.select :municipality, TipuApiHelper.GetMunicipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
     </div>
 
     <div class="field">
-      <%= f.label :nest, t('nest_name') %><br>
+      <%= f.label :nest %><br>
       <%= f.text_field :nest %>
     </div>
 
@@ -160,7 +160,7 @@
 
         // Forcing nest id to only numbers
         $('#visitation_form_nest_id').keyup(function() {
-            this.value = this.value.replace(/\D/, '');
+            this.value = this.value.replace(/\D/g, '');
         });
 
         $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });

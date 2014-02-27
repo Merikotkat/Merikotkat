@@ -17,8 +17,8 @@ class VisitationForm < ActiveRecord::Base
       end
     end
 
-    if form.visit_date > Date.today
-      form.errors[:visit_date] << "aaaaaa"
+    if !form.visit_date.nil? && form.visit_date > Date.today
+      form.errors[:visit_date] << I18n.t('error_date_in_future')
     end
   end
 end
