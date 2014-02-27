@@ -62,7 +62,7 @@
 
     <div class="field">
       <%= f.label :visit_date, t('visit_date') %><br>
-      <%= f.datetime_select :visit_date %>
+      <%= f.text_field :visit_date %>
     </div>
 
     <h2><%= t('camera_info') %></h2>
@@ -162,5 +162,7 @@
         $('#visitation_form_nest_id').keyup(function() {
             this.value = this.value.replace(/\D/, '');
         });
+
+        $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });
     </script>
 <% end %>
