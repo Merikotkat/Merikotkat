@@ -15,7 +15,10 @@ class VisitationForm < ActiveRecord::Base
       if form.images.count == 0
         form.errors[:images] << I18n.t('error_must_have_one_image')
       end
+    end
 
+    if form.visit_date > Date.today
+      form.errors[:visit_date] << "aaaaaa"
     end
   end
 end
