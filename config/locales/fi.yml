@@ -1,5 +1,6 @@
 fi:
   welcome_to_linssi: "Tervetuloa Linssiin"
+  logout: "Kirjaudu ulos"
   list_forms: "Listaa lomakkeet"
   bird: "Emolintu"
   bird_images: "Kuvat emolinnuista"

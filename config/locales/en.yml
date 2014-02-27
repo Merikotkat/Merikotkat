@@ -21,6 +21,7 @@
 
 en:
   welcome_to_linssi: "Tervetuloa Linssiin"
+  logout: "Log off"
   list_forms: "Listaa lomakkeet"
   back: "Edellinen"
   edit: "Muokkaa"
