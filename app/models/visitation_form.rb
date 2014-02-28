@@ -21,7 +21,8 @@ class VisitationForm < ActiveRecord::Base
       form.errors[:visit_date] << I18n.t('error_date_in_future')
     end
 
-    if !form.visit_date_before_type_cast.nil?
+    # If the class was anything else than a string, say datetime or date it should already be valid and not parsed again
+    if !form.visit_date_before_type_cast.nil? && form.visit_date_before_type_cast.kind_of?(String)
       begin
         date = Date.parse(form.visit_date_before_type_cast)
       rescue

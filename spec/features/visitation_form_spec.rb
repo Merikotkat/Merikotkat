@@ -38,6 +38,18 @@ describe VisitationForm do
     expect(formitesti.valid?).to be(false)
   end
 
+  it "Date not in future" do
+    formitesti = visitationform
+    formitesti.visit_date = DateTime.now - 10.days
+    expect(formitesti).to be_valid
+  end
+
+  it "Date in future" do
+    formitesti = visitationform
+    formitesti.visit_date = DateTime.now + 1.days
+    expect(formitesti.valid?).to be(false)
+  end
+
 
 
   def visitationform
