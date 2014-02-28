@@ -23,14 +23,19 @@ describe VisitationForm do
   it "is saved to database if valid" do
     formitesti = visitationform
     expect(formitesti).to be_valid
-
   end
 
   it "Municipality is invalid" do
     formitesti = visitationform
     formitesti.municipality="gigigigigi"
     expect(formitesti.valid?).to be(false)
+  end
 
+
+  it "Date invalid" do
+    formitesti = visitationform
+    formitesti.visit_date = '2013-02-31'
+    expect(formitesti.valid?).to be(false)
   end
 
 
@@ -39,7 +44,7 @@ describe VisitationForm do
   formi = VisitationForm.new
   formi.save(:validate => false)
   formi.photographer_name = "Pekka Murkka"
-  formi.visit_date = DateTime.new(2013, 6, 29, 10, 15, 30)
+  formi.visit_date = "2014-01-01"
   formi.camera = "Super Internal Cam"
   formi.lens = "Lens Man 2000"
   formi.teleconverter =  "TC Teleconv"

@@ -20,5 +20,13 @@ class VisitationForm < ActiveRecord::Base
     if !form.visit_date.nil? && form.visit_date > Date.today
       form.errors[:visit_date] << I18n.t('error_date_in_future')
     end
+
+    if !form.visit_date_before_type_cast.nil?
+      begin
+        date = Date.parse(form.visit_date_before_type_cast)
+      rescue
+        form.errors[:visit_date] << I18n.t('error_date_invalid')
+      end
+    end
   end
 end
