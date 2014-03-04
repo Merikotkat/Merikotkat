@@ -1,7 +1,7 @@
-<h1></h1>
+<h1>Lomakkeet</h1>
 
 
-<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+
 <style type="text/css">
     table.imagetable {
         font-family: verdana,arial,sans-serif;
@@ -43,6 +43,7 @@
 
   <tbody>
     <% @visitation_forms.each do |visitation_form| %>
+
       <tr>
         <td><%= visitation_form.photographer_name %></td>
         <td><%= visitation_form.visit_date %></td>
@@ -50,7 +51,8 @@
         <td><%= link_to t('show'), visitation_form %></td>
         <td><%= link_to t('edit'), edit_visitation_form_path(visitation_form) %></td>
       </tr>
-    <% end %>
+
+  <% end %>
   </tbody>
 </table>
 

@@ -5,7 +5,13 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms.json
   def index
     #puts 'logged on user: ' + session[:user]  # debug stuff
-    @visitation_forms = VisitationForm.all
+    if @user[:type] == 'admin'
+      @visitation_forms = VisitationForm.all
+    else
+      @visitation_forms = VisitationForm.where("form_saver_id = ? or photographer_id = ?", @user[:login_id],@user[:login_id])
+    end
+
+
   end
 
   # GET /visitation_forms/1
