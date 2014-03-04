@@ -78,7 +78,7 @@
 
     <div class="field">
       <%= f.label :nest_id %><br>
-      <%= f.text_field :nest_id %>
+      <%= f.number_field :nest_id %>
     </div>
     <div class="field">
       <%= f.label :municipality %><br>
@@ -158,7 +158,7 @@
         });
 
         // Forcing nest id to only numbers
-        $('#visitation_form_nest_id').keyup(function() {
+        $('#visitation_form_nest_id').on("keydown keydown change", function() {
             this.value = this.value.replace(/\D/g, '');
         });
 
