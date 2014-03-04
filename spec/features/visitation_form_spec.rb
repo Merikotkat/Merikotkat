@@ -53,20 +53,20 @@ describe VisitationForm do
 
 
   def visitationform
-  formi = VisitationForm.new
-  formi.save(:validate => false)
-  formi.photographer_name = "Pekka Murkka"
-  formi.visit_date = "2014-01-01"
-  formi.camera = "Super Internal Cam"
-  formi.lens = "Lens Man 2000"
-  formi.teleconverter =  "TC Teleconv"
-  formi.municipality = "HELSIN"
-  formi.nest = "Roni's nest for children"
-  formi.nest_id = 268
-  formi.photographer_id = 2890
-  formi.form_saver_id = 2890
-  formi.images << Image.create
-  formi.save
+    formi = VisitationForm.new
+    formi.save(:validate => false)
+    formi.photographer_name = "Pekka Murkka"
+    formi.visit_date = "2014-01-01"
+    formi.camera = "Super Internal Cam"
+    formi.lens = "Lens Man 2000"
+    formi.teleconverter =  "TC Teleconv"
+    formi.municipality = "HELSIN"
+    formi.nest = "Roni's nest for children"
+    formi.nest_id = 268
+    formi.photographer_id = 2890
+    formi.form_saver_id = 2890
+    formi.images << Image.create
+    formi.save
     return formi
 
   end
