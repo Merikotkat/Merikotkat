@@ -60,7 +60,9 @@ class VisitationFormsController < ApplicationController
       if @visitation_form.save :validate => params[:save].nil?
         # and lastly, mark form as 'sent' if needed
         if params[:submit]
-          send_form @visitation_form
+          form.sent = true
+          # look, another save!
+          form.save
         end
 
         redirect_to @visitation_form
@@ -72,9 +74,21 @@ class VisitationFormsController < ApplicationController
     end
   end
 
-  def send_form(form)
-    form.sent = true
-    form.save
+  def submit_form
+    @visitation_form = VisitationForm.find(params[:id])
+    @visitation_form.sent = true
+    if @visitation_form.save
+      redirect_to @visitation_form
+    else
+      render action: 'new'
+    end
+  end
+
+  def unsubmit_form
+    form = VisitationForm.find(params[:id])
+    form.sent = false
+    form.save validate: false
+    redirect_to form
   end
 
   def upload_images(form_id)

@@ -1,7 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<%= t('form_status') %>
 <% if @visitation_form.sent %>
-    <%= t('form_already_sent') %>
+    <%= t('form_already_sent') %> <br />
+    <%= link_to t('unsubmit_visitation_form'), "unsubmit/" + @visitation_form.id.to_s %>
+<% else %>
+    <%= t('form_not_sent') %> <br />
+    <%= link_to t('edit'), edit_visitation_form_path(@visitation_form) %> |
+    <%= link_to t('submit_visitation_form'), "submit/" + @visitation_form.id.to_s %>
 <% end %>
 
 <p>
@@ -47,10 +53,6 @@
   <strong><%= t('nest_name') %>:</strong>
   <%= @visitation_form.nest %>
 </p>
-
-
-<%= link_to t('edit'), edit_visitation_form_path(@visitation_form) %> |
-
 
 <h2><%= t('bird') %> 1</h2>
 <p>

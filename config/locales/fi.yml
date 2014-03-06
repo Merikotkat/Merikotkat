@@ -22,6 +22,8 @@ fi:
   add_file: "Lisää tiedosto"
   add_image: "Lisää kuva"
   images: "Kuvat"
+  form_status: "Lomakkeen tila:"
+  form_not_sent: "Lomaketta ei ole lähetetty"
   form_already_sent: "Tämä lomake on lähetetty tarkistettavaksi. Sitä ei voi enää muokata"
   fill_own_info: "Käytä omia tietoja"
   camera_info: "Kameran tiedot"
@@ -29,9 +31,10 @@ fi:
   save_visitation_form: "Välitallenna"
   leave_without_saving: "Poistu tallentamatta"
   submit_visitation_form: "Lähetä"
-  new_visitation_form: "Luo uusi lomake"
+  unsubmit_visitation_form: "Peruuta lähetys"
+  new_visitation_form: "Luo/muokkaa lomaketta"
   edit_visitation_form: "Muokkaa lomaketta"
-  errors_in_form: "Lomakkeen tallentaminen ei onnistunut seuraavien virheiden vuoksi:"
+  errors_in_form: "Lomakkeen lähettäminen ei onnistunut seuraavien virheiden vuoksi:"
   error_value_must_be_number: "Kentän arvoksi hyväksytään vain numeroita"
   error_value_too_long: "Kenttään syötetty teksti on liian pitkä"
   error_invalid_municipality: "Annettua kuntaa ei ole olemassa"
@@ -56,8 +59,8 @@ fi:
     errors:
       template:
         header:
-          one: "Lomakkeen tallentaminen ei onnistunut seuraavien virheiden vuoksi:"
-          other: "Lomakkeen tallentaminen ei onnistunut seuraavien virheiden vuoksi:"
+          one: "Lomakkeen lähettäminen ei onnistunut seuraavan virheen vuoksi:"
+          other: "Lomakkeen lähettäminen ei onnistunut seuraavien virheiden vuoksi:"
   date:
       month_names:
         - "tammikuu"

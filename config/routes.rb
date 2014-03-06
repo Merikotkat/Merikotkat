@@ -16,7 +16,8 @@ Merikotkat::Application.routes.draw do
   root 'welcome#index'
 
   resources :images
-  post 'visitation_forms/:id/upload_image' => 'visitation_forms#upload_image'
+  get 'visitation_forms/unsubmit/:id' => 'visitation_forms#unsubmit_form'
+  get 'visitation_forms/submit/:id' => 'visitation_forms#submit_form'
   get 'images/delete/:id' => 'images#delete'
 
   # Example of regular route:
