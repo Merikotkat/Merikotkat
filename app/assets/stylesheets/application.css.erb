@@ -257,15 +257,20 @@ fieldset legend {
     margin: 0px;
 }
 .page-content  {
-    width: 100%;
-    float: left;
+    display:table-cell;
 }
 .page-content-full {
     width: 100%;
 }
 #sidebar {
-    float: left;
-    width: 40%;
+    display:table-cell;
+    white-space: nowrap;
+    padding-right: 25px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+
 }
 #spacer {
     width: 2%;
@@ -303,7 +308,13 @@ body {
     background: none repeat scroll 0% 0% rgb(197, 199, 197);
     max-width: 1000px;
     margin:auto;
+    height:100%;
 }
+
+html {
+    height:100%;
+}
+
 #masthead-inner {
     background: url(<%= asset_path 'header-background.png' %>);
     text-align: center;
@@ -314,11 +325,13 @@ body {
 #content-wrapper {
     padding: 10px;
     padding-bottom: 150px;
+    display:table;
 }
 #logo {
     background: url(<%= asset_path 'luomuslogo-white.png' %>) no-repeat 50%;
     height: 60px;
     padding-top:30px;
+    display:block;
 }
 .devmode {
     color: red;
@@ -340,6 +353,7 @@ body {
     font-weight: bold;
     font-size: 16px;
     height: 30px;
+    float:left;
 }
 #sitetitle img { padding:0; margin: 0; }
 

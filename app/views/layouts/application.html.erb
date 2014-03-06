@@ -40,13 +40,13 @@
     <!-- end of if user -->
 
     <a href="https://rengastus.helsinki.fi">
-      <div id="logo">&nbsp;</div>
+      <span id="logo">&nbsp;</span>
     </a>
 
-    <a href="/">
-      <div id="sitetitle">
+    <a href="<% link_to(root_url)%>">
+      <span id="sitetitle">
        <!-- <%= image_tag('linssi.png') %>  -->&nbsp; Linssi
-      </div>
+      </span>
     </a>
 
 
@@ -75,11 +75,19 @@
 <!-- Content section -->
 <div id="main-area" role="main">
   <div id="content-wrapper">
-
+    <div id="sidebar">
+      <ul>
+        <li><%= link_to "Lomakkeet", visitation_forms_path %></li>
+        <li><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>
+      </ul>
+    </div>
     <div id="content" class="page-content">
       <%= yield %>
     </div>
     <div class="clear"></div>
+  </div>
+  <div id="footer">
+    ölölö
   </div>
 </div>
 
