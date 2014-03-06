@@ -17,7 +17,7 @@
 
 <p>
   <strong><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-  <%= @visitation_form.visit_date %>
+  <%= @visitation_form.visit_date.strftime("%d.%m.%Y") %>
 </p>
 
 <h2><%= t('camera_info') %></h2>
@@ -50,7 +50,7 @@
 </p>
 
 <p>
-  <strong><%= t('nest_name', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
+  <strong><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.nest %>
 </p>
 

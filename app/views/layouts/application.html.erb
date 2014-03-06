@@ -81,9 +81,8 @@
           <ul>
             <li><%= link_to "Lomakkeet", visitation_forms_path %>
               <ul style="list-style-type: circle; margin-left: 5px;">
-                <li>Keskeneräiset</li>
-                <li>Lähetetyt</li>
-                <li>Arkisto</li>
+                <li><%=link_to(t('unsubmitted'), {controller: 'visitation_forms', action: "index", type: "unsubmitted"})   %></li>
+                <li><%=link_to(t('submitted'), {controller: 'visitation_forms', action: "index", type: "submitted"})   %></li>
               </ul>
             </li>
             <li><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>

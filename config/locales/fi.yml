@@ -43,6 +43,8 @@ fi:
   error_must_be_present: "Kenttä on pakollinen"
   error_date_in_future: "Annettu päivämäärä on tulevaisuudessa"
   error_date_invalid: "Virheellinen päivämäärä"
+  submitted: "Lähetetyt"
+  unsubmitted: "Tallennetut"
   activerecord:
     attributes:
       visitation_form:
@@ -51,7 +53,7 @@ fi:
         camera: "Kamera"
         lens: "Objektiivi"
         teleconverter: "Telejatke"
-        nest_name: "Pesän nimi"
+        nest: "Pesän nimi"
         photographer_id: "Kuvaajan id"
         photographer_name: "Kuvaaja"
         visit_date: "Käynnin päivämäärä"
@@ -79,3 +81,5 @@ fi:
         - "day"
         - "month"
         - "year"
+      formats:
+        date: "%d.%m.%Y"

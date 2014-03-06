@@ -56,7 +56,13 @@
 
     <div class="field">
       <%= f.label :visit_date %><br>
-      <%= f.text_field :visit_date %>
+      <% if (f.object.visit_date.nil?) %>
+          <%= f.text_field :visit_date %>
+      <% else %>
+          <%= f.text_field :visit_date, value: f.object.visit_date.strftime("%d.%m.%Y") %>
+      <% end %>
+
+
     </div>
 
     <h2><%= t('camera_info') %></h2>

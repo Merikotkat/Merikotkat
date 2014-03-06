@@ -5,13 +5,21 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms.json
   def index
     #puts 'logged on user: ' + session[:user]  # debug stuff
+
+
     if @user[:type] == 'admin'
-      @visitation_forms = VisitationForm.all
+      forms = VisitationForm.all
     else
-      @visitation_forms = VisitationForm.where("form_saver_id = ? or photographer_id = ?", @user[:login_id],@user[:login_id])
+      forms = VisitationForm.where("form_saver_id = ? or photographer_id = ?", @user[:login_id],@user[:login_id])
     end
 
-
+    if(params[:type] == "submitted")
+      @visitation_forms = forms.select { |f| f.sent == true }
+    elsif (params[:type] == "unsubmitted")
+      @visitation_forms = forms.select { |f| f.sent == false }
+    else
+      @visitation_forms = forms
+    end
   end
 
   # GET /visitation_forms/1
@@ -60,9 +68,9 @@ class VisitationFormsController < ApplicationController
       if @visitation_form.save :validate => params[:save].nil?
         # and lastly, mark form as 'sent' if needed
         if params[:submit]
-          form.sent = true
+          @visitation_form.sent = true
           # look, another save!
-          form.save
+          @visitation_form.save
         end
 
         redirect_to @visitation_form
