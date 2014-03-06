@@ -38,6 +38,7 @@ describe VisitationForm do
 
     testi = VisitationFormsController.new
     testi.instance_variable_set(:@user, user)
+
     tulos = testi.index
 
     expect(tulos.count).to be(0)

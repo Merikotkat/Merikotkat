@@ -1,3 +1,5 @@
+
+
 <%= form_for(@visitation_form, multipart: true) do |f| %>
     <% if @visitation_form.errors.any? %>
         <div id="error_explanation">
@@ -169,3 +171,13 @@
         $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });
     </script>
 <% end %>
+
+<script type="text/javascript">
+
+    $('form').on("keypress keyup keydown", function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+</script>

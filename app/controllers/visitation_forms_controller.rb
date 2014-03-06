@@ -12,11 +12,12 @@ class VisitationFormsController < ApplicationController
     else
       forms = VisitationForm.where("form_saver_id = ? or photographer_id = ?", @user[:login_id],@user[:login_id])
     end
-
-    if(params[:type] == "submitted")
-      @visitation_forms = forms.select { |f| f.sent == true }
-    elsif (params[:type] == "unsubmitted")
-      @visitation_forms = forms.select { |f| f.sent == false }
+    if (defined? params[:type])
+      if(params[:type] == "submitted")
+        @visitation_forms = forms.select { |f| f.sent == true }
+      elsif (params[:type] == "unsubmitted")
+        @visitation_forms = forms.select { |f| f.sent == false }
+      end
     else
       @visitation_forms = forms
     end
