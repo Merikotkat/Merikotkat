@@ -301,6 +301,8 @@ fieldset legend {
 
 body {
     background: none repeat scroll 0% 0% rgb(197, 199, 197);
+    max-width: 1000px;
+    margin:auto;
 }
 #masthead-inner {
     background: url(<%= asset_path 'header-background.png' %>);
@@ -316,15 +318,16 @@ body {
 #logo {
     background: url(<%= asset_path 'luomuslogo-white.png' %>) no-repeat 50%;
     height: 60px;
+    padding-top:30px;
 }
 .devmode {
-    position: absolute;
     color: red;
     font-weight: bold;
     font-size: 120%;
-    padding-left: 20px;
+    padding: 10px;
     top: 5px;
     left: 5px;
+    float:left;
 }
 #sitetitle {
     text-align: left;
