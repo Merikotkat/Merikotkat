@@ -58,19 +58,6 @@ en:
   error_date_in_future: "Date cannot be in the future"
   error_date_invalid: "Invalid date"
   date:
-      month_names:
-        - "tammikuu"
-        - "helmikuu"
-        - "maaliskuu"
-        - "huhtikuu"
-        - "toukokuu"
-        - "kesäkuu"
-        - "heinäkuu"
-        - "elokuu"
-        - "syyskuu"
-        - "lokakuu"
-        - "marraskuu"
-        - "joulukuu"
       order:
         - "day"
         - "month"

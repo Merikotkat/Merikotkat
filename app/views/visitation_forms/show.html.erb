@@ -11,46 +11,46 @@
 <% end %>
 
 <p>
-  <strong><%= t('photographer_name') %>:</strong>
+  <strong><%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.photographer_name %>
 </p>
 
 <p>
-  <strong><%= t('visit_date') %>:</strong>
+  <strong><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.visit_date %>
 </p>
 
 <h2><%= t('camera_info') %></h2>
 
 <p>
-  <strong><%= t('camera') %>:</strong>
+  <strong><%= t('camera', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.camera %>
 </p>
 
 <p>
-  <strong><%= t('lens') %>:</strong>
+  <strong><%= t('lens', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.lens %>
 </p>
 
 <p>
-  <strong><%= t('teleconverter') %>:</strong>
+  <strong><%= t('teleconverter', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.teleconverter %>
 </p>
 
 <h2><%= t('nest_info') %></h2>
 
 <p>
-  <strong><%= t('nest_id') %>:</strong>
+  <strong><%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.nest_id %>
 </p>
 
 <p>
-  <strong><%= t('municipality') %>:</strong>
+  <strong><%= t('municipality', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.municipality %>
 </p>
 
 <p>
-  <strong><%= t('nest_name') %>:</strong>
+  <strong><%= t('nest_name', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.nest %>
 </p>
 
