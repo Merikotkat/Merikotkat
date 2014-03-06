@@ -80,7 +80,7 @@ class VisitationFormsController < ApplicationController
     if @visitation_form.save
       redirect_to @visitation_form
     else
-      render action: 'new'
+      render action: 'edit'
     end
   end
 

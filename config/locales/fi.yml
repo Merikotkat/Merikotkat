@@ -32,7 +32,7 @@ fi:
   leave_without_saving: "Poistu tallentamatta"
   submit_visitation_form: "Lähetä"
   unsubmit_visitation_form: "Peruuta lähetys"
-  new_visitation_form: "Luo/muokkaa lomaketta"
+  new_visitation_form: "Luo uusi lomake"
   edit_visitation_form: "Muokkaa lomaketta"
   errors_in_form: "Lomakkeen lähettäminen ei onnistunut seuraavien virheiden vuoksi:"
   error_value_must_be_number: "Kentän arvoksi hyväksytään vain numeroita"
