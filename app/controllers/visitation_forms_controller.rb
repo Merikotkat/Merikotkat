@@ -4,15 +4,13 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
-    #puts 'logged on user: ' + session[:user]  # debug stuff
-
-
     if @user[:type] == 'admin'
       forms = VisitationForm.all
     else
       forms = VisitationForm.where("form_saver_id = ? or photographer_id = ?", @user[:login_id],@user[:login_id])
     end
-    if (defined? params[:type])
+
+    if (defined? params[:type] and !params[:type].nil?)
       if(params[:type] == "submitted")
         @visitation_forms = forms.select { |f| f.sent == true }
       elsif (params[:type] == "unsubmitted")
