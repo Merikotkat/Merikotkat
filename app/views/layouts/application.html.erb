@@ -26,71 +26,82 @@
     });
 </script>
 
-<div id="masthead" role="banner">
-  <div id="masthead-inner">
-    <!-- if devmode --><span class="devmode">TEST ENVIROMENT</span><!-- end of if devmode-->
+<div id="megacontainer">
+  <div id="row-megacontainer">
+    <div id="masthead" role="banner">
+      <div id="masthead-inner">
+        <!-- if devmode --><span class="devmode">TEST ENVIROMENT</span><!-- end of if devmode-->
 
-    <!-- if user -->
-    <div id="userinfo">
-      <ul>
-        <li><%= link_to t('logout'), {controller: 'koala_client/external_authentication', action: 'logout'},  class: 'button' %></li>
-        <li><span class="name"><%= @user[:user_name] %></span> (<%= @user[:login_id] %>)</li>
-      </ul>
-    </div>
-    <!-- end of if user -->
+        <!-- if user -->
+        <div id="userinfo">
+          <ul>
+            <li><%= link_to t('logout'), {controller: 'koala_client/external_authentication', action: 'logout'},  class: 'button' %></li>
+            <li><span class="name"><%= @user[:user_name] %></span> (<%= @user[:login_id] %>)</li>
+          </ul>
+        </div>
+        <!-- end of if user -->
 
-    <a href="https://rengastus.helsinki.fi">
-      <span id="logo">&nbsp;</span>
-    </a>
+        <a href="https://rengastus.helsinki.fi">
+          <span id="logo">&nbsp;</span>
+        </a>
 
-    <a href="<% link_to(root_url)%>">
+        <a href="<%= url_for(root_path)%>">
       <span id="sitetitle">
        <!-- <%= image_tag('linssi.png') %>  -->&nbsp; Linssi
       </span>
-    </a>
+        </a>
 
 
 
-    <div id="navigation-wrap" role="navigation">
-      <!-- jos lokalisointia
-      <nav id="utilitymenu">
-             <ul role="menu">
-              <li role="menuitem"><a href="?locale=fi">suomeksi</a></li>
-              <li role="menuitem"><a href="?locale=sv">på svenska</a></li>
-              <li role="menuitem"><a href="?locale=en">in English</a></li>
+        <div id="navigation-wrap" role="navigation">
+          <!-- jos lokalisointia
+          <nav id="utilitymenu">
+                 <ul role="menu">
+                  <li role="menuitem"><a href="?locale=fi">suomeksi</a></li>
+                  <li role="menuitem"><a href="?locale=sv">på svenska</a></li>
+                  <li role="menuitem"><a href="?locale=en">in English</a></li>
+              </ul>
+          </nav>
+          end of jos lokalisointia -->
+
+          <nav id="mainmenu" role="navigation">
+            <ul class="nav-bar" role="menu">
+              <li role="menuitem"><%= link_to "Listaa lomakkeet", visitation_forms_path %></li>
+              <li role="menuitem"><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content section -->
+    <div id="main-area" role="main" >
+      <div id="content-wrapper">
+        <div id="sidebar">
+          <ul>
+            <li><%= link_to "Lomakkeet", visitation_forms_path %>
+              <ul style="list-style-type: circle; margin-left: 5px;">
+                <li>Keskeneräiset</li>
+                <li>Lähetetyt</li>
+                <li>Arkisto</li>
+              </ul>
+            </li>
+            <li><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>
           </ul>
-      </nav>
-      end of jos lokalisointia -->
+        </div>
+        <div id="content" class="page-content">
+          <%= yield %>
+        </div>
+      </div>
 
-      <nav id="mainmenu" role="navigation">
-        <ul class="nav-bar" role="menu">
-          <li role="menuitem"><%= link_to "Listaa lomakkeet", visitation_forms_path %></li>
-          <li role="menuitem"><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>
-        </ul>
-      </nav>
     </div>
-  </div>
-</div>
 
-<!-- Content section -->
-<div id="main-area" role="main">
-  <div id="content-wrapper">
-    <div id="sidebar">
-      <ul>
-        <li><%= link_to "Lomakkeet", visitation_forms_path %></li>
-        <li><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>
-      </ul>
-    </div>
-    <div id="content" class="page-content">
-      <%= yield %>
-    </div>
-    <div class="clear"></div>
+
   </div>
   <div id="footer">
     ölölö
   </div>
 </div>
-
 
 </body>
 </html>
