@@ -24,6 +24,7 @@ class VisitationFormsController < ApplicationController
     end
 
     if (defined? params[:type] and !params[:type].nil?)
+      @header = t(params[:type])
       if(params[:type] == "submitted")
         @visitation_forms = forms.select { |f| f.sent == true }
       elsif (params[:type] == "unsubmitted")
@@ -31,6 +32,7 @@ class VisitationFormsController < ApplicationController
       end
     else
       @visitation_forms = forms
+      @header = t('forms')
     end
   end
 

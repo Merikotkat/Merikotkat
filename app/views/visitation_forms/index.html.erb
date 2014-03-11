@@ -1,4 +1,6 @@
-<h1>Lomakkeet</h1>
+<h1><%= @header %></h1>
+
+
 
 
 
@@ -33,8 +35,11 @@
       <th><%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %></th>
       <th><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %></th>
       <th><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %></th>
-      <th></th>
-      <th></th>
+
+      <% if @visitation_forms.count > 0 %>
+          <th></th>
+          <th></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -48,8 +53,11 @@
         <td><%= visitation_form.photographer_name %></td>
         <td><%= visitation_form.visit_date.strftime("%d.%m.%Y")  unless visitation_form.visit_date.nil?  %></td>
         <td><%= visitation_form.nest %></td>
-        <td><%= link_to t('show'), visitation_form %></td>
-        <td><%= link_to t('edit'), edit_visitation_form_path(visitation_form) %></td>
+
+        <% if @visitation_forms.count > 0 %>
+            <td><%= link_to t('show'), visitation_form %></td>
+            <td><%= link_to t('edit'), edit_visitation_form_path(visitation_form) %></td>
+        <% end %>
       </tr>
 
   <% end %>

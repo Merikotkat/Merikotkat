@@ -45,6 +45,7 @@ fi:
   error_date_invalid: "Virheellinen päivämäärä"
   submitted: "Lähetetyt"
   unsubmitted: "Tallennetut"
+  forms: "Lomakkeet"
   activerecord:
     attributes:
       visitation_form:
