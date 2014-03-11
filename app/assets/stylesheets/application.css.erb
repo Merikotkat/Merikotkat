@@ -661,27 +661,26 @@ html {
 }
 
 
-.fieldWithErrors input {
-    border: 1px #FF7373 dotted;
+
+
+.field_with_errors input {
+    border: 2px #FF7373 solid;
 }
 
-.errorExplanation {
+.field_with_errors label {
+    color: #990000;
+}
+
+#error_explanation {
     border: 1px #FF7373 dotted;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
-.formError {
-    color: #FF7373;
+#error_explanation h2 {
+    color: #990000;
 }
 
-.statusFalse {
-    color: #FF7373;
-}
-
-.statusTrue {
-    color: green;
-}
-
-:invalid {
-    background: yellow;
+form label {
+    display:block;
 }

@@ -49,7 +49,7 @@
 
     <%= f.hidden_field :photographer_id %>
     <div class="field">
-      <%= f.label :photographer_name %><br>
+      <%= f.label :photographer_name %>
       <%= f.text_field :photographer_name %>
 
       <button id="insert_name_button"><%= t('fill_own_info') %></button>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="field">
-      <%= f.label :visit_date %><br>
+      <%= f.label :visit_date %>
       <% if (f.object.visit_date.nil?) %>
           <%= f.text_field :visit_date %>
       <% else %>
@@ -70,31 +70,31 @@
     <h2><%= t('camera_info') %></h2>
 
     <div class="field">
-      <%= f.label :camera %><br>
+      <%= f.label :camera %>
       <%= f.text_field :camera %>
     </div>
     <div class="field">
-      <%= f.label :lens %><br>
+      <%= f.label :lens %>
       <%= f.text_field :lens %>
     </div>
     <div class="field">
-      <%= f.label :teleconverter %><br>
+      <%= f.label :teleconverter %>
       <%= f.text_field :teleconverter %>
     </div>
 
     <h2><%= t('nest_info') %></h2>
 
     <div class="field">
-      <%= f.label :nest_id %><br>
+      <%= f.label :nest_id %>
       <%= f.number_field :nest_id %>
     </div>
     <div class="field">
-      <%= f.label :municipality %><br>
+      <%= f.label :municipality %>
       <%= f.select :municipality, @municipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
     </div>
 
     <div class="field">
-      <%= f.label :nest %><br>
+      <%= f.label :nest %>
       <%= f.text_field :nest %>
     </div>
 
