@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   #todo REMOVE BEFORE PRODUCTION... SERIOUSLY!
   def set_rengastaja_role
-    if @user[:login_id] == 'admin_linssitest'
+    if !@user.nil?  && @user[:login_id] == 'admin_linssitest'
       @user[:type] = 'rengastaja'
     end
   end
