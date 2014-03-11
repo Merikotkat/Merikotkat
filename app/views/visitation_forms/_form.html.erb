@@ -102,49 +102,38 @@
 
 
 
-    <div id="emolinnut">
-      <div class="emolintu">
+    <div id="birds-div">
+      <div class="bird-div">
         <h2><%= t('bird') %> 1</h2>
         <div class="field">
           <%= label_tag "visitation_form[images][bird1_info][gender]", t('gender') %>
-          <%= text_field_tag "visitation_form[images][birds][bird1_info][gender]" %>
+          <%= text_field_tag "visitation_form[images][birds][bird1][info][gender]" %>
         </div>
         <div class="field">
-          <%= f.label"images[bird1][img1]", t('file') + " 1" %>
-          <%= f.file_field "images[birds][bird1][img1]" %>
+          <%= f.label"images[birds][bird1][files][img1]", t('file') %>
+          <%= f.file_field "images[birds][bird1][files][img1]" %>
         </div>
       </div>
-        <div class="emolintu">
-            <h2><%= t('bird') %> 2</h2>
-            <div class="field">
-              <%= label_tag "visitation_form[images][bird2_info][gender]", t('gender') %>
-              <%= text_field_tag "visitation_form[images][birds][bird2_info][gender]" %>
-            </div>
-            <div class="field">
-              <%= f.label "images[bird2][img1]", t('file') %>
-              <%= f.file_field "images[birds][bird2][img1]" %>
-            </div>
-        </div>
     </div>
     <br/>
 
-    <button type="button" id="addbird">Lisää lintu (+lokalisaatio)</button>
+    <button type="button" id="addbird"><%= t('add_bird') %></button>
     <script type="text/javascript">
         $(function() {
             $("#addbird").on("click", function () {
-                var lintunumero = $("#emolinnut .emolintu").length + 1;
-                var foo =
-                        '<div class="emolintu">' +
-                        '<h2>Emolintu ' + lintunumero + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + lintunumero + '_info_gender\">Sukupuoli</label>' +
-                        '<input id=\"visitation_form_images_bird' + lintunumero + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + lintunumero + '_info][gender]\">' +
+                var count = $("#birds-div .bird-div").length + 1;
+                var newDiv =
+                        '<div class="bird-div">' +
+                        '<h2><%= t('bird') %> ' + count + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + count + '_info_gender\"><%= t('gender') %></label>' +
+                        '<input id=\"visitation_form_images_bird' + count + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + count + '][info][gender]\">' +
                         '</div>' +
                         '<div class=\"field\">' +
-                        '<label for=\"visitation_form_images[bird' + lintunumero + '][img1]\">Tiedosto 1</label>' +
-                        '<input id=\"visitation_form_images[birds][bird' + lintunumero + '][img1]\" type=\"file\" name=\"visitation_form[images[birds][bird' + lintunumero + '][img1]]\">' +
+                        '<label for=\"visitation_form_images[bird' + count + '][img1]\"><%= t('file') %></label>' +
+                        '<input id=\"visitation_form_images[birds][bird' + count + '][img1]\" type=\"file\" name=\"visitation_form[images[birds][bird' + count + '][files][img1]]\">' +
                         '</div>' +
                         '</div>';
 
-                $("#emolinnut").append(foo);
+                $("#birds-div").append(newDiv);
             })
         });
 
