@@ -17,6 +17,11 @@ FactoryGirl.define do
     nest_id 268
     photographer_id 2890
     form_saver_id 2890
+  end
 
+  factory :user do
+    login_id '1'
+    user_name 'Pekka Murkka'
+    type 'admin'
   end
 end

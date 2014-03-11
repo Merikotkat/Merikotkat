@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
-  unless Rails.env.test?
+  if Rails.env.test?
+    session = { :user => '1', :user_type => 'admin', :user_name => 'Pekka Murkka'}
+    @user = {:login_id => session[:user], :type => session[:user_type], :user_name => session[:user_name]}
+  else
     include KoalaClient::Authentication
     before_filter :authentication_required
     before_filter :update_session_expiry

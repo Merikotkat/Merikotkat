@@ -22,6 +22,8 @@ Merikotkat::Application.routes.draw do
 
   get 'visitation_forms/list/:type' => 'visitation_forms#index'
 
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
