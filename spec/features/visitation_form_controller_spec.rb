@@ -21,8 +21,6 @@ describe VisitationForm do
 
     expect(tulos.count).to be(2)
 
-
-
   end
 
   it "user can't see all forms" do
