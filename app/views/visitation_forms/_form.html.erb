@@ -14,7 +14,7 @@
     <% end %>
 
 
-    <input id="fileupload" type="file" name="files[]" data-url="/images" multiple>
+    <input id="fileupload" type="file" name="files[]" data-url="/images" multiple="multiple" accept="image/*" />
 
     <%=javascript_include_tag('File-Upload/js/jquery.fileupload')  %>
     <%=javascript_include_tag('File-Upload/js/jquery.iframe-transport')  %>
@@ -141,7 +141,7 @@
         </div>
         <div class="field">
           <%= f.label"images[birds][bird1][files][img1]", t('file') %>
-          <%= f.file_field "images[birds][bird1][files][img1]" %>
+          <%= f.file_field "images[birds][bird1][files][img1]", accept: "image/*" %>
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@
                         '</div>' +
                         '<div class=\"field\">' +
                         '<label for=\"visitation_form_images[bird' + count + '][img1]\"><%= t('file') %></label>' +
-                        '<input id=\"visitation_form_images[birds][bird' + count + '][img1]\" type=\"file\" name=\"visitation_form[images[birds][bird' + count + '][files][img1]]\">' +
+                        '<input id=\"visitation_form_images[birds][bird' + count + '][img1]\" type=\"file\" accept=\"image/*\" name=\"visitation_form[images[birds][bird' + count + '][files][img1]]\">' +
                         '</div>' +
                         '</div>';
 
@@ -173,20 +173,20 @@
 
     <div class="field">
       <%= f.label "images[young][img1]", t('file') %>
-      <%= f.file_field "images[young][img1]" %>
+      <%= f.file_field "images[young][img1]", accept: "image/*" %>
     </div>
 
     <h2><%= t('nest_images') %></h2>
 
     <div class="field">
       <%= f.label "images[nest][img1]", t('file') %>
-      <%= f.file_field "images[nest][img1]" %>
+      <%= f.file_field "images[nest][img1]", accept: "image/*" %>
     </div>
 
     <h2><%= t('landscape_images') %></h2>
     <div class="field">
       <%= f.label "images[landscape][img1]", t('file') %>
-      <%= f.file_field "images[landscape][img1]" %>
+      <%= f.file_field "images[landscape][img1]", accept: "image/*" %>
     </div>
 
 
