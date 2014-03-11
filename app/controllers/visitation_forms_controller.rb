@@ -1,5 +1,18 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission, except: [:index, :new, :create]
+
+
+  def check_permission
+    puts @visitation_form.form_saver_id
+
+    if @user[:type] != 'admin' && @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
+      #todo clean this mess up
+      puts 'faail'
+      redirect_to 'hurr'
+    end
+  end
+
 
   # GET /visitation_forms
   # GET /visitation_forms.json
@@ -14,7 +27,7 @@ class VisitationFormsController < ApplicationController
       if(params[:type] == "submitted")
         @visitation_forms = forms.select { |f| f.sent == true }
       elsif (params[:type] == "unsubmitted")
-        @visitation_forms = forms.select { |f| f.sent == false }
+        @visitation_forms = forms.select { |f| f.sent != true }
       end
     else
       @visitation_forms = forms
@@ -38,6 +51,7 @@ class VisitationFormsController < ApplicationController
 
   # GET /visitation_forms/1/edit
   def edit
+
   end
 
   # POST /visitation_forms
@@ -58,6 +72,8 @@ class VisitationFormsController < ApplicationController
   end
 
   def save_form
+    @visitation_form.sent = false
+
     # first save without validation
     if @visitation_form.save :validate => false
       # upload images now that our form has an ID
@@ -100,7 +116,26 @@ class VisitationFormsController < ApplicationController
 
   def upload_images(form_id)
     # Bird 1
-    unless params[:visitation_form][:images][:bird1].nil?
+
+
+    #unless params[:visitation_form][:images][:birds].nil?
+    #  params[:visitation_form][:images][:birds].each do |name, data|
+    #    img = Image.new
+    #    img.visitation_form_id = form_id
+    #    img.gender = params[:visitation_form][:images][:bird1_info][:gender]
+    #    img.filename = data.original_filename
+    #    img.data = data.read
+    #
+    #    img.image_type = 1
+    #
+    #    img.save
+    #  end
+    #end
+
+
+    puts params[:visitation_form][:images][:birds].inspect
+
+    unless params[:visitation_form][:images][:bird].nil?
       params[:visitation_form][:images][:bird1].each do |name, data|
         img = Image.new
         img.visitation_form_id = form_id
