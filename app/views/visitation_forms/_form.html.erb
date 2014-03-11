@@ -14,6 +14,34 @@
     <% end %>
 
 
+    <input id="fileupload" type="file" name="files[]" data-url="/images" multiple>
+
+    <%=javascript_include_tag('File-Upload/js/jquery.fileupload')  %>
+    <%=javascript_include_tag('File-Upload/js/jquery.iframe-transport')  %>
+
+    <script>
+        $(function () {
+            $('#fileupload').fileupload({
+                formData: {uuid: '<%= @uuid %>'},
+                dataType: 'json',
+                beforeSend: function(xhr)
+                {xhr.setRequestHeader('X-CSRF-Token',
+                        $('meta[name="csrf-token"]').attr('content'))},
+
+                done: function (e, data) {
+                    $.each(data.result.files, function (index, file) {
+                        $('<p/>').text(file.name).appendTo($('#lolcat'));
+                    });
+                }
+            });
+        });
+    </script>
+
+    <div id="lolcat">
+
+    </div>
+
+
     <script type="text/javascript">
         $(function() {
             $("#visitation_form_photographer_name").autocomplete({
@@ -46,6 +74,8 @@
     <%#= f.label :photographer_id, t('photographer_id') %>
     <%#= f.text_field :photographer_id %>
     <!--</div>-->
+
+    <%= f.text_field :uuid, value: @uuid %>
 
     <%= f.hidden_field :photographer_id %>
     <div class="field">

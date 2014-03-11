@@ -1,3 +1,4 @@
+
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy, :delete]
 
@@ -24,17 +25,31 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    @image = Image.new(image_params)
+    unless params[:files].nil?
+      params[:files].each do |data|
+        img = Image.new
+        img.filename = data.original_filename
+        img.data = data.read
+        img.upload_id = params[:uuid]
 
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to @image, notice: 'Image was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @image }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
+        img.image_type = 1
+
+        img.save
       end
     end
+
+    render json: {files: [
+        {
+            name: "lolcat",
+            size: 902604,
+            url: "http:\/\/example.org\/files\/picture1.jpg",
+            thumbnailUrl: "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
+            deleteUrl: "http:\/\/example.org\/files\/picture1.jpg",
+            deleteType: "DELETE"
+        }
+    ]
+    }
+
   end
 
   # PATCH/PUT /images/1
@@ -64,6 +79,11 @@ class ImagesController < ApplicationController
     @image.destroy
     redirect_to visitation_form_path(form_id)
   end
+
+
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

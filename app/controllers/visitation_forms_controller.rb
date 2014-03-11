@@ -28,6 +28,7 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
+
     if @user[:type] == 'admin'
       forms = VisitationForm.all
     else
@@ -59,6 +60,7 @@ class VisitationFormsController < ApplicationController
 
   # GET /visitation_forms/new
   def new
+    @uuid = SecureRandom.uuid
     @visitation_form = VisitationForm.new
   end
 

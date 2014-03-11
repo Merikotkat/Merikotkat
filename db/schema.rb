@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140220084759) do
+ActiveRecord::Schema.define(version: 20140311143934) do
 
   create_table "images", force: true do |t|
     t.string   "filename"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140220084759) do
     t.string   "right_ring_code"
     t.string   "right_ring_color"
     t.integer  "image_type"
+    t.string   "upload_id"
   end
 
   add_index "images", ["visitation_form_id"], name: "index_images_on_visitation_form_id"

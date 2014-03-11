@@ -125,6 +125,7 @@ describe VisitationForm do
     formi.photographer_id = 2890
     formi.form_saver_id = 2890
     formi.images << Image.create
+
     formi.save
     return formi
 
