@@ -14,7 +14,7 @@ class VisitationFormsController < ApplicationController
       if(params[:type] == "submitted")
         @visitation_forms = forms.select { |f| f.sent == true }
       elsif (params[:type] == "unsubmitted")
-        @visitation_forms = forms.select { |f| f.sent == false }
+        @visitation_forms = forms.select { |f| f.sent != true }
       end
     else
       @visitation_forms = forms
