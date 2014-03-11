@@ -42,8 +42,8 @@ class VisitationFormsController < ApplicationController
         @visitation_forms = forms.select { |f| f.sent != true }
       end
     else
-      @visitation_forms = forms
       @header = t('forms')
+      @visitation_forms = forms
     end
   end
 
