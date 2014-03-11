@@ -21,6 +21,7 @@ fi:
   file: "Tiedosto"
   add_file: "Lisää tiedosto"
   add_image: "Lisää kuva"
+  add_bird: "Lisää lintu"
   images: "Kuvat"
   form_status: "Lomakkeen tila:"
   form_not_sent: "Lomaketta ei ole lähetetty"
@@ -45,6 +46,7 @@ fi:
   error_date_invalid: "Virheellinen päivämäärä"
   submitted: "Lähetetyt"
   unsubmitted: "Tallennetut"
+  forms: "Lomakkeet"
   activerecord:
     attributes:
       visitation_form:

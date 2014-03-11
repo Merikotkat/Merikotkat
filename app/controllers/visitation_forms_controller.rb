@@ -1,5 +1,5 @@
 class VisitationFormsController < ApplicationController
-  before_action :set_visitation_form, only: [:show, :edit, :update, :destroy]
+  before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form]
   before_action :check_permission, except: [:index, :new, :create]
 
   if Rails.env.test?
@@ -17,8 +17,6 @@ class VisitationFormsController < ApplicationController
 
 
   def check_permission
-    puts @visitation_form.form_saver_id
-
     if @user[:type] != 'admin' && @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
       #todo clean this mess up
       puts 'faail'
@@ -37,6 +35,7 @@ class VisitationFormsController < ApplicationController
     end
 
     if (defined? params[:type] and !params[:type].nil?)
+      @header = t(params[:type])
       if(params[:type] == "submitted")
         @visitation_forms = forms.select { |f| f.sent == true }
       elsif (params[:type] == "unsubmitted")
@@ -44,6 +43,7 @@ class VisitationFormsController < ApplicationController
       end
     else
       @visitation_forms = forms
+      @header = t('forms')
     end
   end
 
@@ -111,7 +111,6 @@ class VisitationFormsController < ApplicationController
   end
 
   def submit_form
-    @visitation_form = VisitationForm.find(params[:id])
     @visitation_form.sent = true
     if @visitation_form.save
       redirect_to @visitation_form
@@ -121,59 +120,30 @@ class VisitationFormsController < ApplicationController
   end
 
   def unsubmit_form
-    form = VisitationForm.find(params[:id])
-    form.sent = false
-    form.save validate: false
-    redirect_to form
+    @visitation_form.sent = false
+    @visitation_form.save validate: false
+    redirect_to @visitation_form
   end
 
   def upload_images(form_id)
-    # Bird 1
+    # Birds
+    unless params[:visitation_form][:images][:birds].nil?
+      params[:visitation_form][:images][:birds].each do |key, bird|
+        info = bird[:info]
 
+        unless bird[:files].nil?
+          bird[:files].each do |name, data|
+            img = Image.new
+            img.visitation_form_id = form_id
+            img.gender = info[:gender]
+            img.filename = data.original_filename
+            img.data = data.read
 
-    #unless params[:visitation_form][:images][:birds].nil?
-    #  params[:visitation_form][:images][:birds].each do |name, data|
-    #    img = Image.new
-    #    img.visitation_form_id = form_id
-    #    img.gender = params[:visitation_form][:images][:bird1_info][:gender]
-    #    img.filename = data.original_filename
-    #    img.data = data.read
-    #
-    #    img.image_type = 1
-    #
-    #    img.save
-    #  end
-    #end
+            img.image_type = 1
 
-
-    puts params[:visitation_form][:images][:birds].inspect
-
-    unless params[:visitation_form][:images][:bird].nil?
-      params[:visitation_form][:images][:bird1].each do |name, data|
-        img = Image.new
-        img.visitation_form_id = form_id
-        img.gender = params[:visitation_form][:images][:bird1_info][:gender]
-        img.filename = data.original_filename
-        img.data = data.read
-
-        img.image_type = 1
-
-        img.save
-      end
-    end
-
-    # Bird 2
-    unless params[:visitation_form][:images][:bird2].nil?
-      params[:visitation_form][:images][:bird2].each do |name, data|
-        img = Image.new
-        img.visitation_form_id = form_id
-        img.gender = params[:visitation_form][:images][:bird2_info][:gender]
-        img.filename = data.original_filename
-        img.data = data.read
-
-        img.image_type = 2
-
-        img.save
+            img.save
+          end
+        end
       end
     end
 
