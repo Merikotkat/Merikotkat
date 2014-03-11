@@ -116,7 +116,26 @@ class VisitationFormsController < ApplicationController
 
   def upload_images(form_id)
     # Bird 1
-    unless params[:visitation_form][:images][:bird1].nil?
+
+
+    #unless params[:visitation_form][:images][:birds].nil?
+    #  params[:visitation_form][:images][:birds].each do |name, data|
+    #    img = Image.new
+    #    img.visitation_form_id = form_id
+    #    img.gender = params[:visitation_form][:images][:bird1_info][:gender]
+    #    img.filename = data.original_filename
+    #    img.data = data.read
+    #
+    #    img.image_type = 1
+    #
+    #    img.save
+    #  end
+    #end
+
+
+    puts params[:visitation_form][:images][:birds].inspect
+
+    unless params[:visitation_form][:images][:bird].nil?
       params[:visitation_form][:images][:bird1].each do |name, data|
         img = Image.new
         img.visitation_form_id = form_id

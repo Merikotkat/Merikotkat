@@ -98,29 +98,57 @@
       <%= f.text_field :nest %>
     </div>
 
-    <h2><%= t('bird') %> 1</h2>
 
-    <div class="field">
-      <%= label_tag "visitation_form[images][bird1_info][gender]", t('gender') %>
-      <%= text_field_tag "visitation_form[images][bird1_info][gender]" %>
+
+
+
+    <div id="emolinnut">
+      <div class="emolintu">
+        <h2><%= t('bird') %> 1</h2>
+        <div class="field">
+          <%= label_tag "visitation_form[images][bird1_info][gender]", t('gender') %>
+          <%= text_field_tag "visitation_form[images][birds][bird1_info][gender]" %>
+        </div>
+        <div class="field">
+          <%= f.label"images[bird1][img1]", t('file') + " 1" %>
+          <%= f.file_field "images[birds][bird1][img1]" %>
+        </div>
+      </div>
+        <div class="emolintu">
+            <h2><%= t('bird') %> 2</h2>
+            <div class="field">
+              <%= label_tag "visitation_form[images][bird2_info][gender]", t('gender') %>
+              <%= text_field_tag "visitation_form[images][birds][bird2_info][gender]" %>
+            </div>
+            <div class="field">
+              <%= f.label "images[bird2][img1]", t('file') %>
+              <%= f.file_field "images[birds][bird2][img1]" %>
+            </div>
+        </div>
     </div>
+    <br/>
 
-    <div class="field">
-      <%= f.label"images[bird1][img1]", t('file') + " 1" %>
-      <%= f.file_field "images[bird1][img1]" %>
-    </div>
+    <button type="button" id="addbird">Lisää lintu (+lokalisaatio)</button>
+    <script type="text/javascript">
+        $(function() {
+            $("#addbird").on("click", function () {
+                var lintunumero = $("#emolinnut .emolintu").length + 1;
+                var foo =
+                        '<div class="emolintu">' +
+                        '<h2>Emolintu ' + lintunumero + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + lintunumero + '_info_gender\">Sukupuoli</label>' +
+                        '<input id=\"visitation_form_images_bird' + lintunumero + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + lintunumero + '_info][gender]\">' +
+                        '</div>' +
+                        '<div class=\"field\">' +
+                        '<label for=\"visitation_form_images[bird' + lintunumero + '][img1]\">Tiedosto 1</label>' +
+                        '<input id=\"visitation_form_images[birds][bird' + lintunumero + '][img1]\" type=\"file\" name=\"visitation_form[images[birds][bird' + lintunumero + '][img1]]\">' +
+                        '</div>' +
+                        '</div>';
 
-    <h2><%= t('bird') %> 2</h2>
+                $("#emolinnut").append(foo);
+            })
+        });
 
-    <div class="field">
-      <%= label_tag "visitation_form[images][bird2_info][gender]", t('gender') %>
-      <%= text_field_tag "visitation_form[images][bird2_info][gender]" %>
-    </div>
-
-    <div class="field">
-      <%= f.label "images[bird2][img1]", t('file') %>
-      <%= f.file_field "images[bird2][img1]" %>
-    </div>
+    </script>
 
     <h2><%= t('young_images') %></h2>
 
