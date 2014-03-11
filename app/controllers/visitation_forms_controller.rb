@@ -72,6 +72,8 @@ class VisitationFormsController < ApplicationController
   end
 
   def save_form
+    @visitation_form.sent = false
+
     # first save without validation
     if @visitation_form.save :validate => false
       # upload images now that our form has an ID

@@ -46,7 +46,7 @@
 
       <tr>
         <td><%= visitation_form.photographer_name %></td>
-        <td><%= visitation_form.visit_date.strftime("%d.%m.%Y")  %></td>
+        <td><%= visitation_form.visit_date.strftime("%d.%m.%Y")  unless visitation_form.visit_date.nil?  %></td>
         <td><%= visitation_form.nest %></td>
         <td><%= link_to t('show'), visitation_form %></td>
         <td><%= link_to t('edit'), edit_visitation_form_path(visitation_form) %></td>
