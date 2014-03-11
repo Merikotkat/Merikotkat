@@ -2,6 +2,19 @@ class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, except: [:index, :new, :create]
 
+  if Rails.env.test?
+    before_action :set_municipalities_api_test
+  else
+    before_action :set_municipalities_api_prod
+  end
+
+  def set_municipalities_api_prod
+    @municipalities = TipuApiHelper.GetMunicipalities
+  end
+  def set_municipalities_api_test
+    @municipalities = TipuApiHelperMock.GetMunicipalities
+  end
+
 
   def check_permission
     puts @visitation_form.form_saver_id

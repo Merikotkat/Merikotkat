@@ -90,7 +90,7 @@
     </div>
     <div class="field">
       <%= f.label :municipality %><br>
-      <%= f.select :municipality, TipuApiHelper.GetMunicipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
+      <%= f.select :municipality, @municipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
     </div>
 
     <div class="field">
