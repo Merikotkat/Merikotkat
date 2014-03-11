@@ -12,7 +12,12 @@ class VisitationForm < ActiveRecord::Base
 
   validates :photographer_id, presence: { message: I18n.t('error_must_be_present') }
   validate do |form|
-    ringers = TipuApiHelper.GetRingerById(form.photographer_id)
+    if Rails.env.test?
+      ringers = TipuApiHelperMock.GetRingerById(form.photographer_id)
+    else
+      ringers = TipuApiHelper.GetRingerById(form.photographer_id)
+    end
+
     if !ringers['ringers']['ringer']
       form.errors[:photographer_id] << I18n.t('error_invalid_photographer_id')
     end

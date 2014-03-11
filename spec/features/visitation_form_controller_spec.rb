@@ -1,6 +1,9 @@
 require 'spec_helper'
 require 'byebug'
 
+# Use 1010 or 2890 for valid photographer/saver ids
+
+
 describe VisitationForm do
 
   it "admin can see all forms" do

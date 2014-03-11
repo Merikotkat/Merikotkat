@@ -19,4 +19,16 @@ class TipuApiHelperMock
              {"id"=>"ASIKKA", "ely-centre"=>{"content"=>3, "name"=>"Hämeen ELY"}, "centerpoint-lat"=>61.216671, "old-county"=>{"content"=>4, "name"=>"HÄME, FINLAND"}, "joined-to"=>"ASIKKA", "centerpoint-lon"=>25.5833302, "name"=>[{"content"=>"ASIKKALA", "lang"=>"FI"}, {"content"=>"ASIKKALA", "lang"=>"SV"}], "province"=>{"content"=>7, "name"=>"Päijät-Häme"}, "radius"=>25, "merikotka-suuralue"=>"N"},
              {"id"=>"HELSIN", "ely-centre"=>{"content"=>3, "name"=>"Hurrdurr ELY"}, "centerpoint-lat"=>61.216671, "old-county"=>{"content"=>4, "name"=>"UUSIMAA, FINLAND"}, "joined-to"=>"", "centerpoint-lon"=>25.5833302, "name"=>[{"content"=>"HELSINKI", "lang"=>"FI"}, {"content"=>"HELSINGFORS", "lang"=>"SV"}], "province"=>{"content"=>7, "name"=>"Päijät-Häme"}, "radius"=>25, "merikotka-suuralue"=>"N"}]
   end
+
+  # not very pretty, but its a mock class, so like, whatever
+  def self.GetRingerById(ringer_id)
+    if ringer_id == 2890
+      return {"ringers"=>{"ringer"=>{"id"=>2890, "mobile-phone"=>"", "recovery-letter-method"=>"kihla", "yearofbirth"=>1983, "email"=>"aallonmatti@hotmail.com", "address"=>{"street"=>"KORPELANTIE 153", "postcode"=>42800, "city"=>"HAAPAMÄKI"}, "name"=>"MATTI AALTO (2890)", "permit"=>{"content"=>"R: Larfus, fl / Perinf", "codes"=>"HR", "year"=>2014}, "lastname"=>"AALTO", "permission"=>1, "firstname"=>"MATTI", "language"=>"fi"}}}
+    end
+    if ringer_id == 1010
+      return {"ringers"=>{"ringer"=>{"id"=>1010, "mobile-phone"=>"", "recovery-letter-method"=>"paper", "yearofbirth"=>"", "email"=>"", "address"=>{"street"=>"", "postcode"=>"", "city"=>""}, "name"=>"MATTI AHO (1010)", "permit"=>{"codes"=>"", "year"=>""}, "lastname"=>"AHO", "permission"=>0, "firstname"=>"MATTI", "language"=>"fi"}}}
+    end
+    return {"ringers"=>""}
+  end
+
 end
