@@ -54,7 +54,9 @@ class ImagesController < ApplicationController
   # DELETE /images/1
   # DELETE /images/1.json
   def destroy
+    form_id = @image.visitation_form_id
     @image.destroy
+    redirect_to visitation_form_path(form_id)
   end
 
   def delete

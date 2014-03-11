@@ -1,5 +1,15 @@
+require 'digest/md5'
+
 class Image < ActiveRecord::Base
   belongs_to :visitation_form
+
+  before_validation :calculate_md5
+
+  validates :checksum, uniqueness: true
+
+  def calculate_md5
+    self.checksum = Digest::MD5.hexdigest(self.data)
+  end
 
   # Create temporary image files for all the form's images, and return the paths in an array
   def self.get_all_images(form_id)
@@ -38,7 +48,7 @@ class Image < ActiveRecord::Base
   end
 
   def self.get_images_of_type(form_id, type)
-    images = Image.find_all_by_visitation_form_id form_id
+    images = Image.where "visitation_form_id = ?", form_id
 
     arr = Array.new
 
