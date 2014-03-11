@@ -1,5 +1,18 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission, except: [:index, :new, :create]
+
+
+  def check_permission
+    puts @visitation_form.form_saver_id
+
+    if @user[:type] != 'admin' && @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
+      #todo clean this mess up
+      puts 'faail'
+      redirect_to 'hurr'
+    end
+  end
+
 
   # GET /visitation_forms
   # GET /visitation_forms.json
@@ -38,6 +51,7 @@ class VisitationFormsController < ApplicationController
 
   # GET /visitation_forms/1/edit
   def edit
+
   end
 
   # POST /visitation_forms
