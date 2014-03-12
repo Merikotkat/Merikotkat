@@ -24,14 +24,17 @@
             $('#fileupload').fileupload({
                 formData: {uuid: '<%= @uuid %>'},
                 dataType: 'json',
-                beforeSend: function(xhr)
-                {xhr.setRequestHeader('X-CSRF-Token',
-                        $('meta[name="csrf-token"]').attr('content'))},
-
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                },
                 done: function (e, data) {
                     $.each(data.result.files, function (index, file) {
                         $('<p/>').text(file.name).appendTo($('#lolcat'));
                     });
+                },
+                error: function(xhr) {
+                    var json = $.parseJSON(xhr.responseText);
+                    alert("Something went wrong\n" + json.errors);
                 }
             });
         });

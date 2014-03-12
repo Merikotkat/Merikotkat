@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
     @user = {:login_id => session[:user], :type => session[:user_type], :user_name => session[:user_name]}
   else
     include KoalaClient::Authentication
-    before_filter :authentication_required
     before_filter :update_session_expiry
+    before_filter :authentication_required
     before_filter :set_rengastaja_role
   end
 

@@ -37,7 +37,9 @@ class ImagesController < ApplicationController
 
         img.image_type = 1
 
-        img.save
+        if !img.save
+          render :json => { :errors => img.errors.full_messages }, :status => 400 and return
+        end
       end
     end
 
