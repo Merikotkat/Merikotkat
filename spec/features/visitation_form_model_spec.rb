@@ -65,7 +65,11 @@ describe VisitationForm do
     formi.nest_id = 268
     formi.photographer_id = 2890
     formi.form_saver_id = 2890
-    formi.images << Image.create
+
+    image = Image.new
+    image.data = SecureRandom.uuid  # Create random image to prevent md5sum from failing all tests
+    formi.images << image
+
     formi.save
     return formi
 
