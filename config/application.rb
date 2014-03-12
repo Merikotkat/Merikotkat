@@ -22,5 +22,8 @@ module Merikotkat
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :fi
     config.cache_store = :memory_store  # hope this doesnt break anything else...
+
+    #todo not needed for production hopefully...
+    ENV['PATH'] += File::PATH_SEPARATOR + 'C:\Program Files\ImageMagick-6.8.8-Q16'
   end
 end

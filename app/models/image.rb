@@ -19,7 +19,7 @@ class Image < ActiveRecord::Base
 
     img_index = 0
     form.images.each do |img|
-      File.open('public/images/temp' + img_index.to_s, 'wb') { |file| file.write(img.data) }
+      File.open('public/images/temp' + img_index.to_s, 'wb') { |file| file.write(img.thumbnaildata.nil? ? img.data : img.thumbnaildata) }
       arr.push ( {:id => img.id, :original_filename => img.filename, :temp_path => 'temp' + img_index.to_s} )
       img_index += 1
     end
@@ -58,7 +58,7 @@ class Image < ActiveRecord::Base
       if img.image_type == type
         temp_folder = 'public/images/'
         temp_filename = 'temp' + type.to_s + img_index.to_s
-        File.open(temp_folder + temp_filename, 'wb') { |file| file.write(img.data) }
+        File.open(temp_folder + temp_filename, 'wb') { |file| file.write(img.thumbnaildata.nil? ? img.data : img.thumbnaildata) }
         arr.push ( {:id => img.id, :gender => img.gender, :original_filename => img.filename, :temp_path => temp_filename} )
         img_index += 1
       end

@@ -30,6 +30,9 @@ class ImagesController < ApplicationController
         img = Image.new
         img.filename = data.original_filename
         img.data = data.read
+        image = MiniMagick::Image.read(img.data)
+        image.resize "x150"
+        img.thumbnaildata = image.to_blob
         img.upload_id = params[:uuid]
 
         img.image_type = 1

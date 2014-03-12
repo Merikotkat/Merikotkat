@@ -140,7 +140,9 @@ class VisitationFormsController < ApplicationController
             img.gender = info[:gender]
             img.filename = data.original_filename
             img.data = data.read
-
+            image = MiniMagick::Image.read(img.data)
+            image.resize "x150"
+            img.thumbnaildata = image.to_blob
             img.image_type = 1
 
             img.save
@@ -156,7 +158,9 @@ class VisitationFormsController < ApplicationController
         img.visitation_form_id = form_id
         img.filename = data.original_filename
         img.data = data.read
-
+        image = MiniMagick::Image.read(img.data)
+        image.resize "x150"
+        img.thumbnaildata = image.to_blob
         img.image_type = 3
 
         img.save
@@ -170,7 +174,9 @@ class VisitationFormsController < ApplicationController
         img.visitation_form_id = form_id
         img.filename = data.original_filename
         img.data = data.read
-
+        image = MiniMagick::Image.read(img.data)
+        image.resize "x150"
+        img.thumbnaildata = image.to_blob
         img.image_type = 4
 
         img.save
@@ -184,7 +190,9 @@ class VisitationFormsController < ApplicationController
         img.visitation_form_id = form_id
         img.filename = data.original_filename
         img.data = data.read
-
+        image = MiniMagick::Image.read(img.data)
+        image.resize "x150"
+        img.thumbnaildata = image.to_blob
         img.image_type = 5
 
         img.save
