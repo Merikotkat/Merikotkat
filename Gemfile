@@ -45,6 +45,8 @@ end
 gem 'rspec'
 gem 'hpricot'
 gem 'activeresource'
+gem "mini_magick"
+
 group :production do 
   gem 'ruby-oci8'
   gem 'activerecord-oracle_enhanced-adapter'
