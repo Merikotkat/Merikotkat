@@ -9,7 +9,7 @@ class Image < ActiveRecord::Base
   validates :checksum, uniqueness: true
   validate do |image|
     extension = File.extname(image.filename)
-    accepted_formats = [".png", ".jpg", ".gif"]
+    accepted_formats = [".png", ".jpg"]
     if !accepted_formats.include? extension
       image.errors[:filename] << "Unsupported file type " + extension
     end
