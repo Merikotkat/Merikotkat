@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312152318) do
+ActiveRecord::Schema.define(version: 20140313090829) do
 
   create_table "images", force: true do |t|
     t.string   "filename"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20140312152318) do
     t.integer  "image_type"
     t.string   "upload_id"
     t.binary   "thumbnaildata"
+    t.string   "content_type"
   end
 
   add_index "images", ["visitation_form_id"], name: "index_images_on_visitation_form_id"

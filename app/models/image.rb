@@ -4,11 +4,18 @@ class Image < ActiveRecord::Base
   belongs_to :visitation_form
 
   before_validation :calculate_md5
+  before_save :create_thumbnail
 
   validates :checksum, uniqueness: true
 
   def calculate_md5
     self.checksum = Digest::MD5.hexdigest(self.data)
+  end
+
+  def create_thumbnail
+    image = MiniMagick::Image.read(self.data)
+    image.resize "x150"
+    self.thumbnaildata = image.to_blob
   end
 
   # Create temporary image files for all the form's images, and return the paths in an array

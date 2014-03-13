@@ -1,10 +1,10 @@
-
+<%=javascript_include_tag('File-Upload/js/jquery.fileupload')  %>
+<%=javascript_include_tag('File-Upload/js/jquery.iframe-transport')  %>
 
 <%= form_for(@visitation_form, multipart: true) do |f| %>
     <% if @visitation_form.errors.any? %>
         <div id="error_explanation">
           <h2><%= t('errors_in_form') %></h2>
-
           <ul>
             <% @visitation_form.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
@@ -13,70 +13,6 @@
         </div>
     <% end %>
 
-
-    <input id="fileupload" type="file" name="files[]" data-url="/images" multiple="multiple" accept="image/*" />
-
-    <%=javascript_include_tag('File-Upload/js/jquery.fileupload')  %>
-    <%=javascript_include_tag('File-Upload/js/jquery.iframe-transport')  %>
-
-    <script>
-        $(function () {
-            $('#fileupload').fileupload({
-                formData: {uuid: '<%= @uuid %>'},
-                dataType: 'json',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-                },
-                done: function (e, data) {
-                    $.each(data.result.files, function (index, file) {
-                        $('<p/>').text(file.name).appendTo($('#lolcat'));
-                    });
-                },
-                error: function(xhr) {
-                    var json = $.parseJSON(xhr.responseText);
-                    alert("Something went wrong\n" + json.errors);
-                }
-            });
-        });
-    </script>
-
-    <div id="lolcat">
-
-    </div>
-
-
-    <script type="text/javascript">
-        $(function() {
-            $("#visitation_form_photographer_name").autocomplete({
-                source: function( request, response ) {
-                    $.ajax({
-                        url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + $("#visitation_form_photographer_name").val(),
-                        success: function( data ) {
-                            if(data.ringers != ''){
-                                response( $.map( data.ringers.ringer, function( item ) {
-                                    return {
-                                        label: item.name,
-                                        value: item.id
-                                    }
-                                }));
-                            }
-                        }
-                    });
-                },
-                minLength: 3,
-                select: function( event, ui ) {
-                    $("#visitation_form_photographer_id").val(ui.item.value);
-                    $("#visitation_form_photographer_name").val(ui.item.label);
-                    return false; // prevent jquery from setting hurr to value...
-                }
-            });
-        });
-    </script>
-
-    <!--<div class="field"><br>-->
-    <%#= f.label :photographer_id, t('photographer_id') %>
-    <%#= f.text_field :photographer_id %>
-    <!--</div>-->
 
     <%= f.text_field :uuid, value: @uuid %>
 
@@ -96,8 +32,6 @@
       <% else %>
           <%= f.text_field :visit_date, value: f.object.visit_date.strftime("%d.%m.%Y") %>
       <% end %>
-
-
     </div>
 
     <h2><%= t('camera_info') %></h2>
@@ -137,61 +71,54 @@
 
     <div id="birds-div">
       <div class="bird-div">
-        <h2><%= t('bird') %> 1</h2>
-        <div class="field">
-          <%= label_tag "visitation_form[images][bird1_info][gender]", t('gender') %>
-          <%= text_field_tag "visitation_form[images][birds][bird1][info][gender]" %>
-        </div>
-        <div class="field">
-          <%= f.label"images[birds][bird1][files][img1]", t('file') %>
-          <%= f.file_field "images[birds][bird1][files][img1]", accept: "image/*" %>
+        <div class="birds" id="birds_1">
+          <h2><%= t('bird') %> 1</h2>
+          <div class="field">
+            <%= label_tag "visitation_form[images][bird1_info][gender]", t('gender') %>
+            <%= text_field_tag "visitation_form[images][birds][bird1][info][gender]" %>
+          </div>
+          <div class="field">
+            <%= f.label"images[birds][bird1][files][img1]", t('file') %>
+            <input class="fileupload" type="file" name="files[]" data-url="/images" data-image-type="1" multiple="multiple" accept="image/*" />
+          </div>
+          <div class="images"></div>
         </div>
       </div>
     </div>
-    <br/>
-
     <button type="button" id="addbird"><%= t('add_bird') %></button>
-    <script type="text/javascript">
-        $(function() {
-            $("#addbird").on("click", function () {
-                var count = $("#birds-div .bird-div").length + 1;
-                var newDiv =
-                        '<div class="bird-div">' +
-                        '<h2><%= t('bird') %> ' + count + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + count + '_info_gender\"><%= t('gender') %></label>' +
-                        '<input id=\"visitation_form_images_bird' + count + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + count + '][info][gender]\">' +
-                        '</div>' +
-                        '<div class=\"field\">' +
-                        '<label for=\"visitation_form_images[bird' + count + '][img1]\"><%= t('file') %></label>' +
-                        '<input id=\"visitation_form_images[birds][bird' + count + '][img1]\" type=\"file\" accept=\"image/*\" name=\"visitation_form[images[birds][bird' + count + '][files][img1]]\">' +
-                        '</div>' +
-                        '</div>';
 
-                $("#birds-div").append(newDiv);
-            })
-        });
 
-    </script>
-
-    <h2><%= t('young_images') %></h2>
-
-    <div class="field">
-      <%= f.label "images[young][img1]", t('file') %>
-      <%= f.file_field "images[young][img1]", accept: "image/*" %>
+    <div class="birds" id="birds_3">
+      <h2><%= t('young_images') %></h2>
+      <div class="field">
+        <%= f.label "images[young][img1]", t('file') %>
+        <input class="fileupload" type="file" name="files[]" data-url="/images" data-image-type="3" multiple="multiple" accept="image/*" />
+      </div>
+      <div class="images"></div>
     </div>
 
-    <h2><%= t('nest_images') %></h2>
 
-    <div class="field">
-      <%= f.label "images[nest][img1]", t('file') %>
-      <%= f.file_field "images[nest][img1]", accept: "image/*" %>
+    <div class="birds" id="birds_5">
+      <h2><%= t('nest_images') %></h2>
+      <div class="field">
+        <%= f.label "images[nest][img1]", t('file') %>
+        <input class="fileupload" type="file" name="files[]" data-url="/images" data-image-type="5" multiple="multiple" accept="image/*" />
+      </div>
+      <div class="images"></div>
     </div>
 
-    <h2><%= t('landscape_images') %></h2>
-    <div class="field">
-      <%= f.label "images[landscape][img1]", t('file') %>
-      <%= f.file_field "images[landscape][img1]", accept: "image/*" %>
+
+    <div class="birds" id="birds_4">
+      <h2><%= t('landscape_images') %></h2>
+      <div class="field" >
+        <%= f.label "images[landscape][img1]", t('file') %>
+        <input class="fileupload" type="file" name="files[]" data-url="/images" data-image-type="4" multiple="multiple" accept="image/*" />
+      </div>
+      <div class="images"></div>
     </div>
 
+
+    <div id="lolcat"></div>
 
 
     <div class="actions">
@@ -199,35 +126,99 @@
       <%= f.submit(t('submit_visitation_form'), :name => 'submit') %>
     </div>
 
-    <script>
-        $("#insert_name_button").on("click", function (e) {
-            e.preventDefault();
-            var userid = "<%= @user[:login_id] %>";
-            var username = "<%= @user[:user_name] %>";
-            $("#visitation_form_photographer_name").val(username + " (" + userid + ")");
-            $("#visitation_form_photographer_id").val(userid);
-        });
 
-        // Id needs to be cleared if not a valid photographer
-        $("#visitation_form_photographer_name").on("keyup", function (e) {
-            $("#visitation_form_photographer_id").val('');
-        });
-
-        // Forcing nest id to only numbers
-        $('#visitation_form_nest_id').on("keydown keydown change", function() {
-            this.value = this.value.replace(/\D/g, '');
-        });
-
-        $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });
-    </script>
 <% end %>
 
 <script type="text/javascript">
-
     $('form').on("keypress keyup keydown", function(e) {
         if (e.keyCode == 13) {
             e.preventDefault();
             return false;
         }
     });
+
+    $(function() {
+        $("#addbird").on("click", function () {
+            var count = $("#birds-div .bird-div").length + 1;
+            var newDiv =
+                    '<div class="bird-div">' +
+                            '<h2><%= t('bird') %> ' + count + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + count + '_info_gender\"><%= t('gender') %></label>' +
+                            '<input id=\"visitation_form_images_bird' + count + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + count + '][info][gender]\">' +
+                            '</div>' +
+                            '<div class=\"field\">' +
+                            '<label for=\"visitation_form_images[bird' + count + '][img1]\"><%= t('file') %></label>' +
+                            '<input id=\"visitation_form_images[birds][bird' + count + '][img1]\" type=\"file\" accept=\"image/*\" name=\"visitation_form[images[birds][bird' + count + '][files][img1]]\">' +
+                            '</div>' +
+                            '</div>';
+
+            $("#birds-div").append(newDiv);
+        })
+    });
+
+    $(function() {
+        $("#visitation_form_photographer_name").autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + $("#visitation_form_photographer_name").val(),
+                    success: function( data ) {
+                        if(data.ringers != ''){
+                            response( $.map( data.ringers.ringer, function( item ) {
+                                return {
+                                    label: item.name,
+                                    value: item.id
+                                }
+                            }));
+                        }
+                    }
+                });
+            },
+            minLength: 3,
+            select: function( event, ui ) {
+                $("#visitation_form_photographer_id").val(ui.item.value);
+                $("#visitation_form_photographer_name").val(ui.item.label);
+                return false; // prevent jquery from setting hurr to value...
+            }
+        });
+    });
+
+    $(function () {
+        $('.fileupload').fileupload({
+            formData: { uuid: '<%= @uuid %>', imageType: $(this).attr("data-image-type") },
+            dataType: 'json',
+            beforeSend: function(xhr) {
+                alert(xhr.target);
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    //alert($("#birds_" + file.imageType));
+                    $('<p/>').text(file.name).appendTo($("#birds_" + file.imageType));
+                });
+            },
+            error: function(xhr) {
+                var json = $.parseJSON(xhr.responseText);
+                alert("Something went wrong\n" + json.errors);
+            }
+        });
+    });
+
+    $("#insert_name_button").on("click", function (e) {
+        e.preventDefault();
+        var userid = "<%= @user[:login_id] %>";
+        var username = "<%= @user[:user_name] %>";
+        $("#visitation_form_photographer_name").val(username + " (" + userid + ")");
+        $("#visitation_form_photographer_id").val(userid);
+    });
+
+    // Id needs to be cleared if not a valid photographer
+    $("#visitation_form_photographer_name").on("keyup", function (e) {
+        $("#visitation_form_photographer_id").val('');
+    });
+
+    // Forcing nest id to only numbers
+    $('#visitation_form_nest_id').on("keydown keydown change", function() {
+        this.value = this.value.replace(/\D/g, '');
+    });
+
+    $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });
 </script>

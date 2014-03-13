@@ -25,17 +25,24 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
+    #todo fix this shit
+    @filename
+    @imagetype
+
+
+
     unless params[:files].nil?
       params[:files].each do |data|
         img = Image.new
         img.filename = data.original_filename
         img.data = data.read
-        image = MiniMagick::Image.read(img.data)
-        image.resize "x150"
-        img.thumbnaildata = image.to_blob
         img.upload_id = params[:uuid]
-
         img.image_type = 1
+        img.content_type = data.content_type
+
+        #todo fix this shit
+        @filename = img.filename
+        @imagetype = img.image_type
 
         if !img.save
           render :json => { :errors => img.errors.full_messages }, :status => 400 and return
@@ -45,15 +52,16 @@ class ImagesController < ApplicationController
 
     render json: {files: [
         {
-            name: "lolcat",
-            size: 902604,
-            url: "http:\/\/example.org\/files\/picture1.jpg",
-            thumbnailUrl: "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
-            deleteUrl: "http:\/\/example.org\/files\/picture1.jpg",
-            deleteType: "DELETE"
-        }
-    ]
+            name: @filename,
+            imageType: @imagetype
+        }]
     }
+
+    #size: 902604,
+    #url: "http:\/\/example.org\/files\/picture1.jpg",
+    #thumbnailUrl: "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
+    #deleteUrl: "http:\/\/example.org\/files\/picture1.jpg",
+    #deleteType: "DELETE"
 
   end
 
