@@ -186,7 +186,6 @@
             formData: { uuid: '<%= @uuid %>', imageType: $(this).attr("data-image-type") },
             dataType: 'json',
             beforeSend: function(xhr) {
-                alert(xhr.target);
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             },
             done: function (e, data) {
