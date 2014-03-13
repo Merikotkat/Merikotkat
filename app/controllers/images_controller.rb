@@ -90,7 +90,7 @@ class ImagesController < ApplicationController
   def delete
     form_id = @image.visitation_form_id
     @image.destroy
-    redirect_to visitation_form_path(form_id)
+    redirect_to edit_visitation_form_path(form_id)
   end
 
 

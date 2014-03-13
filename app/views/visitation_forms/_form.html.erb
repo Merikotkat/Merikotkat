@@ -14,7 +14,7 @@
     <% end %>
 
 
-    <%= f.text_field :uuid, value: @uuid %>
+    <%= f.hidden_field :uuid, value: @uuid %>
 
     <%= f.hidden_field :photographer_id %>
     <div class="field">
@@ -136,8 +136,8 @@
         <input class="fileupload" type="file" name="files[]" data-url="/images" data-form-data='{ "imageType": 4, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
       </div>
       <div class="images">
-        <% if defined? @young_images %>
-            <% @young_images.reverse_each do |img| %>
+        <% if defined? @landscape_images %>
+            <% @landscape_images .reverse_each do |img| %>
                 <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
                 <%= image_tag( img[:temp_path] ) %> <br /><br/>
             <% end %>

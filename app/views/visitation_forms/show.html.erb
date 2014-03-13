@@ -61,7 +61,7 @@
   <% end %>
 
   <% @bird1_images.reverse_each do |img| %>
-    <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
+    <%= img[:original_filename] %> <br />
     <%= image_tag( img[:temp_path] ) %> <br /><br/>
   <% end %>
 </p>
@@ -73,7 +73,7 @@
   <% end %>
 
   <% @bird2_images.reverse_each do |img| %>
-      <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
+      <%= img[:original_filename] %> <br />
       <%= image_tag( img[:temp_path] ) %> <br /><br/>
   <% end %>
 </p>
@@ -83,7 +83,7 @@
   <% @young_images.reverse_each do |img| %>
       <%= img[:original_filename] %> <br />
       <%= image_tag( img[:temp_path] ) %> <br />
-      <%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %> <br/>
+
   <% end %>
 </p>
 
@@ -92,7 +92,7 @@
   <% @landscape_images.reverse_each do |img| %>
       <%= img[:original_filename] %> <br />
       <%= image_tag( img[:temp_path] ) %> <br />
-      <%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %> <br/>
+
   <% end %>
 </p>
 
@@ -101,6 +101,6 @@
   <% @nest_images.reverse_each do |img| %>
       <%= img[:original_filename] %> <br />
       <%= image_tag( img[:temp_path] ) %> <br />
-      <%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %> <br/>
+
   <% end %>
 </p>

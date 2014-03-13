@@ -1,7 +1,7 @@
+
+
+
 <h1><%= @header %></h1>
-
-
-
 
 
 <style type="text/css">
@@ -56,7 +56,11 @@
 
         <% if @visitation_forms.count > 0 %>
             <td><%= link_to t('show'), visitation_form %></td>
-            <td><%= link_to t('edit'), edit_visitation_form_path(visitation_form) %></td>
+            <% if @type.nil? || @type == "unsubmitted" %>
+                <td><%= link_to t('edit'), edit_visitation_form_path(visitation_form) %></td>
+            <% else %>
+                <td></td>
+            <% end %>
         <% end %>
       </tr>
 
