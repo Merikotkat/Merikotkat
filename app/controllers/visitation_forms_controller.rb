@@ -66,6 +66,12 @@ class VisitationFormsController < ApplicationController
 
   # GET /visitation_forms/1/edit
   def edit
+    @uuid = SecureRandom.uuid
+    @bird1_images = Image.get_bird1_images(params[:id])
+    @bird2_images = Image.get_bird2_images(params[:id])
+    @young_images = Image.get_young_images(params[:id])
+    @landscape_images = Image.get_landscape_images(params[:id])
+    @nest_images = Image.get_nest_images(params[:id])
 
   end
 
@@ -92,7 +98,7 @@ class VisitationFormsController < ApplicationController
     # first save without validation
     if @visitation_form.save :validate => false
       # upload images now that our form has an ID
-      upload_images @visitation_form.id
+      attach_images params[:visitation_form][:uuid], @visitation_form.id
 
       # then save again with validation if needed. Beautiful!
       if @visitation_form.save :validate => params[:save].nil?
@@ -110,6 +116,17 @@ class VisitationFormsController < ApplicationController
     else
       render action: 'new'
     end
+  end
+
+  def attach_images(uuid, formId)
+    images = Image.where "upload_id = ?", uuid
+
+    images.each do |img|
+      img.visitation_form_id = formId
+      img.upload_id = NIL
+      img.save
+    end
+
   end
 
   def submit_form

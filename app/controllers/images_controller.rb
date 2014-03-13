@@ -37,7 +37,7 @@ class ImagesController < ApplicationController
         img.filename = data.original_filename
         img.data = data.read
         img.upload_id = params[:uuid]
-        img.image_type = param[:imageType]
+        img.image_type = params[:imageType]
         img.content_type = data.content_type
 
         #todo fix this shit
