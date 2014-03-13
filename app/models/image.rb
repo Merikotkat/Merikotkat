@@ -7,6 +7,13 @@ class Image < ActiveRecord::Base
   before_save :create_thumbnail
 
   validates :checksum, uniqueness: true
+  validate do |image|
+    extension = File.extname(image.filename)
+    accepted_formats = [".png", ".jpg", ".gif"]
+    if !accepted_formats.include? extension
+      image.errors[:filename] << "Unsupported file type " + extension
+    end
+  end
 
   def calculate_md5
     self.checksum = Digest::MD5.hexdigest(self.data)
