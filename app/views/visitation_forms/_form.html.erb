@@ -79,7 +79,7 @@
           </div>
           <div class="field">
             <%= f.label"images[birds][bird1][files][img1]", t('file') %>
-            <input class="fileupload" type="file" name="files[]" data-url="/images" data-image-type="1" multiple="multiple" accept="image/*" />
+            <input class="fileupload" type="file" name="files[]" data-url="/images" data-form-data='{ "imageType": 1 }' multiple="multiple" accept="image/*" />
           </div>
           <div class="images"></div>
         </div>
@@ -92,7 +92,7 @@
       <h2><%= t('young_images') %></h2>
       <div class="field">
         <%= f.label "images[young][img1]", t('file') %>
-        <input class="fileupload" type="file" name="files[]" data-url="/images" data-image-type="3" multiple="multiple" accept="image/*" />
+        <input class="fileupload" type="file" name="files[]" data-url="/images" data-form-data='{ "imageType": 3 }' multiple="multiple" accept="image/*" />
       </div>
       <div class="images"></div>
     </div>
@@ -102,7 +102,7 @@
       <h2><%= t('nest_images') %></h2>
       <div class="field">
         <%= f.label "images[nest][img1]", t('file') %>
-        <input class="fileupload" type="file" name="files[]" data-url="/images" data-image-type="5" multiple="multiple" accept="image/*" />
+        <input class="fileupload" type="file" name="files[]" data-url="/images" data-form-data='{ "imageType": 5 }' multiple="multiple" accept="image/*" />
       </div>
       <div class="images"></div>
     </div>
@@ -112,7 +112,7 @@
       <h2><%= t('landscape_images') %></h2>
       <div class="field" >
         <%= f.label "images[landscape][img1]", t('file') %>
-        <input class="fileupload" type="file" name="files[]" data-url="/images" data-image-type="4" multiple="multiple" accept="image/*" />
+        <input class="fileupload" type="file" name="files[]" data-url="/images" data-form-data='{ "imageType": 4 }' multiple="multiple" accept="image/*" />
       </div>
       <div class="images"></div>
     </div>
@@ -183,7 +183,7 @@
 
     $(function () {
         $('.fileupload').fileupload({
-            formData: { uuid: '<%= @uuid %>', imageType: $(this).attr("data-image-type") },
+            formData: { uuid: '<%= @uuid %>' },
             dataType: 'json',
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
