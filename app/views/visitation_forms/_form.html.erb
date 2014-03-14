@@ -20,9 +20,7 @@
     <div class="field">
       <%= f.label :photographer_name %>
       <%= f.text_field :photographer_name %>
-
       <button id="insert_name_button"><%= t('fill_own_info') %></button>
-
     </div>
 
     <div class="field">
@@ -154,11 +152,13 @@
 <% end %>
 
 <script type="text/javascript">
-    $('form').on("keypress keyup keydown", function(e) {
-        if (e.keyCode == 13) {
-            e.preventDefault();
-            return false;
-        }
+    $(function () {
+        $('form').on("keypress keyup keydown", function(e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
     });
 
     $(function() {
@@ -213,7 +213,7 @@
             },
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
-                    $('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail') %>/' + file.id, 'alt': file.name }).appendTo($("#birds_" + file.imageType));
+                    $('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail', :id => nil) %>/' + file.id, 'alt': file.name }).appendTo($("#birds_" + file.imageType));
                 });
             },
             error: function(xhr) {

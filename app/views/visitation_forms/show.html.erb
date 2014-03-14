@@ -17,7 +17,7 @@
 
 <p>
   <strong><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-  <% @visitation_form.visit_date.strftime("%d.%m.%Y") unless @visitation_form.visit_date.nil? %>
+  <%= @visitation_form.visit_date.strftime("%d.%m.%Y") unless @visitation_form.visit_date.nil? %>
 </p>
 
 <h2><%= t('camera_info') %></h2>
