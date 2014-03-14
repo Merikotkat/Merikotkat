@@ -18,9 +18,8 @@ class VisitationFormsController < ApplicationController
 
   def check_permission
     if @user[:type] != 'admin' && @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
-      #todo clean this mess up
-      puts 'faail'
-      redirect_to 'hurr'
+      puts 'No permission, return 404'
+      not_found
     end
   end
 
