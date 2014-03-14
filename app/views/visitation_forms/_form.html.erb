@@ -140,9 +140,6 @@
     </div>
 
 
-    <div id="lolcat"></div>
-
-
     <div class="actions">
       <%= f.submit(t('save_visitation_form'), :name => 'save') %>
       <%= f.submit(t('submit_visitation_form'), :name => 'submit') %>
@@ -152,15 +149,6 @@
 <% end %>
 
 <script type="text/javascript">
-    $(function () {
-        $('form').on("keypress keyup keydown", function(e) {
-            if (e.keyCode == 13) {
-                e.preventDefault();
-                return false;
-            }
-        });
-    });
-
     $(function() {
         $("#addbird").on("click", function () {
             var count = $("#birds-div .bird-div").length + 1;
@@ -231,17 +219,25 @@
             $("#visitation_form_photographer_name").val(username + " (" + userid + ")");
             $("#visitation_form_photographer_id").val(userid);
         });
-    });
 
-    // Id needs to be cleared if not a valid photographer
-    $("#visitation_form_photographer_name").on("keyup", function (e) {
-        $("#visitation_form_photographer_id").val('');
-    });
+        // Id needs to be cleared if not a valid photographer
+        $("#visitation_form_photographer_name").on("keyup", function (e) {
+            $("#visitation_form_photographer_id").val('');
+        });
 
-    // Forcing nest id to only numbers
-    $('#visitation_form_nest_id').on("keydown keydown change", function() {
-        this.value = this.value.replace(/\D/g, '');
-    });
+        // Forcing nest id to only numbers
+        $('#visitation_form_nest_id').on("keydown keydown change", function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
 
-    $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });
+        $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });
+
+        // Prevent submitting on enter
+        $('form').on("keypress keyup keydown", function(e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
 </script>
