@@ -213,8 +213,7 @@
             },
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
-                    //alert($("#birds_" + file.imageType));
-                    $('<p/>').text(file.name).appendTo($("#birds_" + file.imageType));
+                    $('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail') %>/' + file.id, 'alt': file.name }).appendTo($("#birds_" + file.imageType));
                 });
             },
             error: function(xhr) {
@@ -224,12 +223,14 @@
         });
     });
 
-    $("#insert_name_button").on("click", function (e) {
-        e.preventDefault();
-        var userid = "<%= @user[:login_id] %>";
-        var username = "<%= @user[:user_name] %>";
-        $("#visitation_form_photographer_name").val(username + " (" + userid + ")");
-        $("#visitation_form_photographer_id").val(userid);
+    $(function () {
+        $("#insert_name_button").on("click", function (e) {
+            e.preventDefault();
+            var userid = "<%= @user[:login_id] %>";
+            var username = "<%= @user[:user_name] %>";
+            $("#visitation_form_photographer_name").val(username + " (" + userid + ")");
+            $("#visitation_form_photographer_id").val(userid);
+        });
     });
 
     // Id needs to be cleared if not a valid photographer

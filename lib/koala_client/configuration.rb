@@ -8,9 +8,7 @@ module KoalaClient
                   :auth_success_url
 
     def initialize
-      @client_setup          = true # TODO: server setup
-      @private_key_file      = ""   # TODO
-      @public_key_file       = 'lintuvaara_public_key.pem'
+      @client_setup          = true
       @auth_success_url      = :root  # ":root" is translated to "root_url"
       
       @session_expires_after = 15 # minutes

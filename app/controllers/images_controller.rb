@@ -1,6 +1,5 @@
-
 class ImagesController < ApplicationController
-  before_action :set_image, only: [:show, :edit, :update, :destroy, :delete]
+  before_action :set_image, only: [:show, :edit, :update, :destroy, :delete, :thumbnail]
 
   # GET /images
   # GET /images.json
@@ -11,6 +10,12 @@ class ImagesController < ApplicationController
   # GET /images/1
   # GET /images/1.json
   def show
+      send_data @image.data, type: @image.content_type, filename: @image.filename, disposition: 'inline'
+  end
+
+
+  def thumbnail
+    send_data @image.thumbnaildata, type: @image.content_type, filename: @image.filename, disposition: 'inline'
   end
 
   # GET /images/new
@@ -25,11 +30,7 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    #todo fix this shit
-    @filename
-    @imagetype
-
-
+    @results = []
 
     unless params[:files].nil?
       params[:files].each do |data|
@@ -40,22 +41,17 @@ class ImagesController < ApplicationController
         img.image_type = params[:imageType]
         img.content_type = data.content_type
 
-        #todo fix this shit
-        @filename = img.filename
-        @imagetype = img.image_type
-
         if !img.save
+          #todo should an error halt and/or rollback the entire upload?
           render :json => { :errors => img.errors.full_messages }, :status => 400 and return
+        else
+          @results <<  { name: img.filename, imageType: img.image_type, id: img.id }
         end
       end
     end
 
-    render json: {files: [
-        {
-            name: @filename,
-            imageType: @imagetype
-        }]
-    }
+    render json: { files: @results }
+
 
     #size: 902604,
     #url: "http:\/\/example.org\/files\/picture1.jpg",

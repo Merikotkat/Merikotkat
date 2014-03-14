@@ -18,9 +18,12 @@ Merikotkat::Application.routes.draw do
   resources :images
   get 'visitation_forms/unsubmit/:id' => 'visitation_forms#unsubmit_form'
   get 'visitation_forms/submit/:id' => 'visitation_forms#submit_form'
-  get 'images/delete/:id' => 'images#delete'
-
   get 'visitation_forms/list/:type' => 'visitation_forms#index'
+
+  get 'images/delete/:id' => 'images#delete'
+  get 'images/thumbnail/:id' => 'images#thumbnail'
+  get 'images/thumbnail/' => 'images#thumbnail'
+
 
 
 

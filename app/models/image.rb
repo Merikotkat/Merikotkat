@@ -6,7 +6,10 @@ class Image < ActiveRecord::Base
   before_validation :calculate_md5
   before_save :create_thumbnail
 
+  #todo this should check if a unique image is already assigned to a form, or assigned to the same upload uuid. temporary images waiting for "garbage collection" should not prevent uploading the same image again
   validates :checksum, uniqueness: true
+
+
   validate do |image|
     extension = File.extname(image.filename)
     accepted_formats = [".png", ".jpg"]
