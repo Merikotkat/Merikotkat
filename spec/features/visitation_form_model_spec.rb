@@ -67,6 +67,7 @@ describe VisitationForm do
     formi.form_saver_id = 2890
 
     image = Image.new
+    image.filename = 'hurr.jpg'
     image.data = SecureRandom.uuid  # Create random image to prevent md5sum from failing all tests
     formi.images << image
 

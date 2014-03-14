@@ -20,9 +20,13 @@ class Image < ActiveRecord::Base
   end
 
   def create_thumbnail
-    image = MiniMagick::Image.read(self.data)
-    image.resize "x150"
-    self.thumbnaildata = image.to_blob
+    begin
+      image = MiniMagick::Image.read(self.data)
+      image.resize "x150"
+      self.thumbnaildata = image.to_blob
+    rescue
+      puts 'Couldnt create thumbnail from image, perhaps this is a test environment?'
+    end
   end
 
   # Create temporary image files for all the form's images, and return the paths in an array
