@@ -8,12 +8,11 @@ class ImagesController < ApplicationController
   end
 
   # GET /images/1
-  # GET /images/1.json
   def show
       send_data @image.data, type: @image.content_type, filename: @image.filename, disposition: 'inline'
   end
 
-
+  # GET /images/thumbnail/1
   def thumbnail
     send_data @image.thumbnaildata, type: @image.content_type, filename: @image.filename, disposition: 'inline'
   end
@@ -51,14 +50,6 @@ class ImagesController < ApplicationController
     end
 
     render json: { files: @results }
-
-
-    #size: 902604,
-    #url: "http:\/\/example.org\/files\/picture1.jpg",
-    #thumbnailUrl: "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
-    #deleteUrl: "http:\/\/example.org\/files\/picture1.jpg",
-    #deleteType: "DELETE"
-
   end
 
   # PATCH/PUT /images/1
