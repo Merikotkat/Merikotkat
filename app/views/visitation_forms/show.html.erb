@@ -62,7 +62,7 @@
 
   <% @bird1_images.reverse_each do |img| %>
     <%= img[:original_filename] %> <br />
-    <%= image_tag( img[:temp_path] ) %> <br /><br/>
+      <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
   <% end %>
 </p>
 
@@ -74,7 +74,7 @@
 
   <% @bird2_images.reverse_each do |img| %>
       <%= img[:original_filename] %> <br />
-      <%= image_tag( img[:temp_path] ) %> <br /><br/>
+      <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
   <% end %>
 </p>
 
@@ -82,8 +82,7 @@
 <p>
   <% @young_images.reverse_each do |img| %>
       <%= img[:original_filename] %> <br />
-      <%= image_tag( img[:temp_path] ) %> <br />
-
+      <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br />
   <% end %>
 </p>
 
@@ -91,8 +90,7 @@
 <p>
   <% @landscape_images.reverse_each do |img| %>
       <%= img[:original_filename] %> <br />
-      <%= image_tag( img[:temp_path] ) %> <br />
-
+      <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br />
   <% end %>
 </p>
 
@@ -100,7 +98,6 @@
 <p>
   <% @nest_images.reverse_each do |img| %>
       <%= img[:original_filename] %> <br />
-      <%= image_tag( img[:temp_path] ) %> <br />
-
+      <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br />
   <% end %>
 </p>

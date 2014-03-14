@@ -79,7 +79,7 @@
             <% if defined? @bird1_images %>
                 <% @bird1_images.reverse_each do |img| %>
                     <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
-                    <%= image_tag( img[:temp_path] ) %> <br /><br/>
+                    <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
                 <% end %>
             <% end %>
           </div>
@@ -99,7 +99,7 @@
         <% if defined? @young_images %>
             <% @young_images.reverse_each do |img| %>
                 <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
-                <%= image_tag( img[:temp_path] ) %> <br /><br/>
+                <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
             <% end %>
         <% end %>
       </div>
@@ -116,7 +116,7 @@
         <% if defined? @nest_images %>
             <% @nest_images.reverse_each do |img| %>
                 <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
-                <%= image_tag( img[:temp_path] ) %> <br /><br/>
+                <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
             <% end %>
         <% end %>
       </div>
@@ -133,7 +133,7 @@
         <% if defined? @landscape_images %>
             <% @landscape_images .reverse_each do |img| %>
                 <%= img[:original_filename] %> (<%= link_to t("delete"), action: "delete", controller:"images", id: img[:id] %>)<br />
-                <%= image_tag( img[:temp_path] ) %> <br /><br/>
+                <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
             <% end %>
         <% end %>
       </div>
