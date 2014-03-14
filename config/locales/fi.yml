@@ -45,7 +45,7 @@ fi:
   error_date_in_future: "Annettu päivämäärä on tulevaisuudessa"
   error_date_invalid: "Virheellinen päivämäärä"
   submitted: "Lähetetyt"
-  unsubmitted: "Tallennetut"
+  unsubmitted: "Välitallennetut"
   forms: "Lomakkeet"
   activerecord:
     attributes:
