@@ -1,9 +1,12 @@
 require 'net/http'
 require 'unicode_utils/upcase'
+require 'erb'
+include ERB::Util
 
 class ApiController < ApplicationController
   def getringer
-    data = TipuApiHelper.GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/ringers?format=json&filter=#{params['filter']}"))
+    filter = url_encode(params['filter'])
+    data = TipuApiHelper.GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/ringers?format=json&filter=#{filter}"))
 
     respond_to do |format|
       format.json { render json: data}
