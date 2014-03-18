@@ -46,6 +46,7 @@ gem 'rspec'
 gem 'hpricot'
 gem 'activeresource'
 gem "unicode_utils"
+gem 'mini_magick'
 
 group :production do 
   gem 'ruby-oci8'
