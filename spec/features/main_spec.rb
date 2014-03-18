@@ -57,7 +57,7 @@ describe "In Linssi" do
     click_link I18n.t('new_visitation_form')
     click_button I18n.t('submit_visitation_form')
 
-    expect(page).to have_content I18n.t('error_value_must_be_number')
+    #expect(page).to have_content I18n.t('error_value_must_be_number')
     expect(page).to have_content I18n.t('error_must_be_present')
     expect(page).to have_content I18n.t('error_invalid_photographer_id')
     expect(page).to have_content I18n.t('error_date_invalid')

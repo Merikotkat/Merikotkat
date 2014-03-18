@@ -47,7 +47,7 @@ fi:
   error_date_invalid: "Virheellinen päivämäärä"
   error_while_uploading: "Virhe kuvaa ladattaessa"
   error_file_type_unsupported: "on virheellinen: "
-  error_image_already_exists: "Kuva on jo lisätty tietokantaan"
+  error_image_already_exists: "on jo lisätty tietokantaan"
   submitted: "Lähetetyt"
   unsubmitted: "Välitallennetut"
   forms: "Lomakkeet"
@@ -65,6 +65,7 @@ fi:
         visit_date: "Käynnin päivämäärä"
         images: "Kuvat"
       image:
+        checksum: "Sama kuvatiedosto"
         filename: "Tiedostonimi"
         content_type: "Tiedostotyyppi"
     errors:
