@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe "On login page" do
-#  before :each do
-#    FactoryGirl.create :user
-#  end
+#  Application controllerissa on määritelty käyttäjä seuraavasti:
+#  @user = {:login_id => session[:user], :type => session[:user_type], :user_name => session[:user_name]}
 
-#  it "should have login link if not yet logged in" do
-#    @user = { login_id: '1', user_name: 'Pekka Murkka', type: 'admin'}
-#    visit root_path
-#    save_and_open_page
-#  end
+describe "On login page" do
+
+  it "should have login link if not yet logged in" do
+    visit root_path
+
+    expect(page).to have_content 'Tervetuloa'
+  end
 end

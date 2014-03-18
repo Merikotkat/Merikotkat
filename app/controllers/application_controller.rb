@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   if Rails.env.test?
-    session = { :user => '1', :user_type => 'admin', :user_name => 'Pekka Murkka'}
-    @user = {:login_id => session[:user], :type => session[:user_type], :user_name => session[:user_name]}
+    before_filter :mock_usr
   else
     include KoalaClient::Authentication
     before_filter :update_session_expiry
@@ -10,6 +9,12 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :set_locale
+
+  def mock_usr
+    session = { :user => '1', :user_type => 'admin', :user_name => 'Pekka Murkka'}
+    @user = {:login_id => session[:user], :type => session[:user_type], :user_name => session[:user_name]}
+  end
+
 
   def set_locale
     I18n.locale = params[:locale]
