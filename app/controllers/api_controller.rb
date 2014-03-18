@@ -1,4 +1,5 @@
 require 'net/http'
+require 'unicode_utils/upcase'
 
 class ApiController < ApplicationController
   def getringer
@@ -12,7 +13,9 @@ class ApiController < ApplicationController
 
   def getmunicipalities
     # Updated to get the municipalities from the cache instead and do the filtering afterwards
-    filter = params['filter'].upcase
+    #todo wtf ascii only? ORLY? YARLY!
+    filter = UnicodeUtils.upcase(params['filter'])
+    puts filter
     municipalities = TipuApiHelper.GetMunicipalities
 
     #todo determine which fields should be searched
