@@ -45,8 +45,6 @@ end
 gem 'rspec'
 gem 'hpricot'
 gem 'activeresource'
-gem "mini_magick"
-
 group :production do 
   gem 'ruby-oci8'
   gem 'activerecord-oracle_enhanced-adapter'
@@ -61,6 +59,7 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'simplecov', require: false
 end
