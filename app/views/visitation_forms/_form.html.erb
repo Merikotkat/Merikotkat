@@ -33,7 +33,6 @@
     </div>
 
     <h2><%= t('camera_info') %></h2>
-
     <div class="field">
       <%= f.label :camera %>
       <%= f.text_field :camera %>
@@ -48,14 +47,14 @@
     </div>
 
     <h2><%= t('nest_info') %></h2>
-
     <div class="field">
       <%= f.label :nest_id %>
       <%= f.number_field :nest_id %>
     </div>
     <div class="field">
       <%= f.label :municipality %>
-      <%= f.select :municipality, @municipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
+      <%= f.text_field :municipality %>
+      <%# f.select :municipality, @municipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
     </div>
 
     <div class="field">
@@ -189,6 +188,29 @@
                 $("#visitation_form_photographer_id").val(ui.item.value);
                 $("#visitation_form_photographer_name").val(ui.item.label);
                 return false; // prevent jquery from setting hurr to value...
+            }
+        });
+
+
+        $("#visitation_form_municipality").autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url: "<%= url_for(action:"getmunicipalities", controller:"api") %>.json?filter=" + $("#visitation_form_municipality").val(),
+                    success: function( data ) {
+                        if(data.municipalities != ''){
+                            response( $.map( data.municipalities.municipality, function( item ) {
+                                return {
+                                    label: item.name[0].content + " (" + item.id + ")",
+                                    value: item.id
+                                }
+                            }));
+                        }
+                    }
+                });
+            },
+            minLength: 1,
+            select: function( event, ui ) {
+                // Do something else?
             }
         });
     });

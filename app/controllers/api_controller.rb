@@ -5,16 +5,18 @@ class ApiController < ApplicationController
     data = TipuApiHelper.GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/ringers?format=json&filter=#{params['filter']}"))
 
     respond_to do |format|
-        format.json { render json: data}
+      format.json { render json: data}
     end
   end
 
 
   def getmunicipalities
-    data = TipuApiHelper.GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/municipalities?format=json"))
+    # Updated to get the municipalities from the cache instead and do the filtering afterwards
+    filter = params['filter'].upcase
+    municipalities = TipuApiHelper.GetMunicipalities
 
-    respond_to do |format|
-      format.json { render json: data}
-    end
+    #todo determine which fields should be searched
+    @data = municipalities.select{ |herp| herp['id'].start_with?(filter) || herp['name'][0]['content'].start_with?(filter) }
+    render json: {municipalities: { municipality: @data }}
   end
 end
