@@ -46,7 +46,9 @@
 
 <p>
   <strong><%= t('municipality', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-  <%= @visitation_form.municipality %>
+  <% municipality = @municipalities.select do |m| m["id"] == @visitation_form.municipality end %>
+  <% # todo currently always shows the Finnish municipality name %>
+  <%= municipality[0]["name"][0]["content"] %>
 </p>
 
 <p>

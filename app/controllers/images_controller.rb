@@ -1,5 +1,16 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy, :delete, :thumbnail]
+  before_action :check_permission, except: [:new, :create]
+
+  def check_permission
+    @visitation_form = VisitationForm.where("id = ?", @image.visitation_form_id).take
+
+    # If form is nil, the image isn't attached to a form yet (i.e. it has just been uploaded)
+    if !@visitation_form.nil? && @user[:type] != 'admin' && @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
+      puts 'No permission, return 404'
+      not_found
+    end
+  end
 
   # GET /images
   # GET /images.json

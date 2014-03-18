@@ -17,6 +17,7 @@ fi:
   back: "Edellinen"
   edit: "Muokkaa"
   delete: "Poista"
+  confirm_delete: "Haluatko varmasti poistaa?"
   show: "Näytä"
   file: "Tiedosto"
   add_file: "Lisää tiedosto"
@@ -44,6 +45,9 @@ fi:
   error_must_be_present: "Kenttä on pakollinen"
   error_date_in_future: "Annettu päivämäärä on tulevaisuudessa"
   error_date_invalid: "Virheellinen päivämäärä"
+  error_while_uploading: "Virhe kuvaa ladattaessa"
+  error_file_type_unsupported: "on virheellinen: "
+  error_image_already_exists: "Kuva on jo lisätty tietokantaan"
   submitted: "Lähetetyt"
   unsubmitted: "Välitallennetut"
   forms: "Lomakkeet"
@@ -60,6 +64,9 @@ fi:
         photographer_name: "Kuvaaja"
         visit_date: "Käynnin päivämäärä"
         images: "Kuvat"
+      image:
+        filename: "Tiedostonimi"
+        content_type: "Tiedostotyyppi"
     errors:
       template:
         header:
