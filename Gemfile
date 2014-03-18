@@ -45,7 +45,6 @@ end
 gem 'rspec'
 gem 'hpricot'
 gem 'activeresource'
-gem "mini_magick"
 gem "unicode_utils"
 
 group :production do 
@@ -62,6 +61,7 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'simplecov', require: false
 end
