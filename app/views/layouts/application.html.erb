@@ -83,6 +83,9 @@
             <ul>
                 <li><%=link_to(t('unsubmitted'), {controller: 'visitation_forms', action: "index", type: "unsubmitted"})   %></li>
                 <li><%=link_to(t('submitted'), {controller: 'visitation_forms', action: "index", type: "submitted"})   %></li>
+                <% if @user[:type] == 'admin' %>
+                    <li><%=link_to(t('archive'), {controller: 'visitation_forms', action: "index", type: "archive"})   %></li>
+                <% end %>
               </ul>
             <li><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>
           </ul>

@@ -26,12 +26,14 @@ fi:
   images: "Kuvat"
   form_status: "Lomakkeen tila:"
   form_not_sent: "Lomaketta ei ole lähetetty"
-  form_already_sent: "Tämä lomake on lähetetty tarkistettavaksi. Sitä ei voi enää muokata"
+  form_already_sent: "Tämä lomake on lähetetty tarkistettavaksi. Sitä ei voi enää muokata."
+  form_already_approved: "Tämä lomake on lähetetty ja hyväksytty. Sitä ei voi enää muokata."
   fill_own_info: "Käytä omia tietoja"
   camera_info: "Kameran tiedot"
   nest_info: "Pesän tiedot"
   save_visitation_form: "Välitallenna"
   leave_without_saving: "Poistu tallentamatta"
+  approve_visitation_form: "Hyväksy lomake"
   submit_visitation_form: "Lähetä"
   unsubmit_visitation_form: "Peruuta lähetys"
   new_visitation_form: "Luo uusi lomake"
@@ -50,6 +52,7 @@ fi:
   error_image_already_exists: "on jo lisätty tietokantaan"
   submitted: "Lähetetyt"
   unsubmitted: "Välitallennetut"
+  archive: "Arkisto"
   forms: "Lomakkeet"
   activerecord:
     attributes:

@@ -1,5 +1,5 @@
 class VisitationFormsController < ApplicationController
-  before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form]
+  before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
   before_action :check_permission, except: [:index, :new, :create]
 
   if Rails.env.test?
@@ -38,9 +38,15 @@ class VisitationFormsController < ApplicationController
       @header = t(params[:type])
       @type = params[:type]
       if(params[:type] == "submitted")
-        @visitation_forms = forms.select { |f| f.sent == true }
+        @visitation_forms = forms.select { |f| f.sent == true && f.approved != true }
       elsif (params[:type] == "unsubmitted")
         @visitation_forms = forms.select { |f| f.sent != true }
+      elsif(params[:type] == "archive")
+        if @user[:type] == 'admin'
+          @visitation_forms = forms.select { |f| f.approved == true }
+        else
+          not_found
+        end
       end
     else
       @header = t('forms')
@@ -127,6 +133,16 @@ class VisitationFormsController < ApplicationController
       img.save
     end
 
+  end
+
+  def approve_form
+    if @user[:type] == 'admin'
+      @visitation_form.sent = true
+      @visitation_form.approved = true
+      @visitation_form.save :validate => false
+    end
+
+    redirect_to @visitation_form
   end
 
   def submit_form
