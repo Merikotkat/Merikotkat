@@ -13,61 +13,66 @@
         </div>
     <% end %>
 
+    <div class="boxed">
+      <%= f.hidden_field :uuid, value: @uuid %>
 
-    <%= f.hidden_field :uuid, value: @uuid %>
+      <%= f.hidden_field :photographer_id %>
+      <div class="field">
+        <%= f.label :photographer_name %>
+        <%= f.text_field :photographer_name %>
+        <button id="insert_name_button"><%= t('fill_own_info') %></button>
+      </div>
 
-    <%= f.hidden_field :photographer_id %>
-    <div class="field">
-      <%= f.label :photographer_name %>
-      <%= f.text_field :photographer_name %>
-      <button id="insert_name_button"><%= t('fill_own_info') %></button>
+      <div class="field">
+        <%= f.label :visit_date %>
+        <% if (f.object.visit_date.nil?) %>
+            <%= f.text_field :visit_date %>
+        <% else %>
+            <%= f.text_field :visit_date, value: f.object.visit_date.strftime("%d.%m.%Y") %>
+        <% end %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :visit_date %>
-      <% if (f.object.visit_date.nil?) %>
-          <%= f.text_field :visit_date %>
-      <% else %>
-          <%= f.text_field :visit_date, value: f.object.visit_date.strftime("%d.%m.%Y") %>
-      <% end %>
+    <div class="boxed">
+        <h2><%= t('camera_info') %></h2>
+        <div class="field">
+            <%= f.label :camera %>
+            <%= f.text_field :camera %>
+        </div>
+        <div class="field">
+            <%= f.label :lens %>
+            <%= f.text_field :lens %>
+        </div>
+        <div class="field">
+            <%= f.label :teleconverter %>
+            <%= f.text_field :teleconverter %>
+        </div>
     </div>
 
-    <h2><%= t('camera_info') %></h2>
-    <div class="field">
-      <%= f.label :camera %>
-      <%= f.text_field :camera %>
-    </div>
-    <div class="field">
-      <%= f.label :lens %>
-      <%= f.text_field :lens %>
-    </div>
-    <div class="field">
-      <%= f.label :teleconverter %>
-      <%= f.text_field :teleconverter %>
-    </div>
+    <div class="boxed">
+      <h2><%= t('nest_info') %></h2>
+      <div class="field">
+        <%= f.label :nest_id %>
+        <%= f.number_field :nest_id %>
+      </div>
+      <div class="field">
+        <%= f.label :municipality %>
+        <%= f.text_field :municipality %>
+        <%# f.select :municipality, @municipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
+      </div>
 
-    <h2><%= t('nest_info') %></h2>
-    <div class="field">
-      <%= f.label :nest_id %>
-      <%= f.number_field :nest_id %>
-    </div>
-    <div class="field">
-      <%= f.label :municipality %>
-      <%= f.text_field :municipality %>
-      <%# f.select :municipality, @municipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
-    </div>
-
-    <div class="field">
-      <%= f.label :nest %>
-      <%= f.text_field :nest %>
+      <div class="field">
+        <%= f.label :nest %>
+        <%= f.text_field :nest %>
+      </div>
     </div>
 
 
 
-
+    <h1><%= t('images') %></h1>
 
     <div id="birds-div">
-      <div class="bird-div">
+      <div class="bird-div boxed">
         <div class="birds" id="birds_1">
           <h2><%= t('bird') %> 1</h2>
           <div class="field">
@@ -88,7 +93,7 @@
     <button type="button" id="addbird"><%= t('add_bird') %></button>
 
 
-    <div class="birds" id="birds_3">
+    <div class="birds boxed" id="birds_3">
       <h2><%= t('young_images') %></h2>
       <div class="field">
         <%= f.label "images[young][img1]", t('file') %>
@@ -105,7 +110,7 @@
     </div>
 
 
-    <div class="birds" id="birds_5">
+    <div class="birds boxed" id="birds_5">
       <h2><%= t('nest_images') %></h2>
       <div class="field">
         <%= f.label "images[nest][img1]", t('file') %>
@@ -121,7 +126,7 @@
       </div>
     </div>
 
-    <div class="birds" id="birds_4">
+    <div class="birds boxed" id="birds_4">
       <h2><%= t('landscape_images') %></h2>
       <div class="field" >
         <%= f.label "images[landscape][img1]", t('file') %>
@@ -157,7 +162,7 @@
         $("#addbird").on("click", function () {
             var count = $("#birds-div .bird-div").length + 1;
             var newDiv =
-                    '<div class="bird-div">' +
+                    '<div class="bird-div boxed">' +
                             '<h2><%= t('bird') %> ' + count + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + count + '_info_gender\"><%= t('gender') %></label>' +
                             '<input id=\"visitation_form_images_bird' + count + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + count + '][info][gender]\">' +
                             '</div>' +

@@ -1,8 +1,12 @@
 require 'net/http'
+require 'unicode_utils/upcase'
+require 'erb'
+include ERB::Util
 
 class ApiController < ApplicationController
   def getringer
-    data = TipuApiHelper.GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/ringers?format=json&filter=#{params['filter']}"))
+    filter = url_encode(params['filter'])
+    data = TipuApiHelper.GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/ringers?format=json&filter=#{filter}"))
 
     respond_to do |format|
       format.json { render json: data}
@@ -12,7 +16,7 @@ class ApiController < ApplicationController
 
   def getmunicipalities
     # Updated to get the municipalities from the cache instead and do the filtering afterwards
-    filter = params['filter'].upcase
+    filter = UnicodeUtils.upcase(params['filter'])
     municipalities = TipuApiHelper.GetMunicipalities
 
     #todo determine which fields should be searched
