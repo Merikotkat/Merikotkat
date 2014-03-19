@@ -25,4 +25,15 @@ class TipuApiHelper
     def self.GetRingerById(ringer_id)
       JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/ringers/#{ringer_id}?format=json"))
     end
+
+
+    def self.GetSpecies
+      if Rails.cache.read('tipuapispecies').nil?
+        puts 'Refreshing species cache'
+        species = JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/species?format=json"))
+
+        Rails.cache.write('tipuapispecies', species['species'], :expires_in => 30.minutes)
+      end
+      return Rails.cache.read('tipuapispecies')
+    end
 end

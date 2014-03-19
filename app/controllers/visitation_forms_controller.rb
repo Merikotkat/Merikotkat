@@ -10,9 +10,11 @@ class VisitationFormsController < ApplicationController
 
   def set_municipalities_api_prod
     @municipalities = TipuApiHelper.GetMunicipalities
+    @species = TipuApiHelper.GetSpecies
   end
   def set_municipalities_api_test
     @municipalities = TipuApiHelperMock.GetMunicipalities
+    @species = TipuApiHelperMock.GetSpecies
   end
 
 

@@ -13,6 +13,8 @@
         </div>
     <% end %>
 
+    <%# f.select :municipality, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
+
     <div class="boxed">
       <%= f.hidden_field :uuid, value: @uuid %>
 
@@ -58,7 +60,6 @@
       <div class="field">
         <%= f.label :municipality %>
         <%= f.text_field :municipality %>
-        <%# f.select :municipality, @municipalities.map {|v| [ v['name'][0]['content'], v['id'] ] } %>
       </div>
 
       <div class="field">

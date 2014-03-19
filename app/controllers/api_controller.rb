@@ -23,4 +23,9 @@ class ApiController < ApplicationController
     @data = municipalities.select{ |herp| herp['id'].start_with?(filter) || herp['name'][0]['content'].start_with?(filter) }
     render json: {municipalities: { municipality: @data }}
   end
+
+  def getspecies
+    species = TipuApiHelper.GetSpecies
+    render json: species
+  end
 end
