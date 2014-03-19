@@ -20,6 +20,10 @@ class TipuApiHelperMock
              {"id"=>"HELSIN", "ely-centre"=>{"content"=>3, "name"=>"Hurrdurr ELY"}, "centerpoint-lat"=>61.216671, "old-county"=>{"content"=>4, "name"=>"UUSIMAA, FINLAND"}, "joined-to"=>"", "centerpoint-lon"=>25.5833302, "name"=>[{"content"=>"HELSINKI", "lang"=>"FI"}, {"content"=>"HELSINGFORS", "lang"=>"SV"}], "province"=>{"content"=>7, "name"=>"Päijät-Häme"}, "radius"=>25, "merikotka-suuralue"=>"N"}]
   end
 
+  def self.GetMunicipalities
+    return 'nein!'
+  end
+
   # not very pretty, but its a mock class, so like, whatever
   def self.GetRingerById(ringer_id)
     if ringer_id == 2890
