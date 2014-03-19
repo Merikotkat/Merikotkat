@@ -47,10 +47,10 @@ class VisitationFormsController < ApplicationController
           not_found
         end
       end
-      #else
-      #  @header = t('forms')
-      #  @visitation_forms = forms
-      #end
+    else
+      #default?
+      @visitation_forms = forms.select { |f| f.sent != true }
+      #not_found
     end
   end
 
