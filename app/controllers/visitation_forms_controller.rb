@@ -27,7 +27,6 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
-
     if @user[:type] == 'admin'
       forms = VisitationForm.all
     else
@@ -48,9 +47,10 @@ class VisitationFormsController < ApplicationController
           not_found
         end
       end
-    else
-      @header = t('forms')
-      @visitation_forms = forms
+      #else
+      #  @header = t('forms')
+      #  @visitation_forms = forms
+      #end
     end
   end
 
