@@ -26,20 +26,16 @@
       <ul id="owners_list">
         <% if @visitation_form.owners.count > 0 %>
             <% count = 1 %>
-
             <% @visitation_form.owners.each  do |owner| %>
                 <% if count== 1%>
-                    <li><input id="owner<%=count%>" name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" id="owner<%=count%>_id" name="owners[][id]" type="hidden"></li>
+                    <li><input name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" name="owners[][id]" type="hidden"></li>
                 <% else %>
-                    <li><input id="owner<%=count%>" name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" id="owner<%=count%>_id" name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>
+                    <li><input name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>
                 <% end %>
                 <%count = count + 1 %>
             <% end %>
-
         <% else %>
-
-            <li><input id="owner1" name="owners[][name]" type="text"><input id="owner1_id" name="owners[][id]" type="hidden"></li>
-
+            <li><input name="owners[][name]" type="text"><input name="owners[][id]" type="hidden"></li>
         <% end %>
       </ul>
 
@@ -194,55 +190,47 @@
         $('a.delete').click(function(){
             return confirm("<%= t('confirm_delete') %>");
         });
-    });
 
-    $(function() {
+
         $("#addbird").on("click", function () {
             var count = $("#birds-div .bird-div").length + 1;
             var newDiv =
                     '<div class="bird-div boxed">' +
-                            '<h2><%= t('bird') %> ' + count + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + count + '_info_gender\"><%= t('gender') %></label>' +
-                            '<input id=\"visitation_form_images_bird' + count + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + count + '][info][gender]\">' +
-                            '</div>' +
-                            '<div class=\"field\">' +
-                            '<label for=\"visitation_form_images[bird' + count + '][img1]\"><%= t('file') %></label>' +
-                            '<input id=\"visitation_form_images[birds][bird' + count + '][img1]\" type=\"file\" accept=\"image/*\" name=\"visitation_form[images[birds][bird' + count + '][files][img1]]\">' +
-                            '</div>' +
-                            '</div>';
+                    '<h2><%= t('bird') %> ' + count + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + count + '_info_gender\"><%= t('gender') %></label>' +
+                    '<input id=\"visitation_form_images_bird' + count + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + count + '][info][gender]\">' +
+                    '</div>' +
+                    '<div class=\"field\">' +
+                    '<label for=\"visitation_form_images[bird' + count + '][img1]\"><%= t('file') %></label>' +
+                    '<input id=\"visitation_form_images[birds][bird' + count + '][img1]\" type=\"file\" accept=\"image/*\" name=\"visitation_form[images[birds][bird' + count + '][files][img1]]\">' +
+                    '</div>' +
+                    '</div>';
 
             $("#birds-div").append(newDiv);
         })
-    });
 
-    $(function() {
-       $("#add_owner_button").on("click", function() {
-           var count = $("#owners li").length + 1;
-           var newInput = '<li><input id="owner' + count + '" name="owners[][name]" type="text"><input id="owner'+ count +'_id" name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>';
+        $("#add_owner_button").on("click", function() {
+           var newInput = '<li><input name="owners[][name]" type="text"><input name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>';
            $("#owners_list").append(newInput);
-           add_autocomplete("owner"+ count);
-       })
-
+           add_autocomplete();
+        })
     });
 
 
     $(document).on("click", ".delete_owner", function(e) {
+        e.preventDefault();
         $(this).closest("li").remove();
     });
 
-    function add_autocomplete(id)
+    function add_autocomplete()
     {
-        id = "#" + id;
-        $(id).autocomplete({
-            source: function( request, response ) {
+        $("#owners input[type=text]").autocomplete({
+            source: function(request, response) {
                 $.ajax({
-                    url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + $(id).val(),
+                    url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + request.term,
                     success: function( data ) {
                         if(data.ringers != ''){
                             response( $.map( data.ringers.ringer, function( item ) {
-                                return {
-                                    label: item.name,
-                                    value: item.id
-                                }
+                                return { label: item.name, value: item.id }
                             }));
                         }
                     }
@@ -250,14 +238,14 @@
             },
             minLength: 3,
             select: function( event, ui ) {
-                $(id + "_id").val(ui.item.value);
-                $(id).val(ui.item.label);
-                return false; // prevent jquery from setting hurr to value...
+                $(event.target).closest("input[type=text]").val(ui.item.label);
+                $(event.target).next("input[type=hidden]").val(ui.item.value);
+                return false;
             }
         });
     }
 
-    add_autocomplete("owner1");
+    add_autocomplete();
 
     $(function() {
         $("#visitation_form_photographer_name").autocomplete({
@@ -288,7 +276,7 @@
         $("#visitation_form_municipality").autocomplete({
             source: function( request, response ) {
                 $.ajax({
-                    url: "<%= url_for(action:"getmunicipalities", controller:"api") %>.json?filter=" + $("#visitation_form_municipality").val(),
+                    url: "<%= url_for(action:"getmunicipalities", controller:"api") %>.json?filter=" + request.term,
                     success: function( data ) {
                         if(data.municipalities != ''){
                             response( $.map( data.municipalities.municipality, function( item ) {
