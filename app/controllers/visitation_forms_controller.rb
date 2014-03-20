@@ -18,25 +18,7 @@ class VisitationFormsController < ApplicationController
   end
 
 
-  def check_permission
-    if @user[:type] == 'admin'
-      return
-    else @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
-      permission = false
-      @visitation_form.owners.each do |owner|
-        if @user[:login_id] == owner.owner_id
-          permission = true
-          break
-        end
-      end
 
-      if !permission
-       # puts 'No permission, return 404'
-        not_found
-      end
-
-    end
-  end
 
 
   # GET /visitation_forms
@@ -175,13 +157,34 @@ class VisitationFormsController < ApplicationController
   def destroy
     @visitation_form.destroy
     respond_to do |format|
-      format.html { redirect_to visitation_forms_url }
+      format.html { redirect_to action: 'index', :type => "unsubmitted" }
       format.json { head :no_content }
     end
   end
 
   private
   # Use callbacks to share common setup or constraints between actions.
+  def check_permission
+    if @user[:type] == 'admin'
+      return
+    else
+    permission = false
+    @visitation_form.owners.each do |owner|
+      if @user[:login_id] == owner.owner_id
+        permission = true
+        break
+      end
+    end
+
+    if !permission
+      # puts 'No permission, return 404'
+      not_found
+    end
+
+    end
+  end
+
+
   def set_visitation_form
     @visitation_form = VisitationForm.find(params[:id])
   end

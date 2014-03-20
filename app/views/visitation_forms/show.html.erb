@@ -9,8 +9,11 @@
 <% else %>
     <%= t('form_not_sent') %> <br />
     <%= link_to t('edit'), edit_visitation_form_path(@visitation_form) %> |
+    <%= link_to t('delete'), destroy_visitation_form_url(@visitation_form) %> |
     <%= link_to t('submit_visitation_form'), "submit/" + @visitation_form.id.to_s %>
 <% end %>
+
+
 
 <% if @user[:type] == 'admin' && !@visitation_form.approved %>
     <br /><%= link_to t('approve_visitation_form'), action: "approve_form" %>

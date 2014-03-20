@@ -38,7 +38,7 @@
 
         <% else %>
 
-            <li><input id="owner1" name="owners[][name]" type="text"><input id="owner1_id" name="owners[][id]" type="hidden"></li>
+            <li><input value="<%=@user[:user_name] %>" id="owner1" name="owners[][name]" type="text"><input value="<%=@user[:login_id] %>" id="owner1_id" name="owners[][id]" type="hidden"></li>
 
         <% end %>
       </ul>
