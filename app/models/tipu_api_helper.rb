@@ -23,6 +23,11 @@ class TipuApiHelper
     end
 
     def self.GetRingerById(ringer_id)
+      #todo remove before production! SRIZLY!
+      if ringer_id == "admin_linssitest"
+        return {"ringers"=>{"ringer"=>{"id"=>"admin_linssitest", "mobile-phone"=>"", "recovery-letter-method"=>"paper", "yearofbirth"=>"", "email"=>"", "address"=>{"street"=>"", "postcode"=>"", "city"=>""}, "name"=>"Hurrdurr", "permit"=>{"codes"=>"", "year"=>""}, "lastname"=>"AHO", "permission"=>0, "firstname"=>"MATTI", "language"=>"fi"}}}
+      end
+
       JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/ringers/#{ringer_id}?format=json"))
     end
 
