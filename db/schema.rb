@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140318132908) do
+ActiveRecord::Schema.define(version: 20140320083636) do
 
   create_table "images", force: true do |t|
     t.string   "filename"
@@ -35,6 +35,14 @@ ActiveRecord::Schema.define(version: 20140318132908) do
   end
 
   add_index "images", ["visitation_form_id"], name: "index_images_on_visitation_form_id"
+
+  create_table "owners", force: true do |t|
+    t.integer  "visitation_form_id"
+    t.string   "owner_name"
+    t.string   "owner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "visitation_forms", force: true do |t|
     t.string   "photographer_name"
