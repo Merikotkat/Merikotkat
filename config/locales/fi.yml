@@ -69,6 +69,7 @@ fi:
         photographer_name: "Kuvaaja"
         visit_date: "Käynnin päivämäärä"
         images: "Kuvat"
+        species_id: "Laji"
       image:
         checksum: "Sama kuvatiedosto"
         filename: "Tiedostonimi"
