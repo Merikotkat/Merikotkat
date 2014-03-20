@@ -19,9 +19,22 @@ class VisitationFormsController < ApplicationController
 
 
   def check_permission
-    if @user[:type] != 'admin' && @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
-      puts 'No permission, return 404'
-      not_found
+    if @user[:type] == 'admin'
+      return
+    else @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
+      permission = false
+      @visitation_form.owners.each do |owner|
+        if @user[:login_id] == owner.owner_id
+          permission = true
+          break
+        end
+      end
+
+      if !permission
+       # puts 'No permission, return 404'
+        not_found
+      end
+
     end
   end
 
@@ -111,6 +124,7 @@ class VisitationFormsController < ApplicationController
     if @visitation_form.save :validate => false
       # upload images now that our form has an ID
       attach_images params[:visitation_form][:uuid], @visitation_form.id
+      add_owners params[:owners], @visitation_form.id
 
       # then save again with validation if needed. Beautiful!
       if @visitation_form.save :validate => params[:save].nil?
@@ -128,17 +142,6 @@ class VisitationFormsController < ApplicationController
     else
       render action: 'new'
     end
-  end
-
-  def attach_images(uuid, formId)
-    images = Image.where "upload_id = ?", uuid
-
-    images.each do |img|
-      img.visitation_form_id = formId
-      img.upload_id = NIL
-      img.save
-    end
-
   end
 
   def approve_form
@@ -178,13 +181,38 @@ class VisitationFormsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_visitation_form
-      @visitation_form = VisitationForm.find(params[:id])
+  # Use callbacks to share common setup or constraints between actions.
+  def set_visitation_form
+    @visitation_form = VisitationForm.find(params[:id])
+  end
+
+  def add_owners(owner_array,formId)
+    owners = Owner.where("visitation_form_id= ?", formId).destroy_all
+
+    owner_array.each do |owner_info|
+      owner = Owner.new
+      owner.owner_name=owner_info[:name]
+      owner.owner_id=owner_info[:id]
+      owner.visitation_form_id=formId
+      owner.save
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def visitation_form_params
-      params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :form_saver_id, :species_id)
+  end
+
+  def attach_images(uuid, formId)
+    images = Image.where "upload_id = ?", uuid
+
+    images.each do |img|
+      img.visitation_form_id = formId
+      img.upload_id = NIL
+      img.save
     end
+
+  end
+
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def visitation_form_params
+    params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :form_saver_id, :species_id)
+  end
 end
