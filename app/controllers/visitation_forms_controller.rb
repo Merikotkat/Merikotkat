@@ -70,6 +70,7 @@ class VisitationFormsController < ApplicationController
   def new
     @uuid = SecureRandom.uuid
     @visitation_form = VisitationForm.new
+    @visitation_form.species_id = 'HALALB'  # set merikotka as default...
   end
 
   # GET /visitation_forms/1/edit
@@ -184,6 +185,6 @@ class VisitationFormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visitation_form_params
-      params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :form_saver_id)
+      params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :form_saver_id, :species_id)
     end
 end

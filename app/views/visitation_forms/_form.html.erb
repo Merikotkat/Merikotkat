@@ -13,6 +13,12 @@
         </div>
     <% end %>
 
+
+    <div class="boxed">
+      <%= f.label :species_id %>
+      <%= f.select :species_id, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
+    </div>
+
     <%# f.select :municipality, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
 
     <div class="boxed" id="owners">

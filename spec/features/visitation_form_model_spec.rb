@@ -20,6 +20,12 @@ describe VisitationForm do
     expect(VisitationForm.count).to eq(0)
   end
 
+  it "is not saved to database if species id not valid" do
+    formitesti = visitationform
+    formitesti.species_id = "HARHALALLAA"
+    expect(formitesti.valid?).to be(false)
+  end
+
   it "is saved to database if valid" do
     formitesti = visitationform
     expect(formitesti).to be_valid
@@ -65,7 +71,7 @@ describe VisitationForm do
     formi.nest_id = 268
     formi.photographer_id = 2890
     formi.form_saver_id = 2890
-
+    formi.species_id = 'HALALB'
     image = Image.new
     image.filename = 'hurr.jpg'
     image.data = SecureRandom.uuid  # Create random image to prevent md5sum from failing all tests

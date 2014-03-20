@@ -21,7 +21,17 @@ class TipuApiHelperMock
   end
 
   def self.GetSpecies
-    return 'nein!'
+    return {"species"=>[
+        {"id"=>"HIPCALR", "name"=>[{"content"=>"Aavikkokultarinta", "lang"=>"FI"}, {"lang"=>"SV"}, {"lang"=>"EN"}, {"content"=>"Hippolais caligata rama", "lang"=>"LA"}], "euring-code"=>12562, "protection-status"=>""},
+        {"id"=>"OENDES", "name"=>[{"content"=>"Aavikkotasku", "lang"=>"FI"}, {"content"=>"Ökenstenskvätta", "lang"=>"SV"}, {"content"=>"Desert Wheatear", "lang"=>"EN"}, {"content"=>"Oenanthe deserti", "lang"=>"LA"}], "euring-code"=>11490, "protection-status"=>""},
+        {"id"=>"CLAHYE", "name"=>[{"content"=>"Alli", "lang"=>"FI"}, {"content"=>"Alfågel", "lang"=>"SV"}, {"content"=>"Long-tailed Duck", "lang"=>"EN"}, {"content"=>"Clangula hyemalis", "lang"=>"LA"}], "euring-code"=>2120, "protection-status"=>""},
+        {"id"=>"POLSTE", "name"=>[{"content"=>"Allihaahka", "lang"=>"FI"}, {"content"=>"Alförrädare", "lang"=>"SV"}, {"content"=>"Steller's Eider", "lang"=>"EN"}, {"content"=>"Polysticta stelleri", "lang"=>"LA"}], "euring-code"=>2090, "protection-status"=>""},
+        {"id"=>"PRUCOL", "name"=>[{"content"=>"Alppirautiainen", "lang"=>"FI"}, {"content"=>"Alpjärnsparv", "lang"=>"SV"}, {"content"=>"Alpine Accentor", "lang"=>"EN"}, {"content"=>"Prunella collaris", "lang"=>"LA"}], "euring-code"=>10940, "protection-status"=>""},
+        {"id"=>"PHATRI", "name"=>[{"content"=>"Amerikan vesipääsky", "lang"=>"FI"}, {"lang"=>"SV"}, {"lang"=>"EN"}, {"content"=>"Phalaropus tricolor", "lang"=>"LA"}], "euring-code"=>5630, "protection-status"=>""},
+        {"id"=>"GAVIMM", "name"=>[{"content"=>"Amerikanjääkuikka", "lang"=>"FI"}, {"content"=>"Svartnäbbad islom", "lang"=>"SV"}, {"content"=>"Great Northern Diver", "lang"=>"EN"}, {"content"=>"Gavia immer", "lang"=>"LA"}], "euring-code"=>40, "protection-status"=>""},
+        {"id"=>"CALLLA", "name"=>[{"content"=>"Amerikansirri", "lang"=>"FI"}, {"lang"=>"SV"}, {"lang"=>"EN"}, {"content"=>"Calidris minutilla", "lang"=>"LA"}], "euring-code"=>5040, "protection-status"=>""},
+        {"id"=>"HALALB", "name"=>[{"content"=>"Merikotka", "lang"=>"FI"}, {"content"=>"Havsörn", "lang"=>"SV"}, {"content"=>"White-tailed Sea Eagle", "lang"=>"EN"}, {"content"=>"Haliaeetus albicilla", "lang"=>"LA"}], "euring-code"=>2430, "protection-status"=>2}
+    ]}
   end
 
   # not very pretty, but its a mock class, so like, whatever
