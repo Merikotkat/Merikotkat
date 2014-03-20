@@ -6,10 +6,18 @@ class VisitationForm < ActiveRecord::Base
   validates :nest_id, length: { maximum: 5, message: I18n.t('error_value_too_long') }
   validates :nest, presence: { precence: true, message: I18n.t('error_must_be_present') }
 
+  # municipalities
   if Rails.env.test?
     validates :municipality, inclusion: { in: TipuApiHelperMock.GetMunicipalities.map {|v| v['id'] }, message: I18n.t('error_invalid_municipality')}
   else
     validates :municipality, inclusion: { in: TipuApiHelper.GetMunicipalities.map {|v| v['id'] }, message: I18n.t('error_invalid_municipality')}
+  end
+
+  # species id validation
+  if Rails.env.test?
+    validates :species_id, inclusion: { in: TipuApiHelperMock.GetSpecies['species'].map {|v| v['id'] }, message: I18n.t('error_invalid_species')}
+  else
+    validates :species_id, inclusion: { in: TipuApiHelper.GetSpecies['species'].map {|v| v['id'] }, message: I18n.t('error_invalid_species')}
   end
 
   validates :photographer_id, presence: { message: I18n.t('error_must_be_present') }

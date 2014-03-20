@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320090732) do
+ActiveRecord::Schema.define(version: 20140320101114) do
 
   create_table "images", force: true do |t|
     t.string   "filename"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20140320090732) do
     t.string   "form_saver_id"
     t.boolean  "sent"
     t.boolean  "approved"
+    t.string   "species_id"
   end
 
 end
