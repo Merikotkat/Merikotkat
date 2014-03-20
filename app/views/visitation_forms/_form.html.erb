@@ -15,6 +15,21 @@
 
     <%# f.select :municipality, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
 
+    <div class="boxed" id="owners">
+      <h2><%=t('form_owners')%></h2>
+      <ul id="owners_list">
+        <li><input id="owner1" name="owners[][name]" type="text"><input id="owner1_id" name="owners[][id]" type="hidden"></li>
+      </ul>
+
+
+      <button type="button" id="add_owner_button" ><%=t('add_owner')%></button>
+
+
+
+    </div>
+
+
+
     <div class="boxed">
       <%= f.hidden_field :uuid, value: @uuid %>
 
@@ -176,6 +191,45 @@
             $("#birds-div").append(newDiv);
         })
     });
+
+    $(function() {
+       $("#add_owner_button").on("click", function() {
+           var count = $("#owners li").length + 1;
+           var newInput = '<li><input id="owner' + count + '" name="owners[][name]" type="text"><input id="owner'+ count +'_id" name="owners[][id]" type="hidden"></li>';
+           $("#owners_list").append(newInput);
+           add_autocomplete("owner"+ count);
+       })
+    });
+
+    function add_autocomplete(id)
+    {
+        id = "#" + id;
+        $(id).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + $(id).val(),
+                    success: function( data ) {
+                        if(data.ringers != ''){
+                            response( $.map( data.ringers.ringer, function( item ) {
+                                return {
+                                    label: item.name,
+                                    value: item.id
+                                }
+                            }));
+                        }
+                    }
+                });
+            },
+            minLength: 3,
+            select: function( event, ui ) {
+                $(id + "_id").val(ui.item.value);
+                $(id).val(ui.item.label);
+                return false; // prevent jquery from setting hurr to value...
+            }
+        });
+    }
+
+    add_autocomplete("owner1");
 
     $(function() {
         $("#visitation_form_photographer_name").autocomplete({

@@ -54,6 +54,8 @@ fi:
   unsubmitted: "Välitallennetut"
   archive: "Arkisto"
   forms: "Lomakkeet"
+  form_owners: "Lomakkeen omistajat"
+  add_owner: "Lisää omistaja"
   activerecord:
     attributes:
       visitation_form:
