@@ -41,7 +41,7 @@ class VisitationFormsController < ApplicationController
       if(params[:type] == "submitted")
         @visitation_forms = forms.select { |f| f.sent == true && f.approved != true }
       elsif (params[:type] == "unsubmitted")
-        @visitation_forms = forms.select { |f| f.sent != true }
+        @visitation_forms = forms.select { |f| f.sent != true && f.approved != true }
       elsif(params[:type] == "archive")
         if @user[:type] == 'admin'
           @visitation_forms = forms.select { |f| f.approved == true }
@@ -74,13 +74,16 @@ class VisitationFormsController < ApplicationController
 
   # GET /visitation_forms/1/edit
   def edit
-    @uuid = SecureRandom.uuid
-    @bird1_images = Image.get_bird1_images(params[:id])
-    @bird2_images = Image.get_bird2_images(params[:id])
-    @young_images = Image.get_young_images(params[:id])
-    @landscape_images = Image.get_landscape_images(params[:id])
-    @nest_images = Image.get_nest_images(params[:id])
-
+    if @visitation_form.approved
+      redirect_to @visitation_form
+    else
+      @uuid = SecureRandom.uuid
+      @bird1_images = Image.get_bird1_images(params[:id])
+      @bird2_images = Image.get_bird2_images(params[:id])
+      @young_images = Image.get_young_images(params[:id])
+      @landscape_images = Image.get_landscape_images(params[:id])
+      @nest_images = Image.get_nest_images(params[:id])
+    end
   end
 
   # POST /visitation_forms
