@@ -326,7 +326,7 @@
                 $.each(data.result.files, function (index, file) {
                     var imagediv = $('<div class="image" />');
                     imagediv.append(file.name + " (");
-                    imagediv.append($('<a class="delete">Poista</a>').attr({ 'href': '<%= url_for(:controller => 'images', :action => 'delete', :id => nil) %>/' + file.id}));
+                    imagediv.append($('<a class="delete">Poista</a>').attr({ 'href': '<%= url_for(:controller => 'images', :action => 'delete', :id => nil) %>/' + file.id + '?uuid=<%= @uuid %>' }));
                     imagediv.append(")<br/>");
                     imagediv.append($('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail', :id => nil) %>/' + file.id, 'alt': file.name }));
                     $("#birds_" + file.imageType).append(imagediv);

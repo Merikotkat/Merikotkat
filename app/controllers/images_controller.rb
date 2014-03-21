@@ -67,17 +67,17 @@ class ImagesController < ApplicationController
     end
   end
 
-  #todo maybe check form uuid when deleting new images not yet linked to forms?
+  
   def delete
     if !@image.visitation_form_id.nil?
       form = VisitationForm.find(@image.visitation_form_id)
       @image.destroy unless form.approved
       render json: {status: "ok" } and return
-    else
+    elsif !params[:uuid].nil? && params[:uuid] == @image.upload_id
       @image.destroy
       render json: {status: "ok" } and return
     end
-    render :json => { :errors => 'Couldnt delete image' }, :status => 400 and return
+    render json: { errors: 'Couldnt delete image' }, status: 400 and return
   end
 
 
