@@ -117,8 +117,10 @@
           <div class="images">
             <% if defined? @bird1_images %>
                 <% @bird1_images.reverse_each do |img| %>
-                    <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete" %>)<br />
-                    <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
+                    <div class="image">
+                      <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete" %>)<br />
+                      <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
+                    </div>
                 <% end %>
             <% end %>
           </div>
@@ -137,8 +139,10 @@
       <div class="images">
         <% if defined? @young_images %>
             <% @young_images.reverse_each do |img| %>
-                <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete" %>)<br />
-                <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
+                <div class="image">
+                    <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete" %>)<br />
+                    <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
+                </div>
             <% end %>
         <% end %>
       </div>
@@ -154,8 +158,10 @@
       <div class="images">
         <% if defined? @nest_images %>
             <% @nest_images.reverse_each do |img| %>
-                <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete" %>)<br />
-                <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
+                <div class="image">
+                  <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete" %>)<br />
+                  <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
+                </div>
             <% end %>
         <% end %>
       </div>
@@ -170,8 +176,10 @@
       <div class="images">
         <% if defined? @landscape_images %>
             <% @landscape_images .reverse_each do |img| %>
-                <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete" %>)<br />
-                <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br /><br/>
+                <div class="image">
+                  <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete" %>)<br />
+                  <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
+                </div>
             <% end %>
         <% end %>
       </div>
@@ -187,10 +195,19 @@
 <% end %>
 
 <script type="text/javascript">
-    $(function () {
-        $('a.delete').click(function(){
-            return confirm("<%= t('confirm_delete') %>");
-        });
+    $(document).on("click", "a.delete", function(e) {
+        e.preventDefault();
+        if(confirm("<%= t('confirm_delete') %>"))
+        {
+            var url = $(e.target).attr("href");
+            var jqxhr = $.ajax(url)
+                    .done(function() {
+                        $(e.target).closest("div").remove();
+                    })
+                    .fail(function() {
+                        alert( "Failed deleting =/" );
+                    });
+        }
     });
 
     $(function() {
@@ -218,9 +235,6 @@
            add_autocomplete();
        })
     });
-
-
-
 
     $(document).on("click", ".delete_owner", function(e) {
         e.preventDefault();
@@ -310,7 +324,12 @@
             },
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
-                    $('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail', :id => nil) %>/' + file.id, 'alt': file.name }).appendTo($("#birds_" + file.imageType));
+                    var imagediv = $('<div class="image" />');
+                    imagediv.append(file.name + " (");
+                    imagediv.append($('<a class="delete">Poista</a>').attr({ 'href': '<%= url_for(:controller => 'images', :action => 'delete', :id => nil) %>/' + file.id}));
+                    imagediv.append(")<br/>");
+                    imagediv.append($('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail', :id => nil) %>/' + file.id, 'alt': file.name }));
+                    $("#birds_" + file.imageType).append(imagediv);
                 });
             },
             error: function(xhr) {

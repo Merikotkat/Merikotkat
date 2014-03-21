@@ -2,16 +2,6 @@ class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy, :delete, :thumbnail]
   before_action :check_permission, except: [:new, :create]
 
-  def check_permission
-    @visitation_form = VisitationForm.where("id = ?", @image.visitation_form_id).take
-
-    # If form is nil, the image isn't attached to a form yet (i.e. it has just been uploaded)
-    if !@visitation_form.nil? && @user[:type] != 'admin' && @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
-      puts 'No permission, return 404'
-      not_found
-    end
-  end
-
   # GET /images
   # GET /images.json
   def index
@@ -77,21 +67,38 @@ class ImagesController < ApplicationController
     end
   end
 
+  #todo maybe check form uuid when deleting new images not yet linked to forms?
   def delete
-    form = VisitationForm.find(@image.visitation_form_id)
-    @image.destroy unless form.approved
-    redirect_to form
+    if !@image.visitation_form_id.nil?
+      form = VisitationForm.find(@image.visitation_form_id)
+      @image.destroy unless form.approved
+      render json: {status: "ok" } and return
+    else
+      @image.destroy
+      render json: {status: "ok" } and return
+    end
+    render :json => { :errors => 'Couldnt delete image' }, :status => 400 and return
   end
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_image
-      @image = Image.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_image
+    @image = Image.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def image_params
-      params.require(:image).permit(:filename)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def image_params
+    params.require(:image).permit(:filename)
+  end
+
+  def check_permission
+    @visitation_form = VisitationForm.where("id = ?", @image.visitation_form_id).take
+
+    # If form is nil, the image isn't attached to a form yet (i.e. it has just been uploaded)
+    if !@visitation_form.nil? && @user[:type] != 'admin' && @visitation_form.form_saver_id != @user[:login_id] && @visitation_form.photographer_id != @user[:login_id]
+      puts 'No permission, return 404'
+      not_found
     end
+  end
 end

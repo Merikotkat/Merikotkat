@@ -24,6 +24,7 @@ Merikotkat::Application.routes.draw do
   get 'visitation_forms/delete/:id' => 'visitation_forms#destroy' , as: 'destroy_visitation_form'
 
   get 'images/delete/:id' => 'images#delete'
+  get 'images/delete/' => 'images#delete'
   get 'images/thumbnail/:id' => 'images#thumbnail'
   get 'images/thumbnail/' => 'images#thumbnail'
 
