@@ -1,7 +1,7 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
   before_action :check_permission, except: [:index, :new, :create]
-  after_action :updateauditlog, except: [:index, :new]
+  after_action :updateauditlog, except: [:index, :new, :show]
 
   if Rails.env.test?
     before_action :set_municipalities_api_test
@@ -32,6 +32,7 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
+    puts AuditLogEntry.all.inspect
     #if @user[:type] == 'admin'
     #  forms = VisitationForm.all
     #else
@@ -213,8 +214,13 @@ class VisitationFormsController < ApplicationController
   end
 
   def updateauditlog
-    puts @user[:login_id] + " " + action_name + " " + params[:id]
-
+    entry = AuditLogEntry.new
+    entry.timestamp = Time.now
+    entry.userid = @user[:login_id]
+    entry.visitation_form_id = @visitation_form.id
+    entry.operation = action_name
+    entry.save
+    #puts @user[:login_id] + " " + action_name + " " + params[:id]
   end
 
 
