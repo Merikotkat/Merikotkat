@@ -18,18 +18,37 @@ class VisitationFormsController < ApplicationController
   end
 
 
+  def user_has_access_to_form form
+    form.owners.each do |owner|
+      return true if owner.owner_id == @user[:login_id]
+    end
 
+    return true if form.photographer_id == @user[:login_id]
 
+    return false
+  end
 
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
-    if @user[:type] == 'admin'
-      forms = VisitationForm.all
-    else
-      forms = VisitationForm.where("form_saver_id = ? or photographer_id = ?", @user[:login_id],@user[:login_id])
+    #if @user[:type] == 'admin'
+    #  forms = VisitationForm.all
+    #else
+    #  forms = VisitationForm.where("form_saver_id = ? or photographer_id = ?", @user[:login_id],@user[:login_id])
+    #end
+
+    # Find the forms the user has access to
+    forms = Array.new
+    VisitationForm.find_each do |form|
+      if @user[:type] == 'admin'
+        # Admin has access to all forms
+        forms.push form
+      else
+        forms.push(form) if user_has_access_to_form form
+      end
     end
 
+    # Filter the forms
     if (defined? params[:type] and !params[:type].nil?)
       @header = t(params[:type])
       @type = params[:type]
@@ -155,6 +174,12 @@ class VisitationFormsController < ApplicationController
   # DELETE /visitation_forms/1
   # DELETE /visitation_forms/1.json
   def destroy
+    if @visitation_form.images.count > 0
+      flash[:notice] = I18n.t('form_has_images')
+      redirect_to @visitation_form
+      return
+    end
+
     @visitation_form.destroy
     respond_to do |format|
       format.html { redirect_to action: 'index', :type => "unsubmitted" }

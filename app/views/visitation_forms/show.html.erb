@@ -13,12 +13,18 @@
     <%= link_to t('submit_visitation_form'), "submit/" + @visitation_form.id.to_s %>
 <% end %>
 
-
-
 <% if @user[:type] == 'admin' && !@visitation_form.approved %>
     <br /><%= link_to t('approve_visitation_form'), action: "approve_form" %>
 <% end %>
 
+<h2><%= t('form_owners') %></h2>
+<ul>
+<% @visitation_form.owners.each do |owner| %>
+    <li><%= owner.owner_name %></li>
+<% end %>
+</ul>
+
+<h2><%= t('photographer_info') %></h2>
 <p>
   <strong><%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
   <%= @visitation_form.photographer_name %>

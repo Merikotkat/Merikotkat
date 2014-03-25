@@ -14,6 +14,8 @@ class Visitationform_factory
       formi.form_saver_id = 2890
       formi.species_id = 'HALALB'
 
+      formi.owners << Owner.new( owner_name: "Matti", owner_id: "111" )
+
       image = Image.new
       image.filename = 'hurr.jpg'
       image.data = SecureRandom.uuid  # Create random image to prevent md5sum from failing all tests

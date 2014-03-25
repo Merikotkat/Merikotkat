@@ -89,25 +89,25 @@ describe VisitationForm do
 
   end
 
-  it "user can see own forms with saver id" do
-    user = { login_id: '2890', user_name: 'Pekka Murkka', type: 'rengastaja'}
-
-    form = Visitationform_factory.GetValidVisitationForm
-    form2 = Visitationform_factory.GetValidVisitationForm
-
-    form.photographer_id=1010
-    form.form_saver_id=1010
-
-    form2.photographer_id=1010
-
-    form.save
-    form2.save
-
-    testi = VisitationFormsController.new
-    testi.instance_variable_set(:@user, user)
-    tulos = testi.index
-
-    expect(tulos.count).to be(1)
-
-  end
+  #it "user can see own forms with saver id" do
+  #  user = { login_id: '2890', user_name: 'Pekka Murkka', type: 'rengastaja'}
+  #
+  #  form = Visitationform_factory.GetValidVisitationForm
+  #  form2 = Visitationform_factory.GetValidVisitationForm
+  #
+  #  form.photographer_id=1010
+  #  form.form_saver_id=1010
+  #
+  #  form2.photographer_id=1010
+  #
+  #  form.save
+  #  form2.save
+  #
+  #  testi = VisitationFormsController.new
+  #  testi.instance_variable_set(:@user, user)
+  #  tulos = testi.index
+  #
+  #  expect(tulos.count).to be(1)
+  #
+  #end
 end

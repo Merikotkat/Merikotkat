@@ -39,6 +39,10 @@ class VisitationForm < ActiveRecord::Base
       end
     end
 
+    if form.owners.count == 0
+      form.errors[:owners] << I18n.t('error_must_have_one_owner')
+    end
+
     if !form.visit_date.nil? && form.visit_date > Date.today
       form.errors[:visit_date] << I18n.t('error_date_in_future')
     end
