@@ -1,6 +1,7 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
   before_action :check_permission, except: [:index, :new, :create]
+  after_action :updateauditlog, except: [:index, :new]
 
   if Rails.env.test?
     before_action :set_municipalities_api_test
@@ -207,6 +208,11 @@ class VisitationFormsController < ApplicationController
     end
 
     end
+  end
+
+  def updateauditlog
+    puts @user[:login_id] + " " + action_name + " " + params[:id]
+
   end
 
 

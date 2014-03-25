@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320101114) do
+ActiveRecord::Schema.define(version: 20140325115516) do
+
+  create_table "audit_log_entries", force: true do |t|
+    t.string   "username"
+    t.string   "userid"
+    t.datetime "timestamp"
+    t.string   "operation"
+  end
 
   create_table "images", force: true do |t|
     t.string   "filename"

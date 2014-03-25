@@ -62,7 +62,7 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'capybara-webkit'
+  #gem 'capybara-webkit'
   gem 'launchy'
   gem 'simplecov', require: false
 end
