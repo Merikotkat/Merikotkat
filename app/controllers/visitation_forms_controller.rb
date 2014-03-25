@@ -122,6 +122,8 @@ class VisitationFormsController < ApplicationController
   def save_form
     @visitation_form.sent = false
 
+    destroy_deleted_images
+
     # first save without validation
     if @visitation_form.save :validate => false
       # upload images now that our form has an ID
@@ -241,9 +243,15 @@ class VisitationFormsController < ApplicationController
       img.upload_id = NIL
       img.save
     end
-
   end
 
+  def destroy_deleted_images
+    if params[:deleted_images] != nil
+      params[:deleted_images].each do |img_id|
+        Image.find(img_id).destroy
+      end
+    end
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def visitation_form_params
