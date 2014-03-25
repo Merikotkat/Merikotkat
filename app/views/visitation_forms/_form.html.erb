@@ -202,6 +202,7 @@
         {
             $(e.target).closest("div").append('<input name="deleted_images[]" type="hidden" value="' + e.target.id + '">');
             $(e.target).closest("div").addClass("deleted_image");
+            $(e.target).removeClass("delete").addClass("cancel_delete").html("<%= t('return_image') %>");
             //var url = $(e.target).attr("href");
             //var jqxhr = $.ajax(url)
             //        .done(function() {
@@ -211,6 +212,13 @@
             //            alert( "Failed deleting =/" );
             //        });
         }
+    });
+
+    $(document).on("click", "a.cancel_delete", function(e) {
+        e.preventDefault();
+        $(e.target).closest("div").removeClass("deleted_image");
+        $(e.target).siblings("input:hidden").remove();
+        $(e.target).removeClass("cancel_delete").addClass("delete").html("<%= t('delete') %>");
     });
 
     $(function() {
