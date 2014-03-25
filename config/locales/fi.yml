@@ -47,6 +47,7 @@ fi:
   nest_info: "Pesän tiedot"
   new_visitation_form: "Luo uusi lomake"
   photographer_info: "Kuvaajan tiedot"
+  return_image: "Palauta kuva"
   ringed: "Rengastettu"
   right_ring_code: "Oikea rengas, koodi"
   right_ring_color: "Oikea rengas, väri"
