@@ -77,7 +77,7 @@ class ImagesController < ApplicationController
       @image.destroy
       render json: {status: "ok" } and return
     end
-    render json: { errors: 'Couldnt delete image' }, status: 400 and return
+    render json: { errors: 'Could not delete image' }, status: 400 and return
   end
 
 
