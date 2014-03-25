@@ -19,7 +19,7 @@
           <h2><%=t('form_history')%></h2>
           <table>
             <% @visitation_form.audit_log_entries.reverse_each do |entry| %>
-                <tr><td><%= entry.timestamp.strftime("%d.%m.%Y")  %></td><td><%= entry.username %></td><td><%= entry.operation %></td></tr>
+                <tr><td><%= entry.timestamp.strftime("%d.%m.%Y")  %></td><td><%= entry.username %></td><td><%= t(entry.operation) %></td></tr>
             <% end %>
           </table>
         </div>

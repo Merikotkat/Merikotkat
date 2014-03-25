@@ -59,6 +59,11 @@ fi:
   submit_visitation_form: "Lähetä"
   unsubmitted: "Välitallennetut"
   unsubmit_visitation_form: "Peruuta lähetys"
+  update: "Tallennettu"
+  create: "Luotu"
+  unsubmit_form: "Peruttu"
+  submit_form: "Lähetetty"
+  approve_form: "Arkistoitu"
   welcome_to_linssi: "Tervetuloa Linssiin"
   young_images: "Poikaskuvat"
 
