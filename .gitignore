@@ -16,6 +16,7 @@
 /tmp
 /.idea
 /config/database.yml
+/public/images
 
 # Ignore SimpleCov stuff
 /coverage
