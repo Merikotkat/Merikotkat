@@ -34,13 +34,6 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
-    puts AuditLogEntry.all.inspect
-    #if @user[:type] == 'admin'
-    #  forms = VisitationForm.all
-    #else
-    #  forms = VisitationForm.where("form_saver_id = ? or photographer_id = ?", @user[:login_id],@user[:login_id])
-    #end
-
     # Find the forms the user has access to
     forms = Array.new
     VisitationForm.find_each do |form|
