@@ -1,7 +1,9 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
   before_action :check_permission, except: [:index, :new, :create]
-  after_action :updateauditlog, except: [:index, :new, :show]
+
+  #todo maybe move this to form save instead? Although the necessary variables are not present there.. hmm
+  after_action :updateauditlog, except: [:index, :new, :show, :edit]
 
   if Rails.env.test?
     before_action :set_municipalities_api_test
@@ -213,14 +215,15 @@ class VisitationFormsController < ApplicationController
     end
   end
 
+
   def updateauditlog
     entry = AuditLogEntry.new
     entry.timestamp = Time.now
     entry.userid = @user[:login_id]
+    entry.username = @user[:user_name]
     entry.visitation_form_id = @visitation_form.id
     entry.operation = action_name
     entry.save
-    #puts @user[:login_id] + " " + action_name + " " + params[:id]
   end
 
 

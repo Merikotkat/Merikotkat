@@ -17,6 +17,16 @@
     <br /><%= link_to t('approve_visitation_form'), action: "approve_form" %>
 <% end %>
 
+
+
+<h2><%= t('form_history') %></h2>
+<table>
+  <% @visitation_form.audit_log_entries.reverse_each do |entry| %>
+      <tr><td><%= entry.timestamp.strftime("%d.%m.%Y")  %></td><td><%= entry.username %></td><td><%= entry.operation %></td></tr>
+  <% end %>
+</table>
+
+
 <h2><%= t('form_owners') %></h2>
 <ul>
 <% @visitation_form.owners.each do |owner| %>

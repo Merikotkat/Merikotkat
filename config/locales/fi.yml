@@ -31,6 +31,7 @@ fi:
   form_already_approved: "Tämä lomake on lähetetty ja hyväksytty. Sitä ei voi enää muokata."
   form_already_sent: "Tämä lomake on lähetetty tarkistettavaksi. Sitä ei voi enää muokata."
   form_has_images: "Lomaketta ei voi poistaa koska siihen on liitetty kuvia"
+  form_history: "Lomakkeen historia"
   form_not_sent: "Lomaketta ei ole lähetetty"
   form_owners: "Lomakkeen omistajat"
   form_status: "Lomakkeen tila:"
