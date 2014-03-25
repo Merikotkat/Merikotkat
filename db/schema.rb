@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140325115516) do
+ActiveRecord::Schema.define(version: 20140325122933) do
 
   create_table "audit_log_entries", force: true do |t|
     t.string   "username"
     t.string   "userid"
     t.datetime "timestamp"
     t.string   "operation"
+    t.integer  "visitation_form_id"
   end
+
+  add_index "audit_log_entries", ["visitation_form_id"], name: "index_audit_log_entries_on_visitation_form_id"
 
   create_table "images", force: true do |t|
     t.string   "filename"
