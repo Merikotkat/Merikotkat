@@ -89,8 +89,8 @@
 
     <h2><%= t('bird') %></h2>
     <p>
-      <%= bird.gender %> <br />
-      <%= bird.shyness %> <br />
+      <strong><%= t('gender') %>:</strong> <%= bird.gender %> <br />
+      <strong><%= t('shyness') %>:</strong> <%= bird.shyness %> <br />
     </p>
 
     <% bird.images.reverse_each do |img| %>

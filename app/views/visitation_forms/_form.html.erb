@@ -278,14 +278,21 @@
         $("#addbird").on("click", function () {
             var count = $("#birds-div .bird-div").length;
             var newDiv =
-                    '<div>\
-                    <label for="birds[][gender]">\
+                    '<div class="bird-div boxed">\
+                    <div class="birds" id="birds_1">\
+                    <h2><%= t('bird') %> ' + (count+1) +'</h2>\
+                    <div class="field">\
+                    <label for="visitation_form_birds[][gender]"><%= t('gender') %></label>\
                     <input type="text" name="birds[][gender]">\
-                    <label for="birds[][shyness]">\
+                    </div>\
+                    <div class="field">\
+                    <label for="visitation_form_birds[][shyness]"><%= t('shyness') %></label>\
                     <input type="text" name="birds[][shyness]">\
                     </div>\
                      <div class="field">\
                     <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data=\'{ "imageType": 1, "birdIndex": ' + count + ', "uuid": "<%= @uuid %>" }\' multiple="multiple" accept="image/*" />\
+                    </div>\
+                    </div>\
                     </div>'
 
             $("#birds-div").append(newDiv);
