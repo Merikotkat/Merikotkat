@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140325122933) do
+ActiveRecord::Schema.define(version: 20140327090639) do
 
   create_table "audit_log_entries", force: true do |t|
     t.string   "username"
@@ -22,6 +22,20 @@ ActiveRecord::Schema.define(version: 20140325122933) do
   end
 
   add_index "audit_log_entries", ["visitation_form_id"], name: "index_audit_log_entries_on_visitation_form_id"
+
+  create_table "birds", force: true do |t|
+    t.string   "gender"
+    t.integer  "shyness"
+    t.string   "left_ring_code"
+    t.string   "left_ring_color"
+    t.string   "right_ring_code"
+    t.string   "right_ring_color"
+    t.integer  "visitation_form_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "birds", ["visitation_form_id"], name: "index_birds_on_visitation_form_id"
 
   create_table "images", force: true do |t|
     t.string   "filename"
@@ -42,8 +56,10 @@ ActiveRecord::Schema.define(version: 20140325122933) do
     t.string   "upload_id"
     t.binary   "thumbnaildata"
     t.string   "content_type"
+    t.integer  "bird_id"
   end
 
+  add_index "images", ["bird_id"], name: "index_images_on_bird_id"
   add_index "images", ["visitation_form_id"], name: "index_images_on_visitation_form_id"
 
   create_table "owners", force: true do |t|

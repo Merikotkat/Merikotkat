@@ -121,6 +121,15 @@
         <div class="birds" id="birds_1">
           <h2><%= t('bird') %> 1</h2>
           <div class="field">
+            <%= f.label "birds[gender]", t('gender') %>
+            <input type="text" name="birds[gender]">
+          </div>
+          <div class="field">
+            <%= f.label "birds[shyness]", t('shyness') %>
+            <input type="text" name="birds[shyness]">
+          </div>
+
+          <div class="field">
             <%= f.label"images[birds][bird1][files][img1]", t('file') %>
             <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
           </div>

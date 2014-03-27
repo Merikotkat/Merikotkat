@@ -1,5 +1,6 @@
 class VisitationForm < ActiveRecord::Base
   has_many :images
+  has_many :birds
   has_many :owners
   has_many :audit_log_entries
 

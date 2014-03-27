@@ -2,6 +2,7 @@ require 'digest/md5'
 
 class Image < ActiveRecord::Base
   belongs_to :visitation_form
+  belongs_to :bird
 
   before_validation :calculate_md5
   before_save :create_thumbnail
