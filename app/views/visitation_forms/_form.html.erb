@@ -26,12 +26,6 @@
     <% end %>
 
 
-    <div class="boxed">
-      <%= f.label :species_id %>
-      <%= f.select :species_id, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
-    </div>
-
-
     <div class="boxed" id="owners">
       <h2><%=t('form_owners')%></h2>
       <ul id="owners_list">
@@ -101,6 +95,10 @@
     <div class="boxed">
       <h2><%= t('nest_info') %></h2>
       <div class="field">
+        <%= f.label :species_id %>
+        <%= f.select :species_id, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
+      </div>
+      <div class="field">
         <%= f.label :nest_id %>
         <%= f.number_field :nest_id %>
       </div>
@@ -108,7 +106,6 @@
         <%= f.label :municipality %>
         <%= f.text_field :municipality %>
       </div>
-
       <div class="field">
         <%= f.label :nest %>
         <%= f.text_field :nest %>
