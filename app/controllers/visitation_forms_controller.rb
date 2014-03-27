@@ -1,29 +1,24 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
   before_action :check_permission, except: [:index, :new, :create]
+  after_action :update_audit_log, except: [:index, :new, :show, :edit]
+  before_action :set_municipalities_api
 
-  #todo maybe move this to form save instead? Although the necessary variables are not present there.. hmm
-  after_action :updateauditlog, except: [:index, :new, :show, :edit]
-
-  if Rails.env.test?
-    before_action :set_municipalities_api_test
-  else
-    before_action :set_municipalities_api_prod
-  end
-
-  def set_municipalities_api_prod
-    @municipalities = TipuApiHelper.GetMunicipalities
-    @species = TipuApiHelper.GetSpecies
-  end
-  def set_municipalities_api_test
-    @municipalities = TipuApiHelperMock.GetMunicipalities
-    @species = TipuApiHelperMock.GetSpecies
+  def set_municipalities_api
+    if Rails.env.test?
+      @municipalities = TipuApiHelperMock.GetMunicipalities
+      @species = TipuApiHelperMock.GetSpecies
+    else
+      @municipalities = TipuApiHelper.GetMunicipalities
+      @species = TipuApiHelper.GetSpecies
+    end
   end
 
 
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
+    #todo this should be done in a query instead...
     # Find the forms the user has access to
     forms = Array.new
     VisitationForm.find_each do |form|
@@ -130,7 +125,6 @@ class VisitationFormsController < ApplicationController
       @visitation_form.approved = true
       @visitation_form.save :validate => false
     end
-
     redirect_to @visitation_form
   end
 
@@ -185,7 +179,7 @@ class VisitationFormsController < ApplicationController
     return false
   end
 
-  def updateauditlog
+  def update_audit_log
     entry = AuditLogEntry.new
     entry.timestamp = Time.now
     entry.userid = @user[:login_id]
