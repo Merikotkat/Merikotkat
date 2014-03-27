@@ -396,8 +396,7 @@
                     imagediv.append($('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail', :id => nil) %>/' + file.id, 'alt': file.name }));
 
                     if(file.imageType == 1) {
-                        alert($(".bird_div").eq(file.birdIndex));
-                        $(".bird_div").eq(file.birdIndex).append(imagediv);
+                        $( ".bird-div" ).eq(file.birdIndex).append(imagediv);
                     }
                     else {
                         $("#birds_" + file.imageType).append(imagediv);
