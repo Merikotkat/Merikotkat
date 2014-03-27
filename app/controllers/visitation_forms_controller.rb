@@ -21,16 +21,6 @@ class VisitationFormsController < ApplicationController
   end
 
 
-  def user_has_access_to_form form
-    form.owners.each do |owner|
-      return true if owner.owner_id == @user[:login_id]
-    end
-
-    return true if form.photographer_id == @user[:login_id]
-
-    return false
-  end
-
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
@@ -190,25 +180,20 @@ class VisitationFormsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def check_permission
-    if @user[:type] == 'admin'
-      return
-    else
-    permission = false
-    @visitation_form.owners.each do |owner|
-      if @user[:login_id] == owner.owner_id
-        permission = true
-        break
-      end
-    end
-
-    if !permission
-      # puts 'No permission, return 404'
+    unless user_has_access_to_form @visitation_form
       not_found
-    end
-
     end
   end
 
+  def user_has_access_to_form form
+    form.owners.each do |owner|
+      return true if owner.owner_id == @user[:login_id]
+    end
+
+    return true if form.photographer_id == @user[:login_id]
+
+    return false
+  end
 
   def updateauditlog
     entry = AuditLogEntry.new
