@@ -125,6 +125,7 @@ class VisitationFormsController < ApplicationController
       # upload images now that our form has an ID
       attach_images params[:visitation_form][:uuid], @visitation_form.id
       add_owners params[:owners], @visitation_form.id
+      add_birds params[:birds], @visitation_form.id
 
       # then save again with validation if needed. Beautiful!
       if @visitation_form.save :validate => params[:save].nil?
@@ -224,8 +225,20 @@ class VisitationFormsController < ApplicationController
     @visitation_form = VisitationForm.find(params[:id])
   end
 
+  def add_birds(bird_array, formId)
+    Bird.where("visitation_form_id= ?", formId).destroy_all
+
+    bird_array.each do |bird_info|
+      bird = Bird.new
+      bird.shyness = bird_info[:shyness]
+      bird.gender = bird_info[:gender]
+      bird.visitation_form_id = formId
+      bird.save
+    end
+  end
+
   def add_owners(owner_array,formId)
-    owners = Owner.where("visitation_form_id= ?", formId).destroy_all
+    Owner.where("visitation_form_id= ?", formId).destroy_all
 
     owner_array.each do |owner_info|
       owner = Owner.new

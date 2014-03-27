@@ -117,34 +117,70 @@
     <h1><%= t('images') %></h1>
 
     <div id="birds-div">
-      <div class="bird-div boxed">
-        <div class="birds" id="birds_1">
-          <h2><%= t('bird') %> 1</h2>
-          <div class="field">
-            <%= f.label "birds[gender]", t('gender') %>
-            <input type="text" name="birds[gender]">
-          </div>
-          <div class="field">
-            <%= f.label "birds[shyness]", t('shyness') %>
-            <input type="text" name="birds[shyness]">
-          </div>
+      <% if @visitation_form.birds.count > 0 %>
+        <% index = 1 %>
+        <% @visitation_form.birds.each do |bird| %>
+          <div class="bird-div boxed">
+            <div class="birds" id="birds_1">
+              <h2><%= t('bird') %> <%= index %></h2>
+              <div class="field">
+                <%= f.label "birds[][gender]", t('gender') %>
+                <input type="text" name="birds[][gender]" value="<%= bird.gender %>">
+              </div>
+              <div class="field">
+                <%= f.label "birds[][shyness]", t('shyness') %>
+                <input type="text" name="birds[][shyness]" value="<%= bird.shyness %>">
+              </div>
 
-          <div class="field">
-            <%= f.label"images[birds][bird1][files][img1]", t('file') %>
-            <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
-          </div>
-          <div class="images">
-            <% if defined? @bird1_images %>
-                <% @bird1_images.reverse_each do |img| %>
-                    <div class="image">
-                      <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete", id: img[:id] %>)<br />
-                      <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
-                    </div>
+              <div class="field">
+                <%= f.label"files[]", t('file') %>
+                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
+              </div>
+              <div class="images">
+
+                <% if !@bird1_images.nil? && index == 1 %>
+                    <% @bird1_images.reverse_each do |img| %>
+                        <div class="image">
+                          <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete", id: img[:id] %>)<br />
+                          <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
+                        </div>
+                    <% end %>
                 <% end %>
-            <% end %>
+                <% index += 1 %>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        <% end %>
+      <% else %>
+          <div class="bird-div boxed">
+            <div class="birds" id="birds_1">
+              <h2><%= t('bird') %> 1</h2>
+              <div class="field">
+                <%= f.label "birds[][gender]", t('gender') %>
+                <input type="text" name="birds[][gender]">
+              </div>
+              <div class="field">
+                <%= f.label "birds[][shyness]", t('shyness') %>
+                <input type="text" name="birds[][shyness]">
+              </div>
+
+              <div class="field">
+                <%= f.label"files[]", t('file') %>
+                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
+              </div>
+              <div class="images">
+                <% if defined? @bird1_images %>
+                    <% @bird1_images.reverse_each do |img| %>
+                        <div class="image">
+                          <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete", id: img[:id] %>)<br />
+                          <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
+                        </div>
+                    <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      <% end %>
     </div>
     <button type="button" id="addbird"><%= t('add_bird') %></button>
 
@@ -243,15 +279,12 @@
         $("#addbird").on("click", function () {
             var count = $("#birds-div .bird-div").length + 1;
             var newDiv =
-                    '<div class="bird-div boxed">' +
-                    '<h2><%= t('bird') %> ' + count + '</h2><div class=\"field\"><label for=\"visitation_form_images_bird' + count + '_info_gender\"><%= t('gender') %></label>' +
-                    '<input id=\"visitation_form_images_bird' + count + '_info_gender\" type=\"text\" name=\"visitation_form[images][birds][bird' + count + '][info][gender]\">' +
-                    '</div>' +
-                    '<div class=\"field\">' +
-                    '<label for=\"visitation_form_images[bird' + count + '][img1]\"><%= t('file') %></label>' +
-                    '<input id=\"visitation_form_images[birds][bird' + count + '][img1]\" type=\"file\" accept=\"image/*\" name=\"visitation_form[images[birds][bird' + count + '][files][img1]]\">' +
-                    '</div>' +
-                    '</div>';
+                    '<div>\
+                    <label for="birds[][gender]">\
+                    <input type="text" name="birds[][gender]">\
+                    <label for="birds[][shyness]">\
+                    <input type="text" name="birds[][shyness]">\
+                    </div>'
 
             $("#birds-div").append(newDiv);
         })
