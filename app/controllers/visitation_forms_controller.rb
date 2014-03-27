@@ -46,17 +46,13 @@ class VisitationFormsController < ApplicationController
         end
       end
     else
-      #default?
       @visitation_forms = forms.select { |f| f.sent != true }
-      #not_found
     end
   end
 
   # GET /visitation_forms/1
   # GET /visitation_forms/1.json
   def show
-    @bird1_images = Image.get_bird1_images(params[:id])
-    @bird2_images = Image.get_bird2_images(params[:id])
     @young_images = Image.get_young_images(params[:id])
     @landscape_images = Image.get_landscape_images(params[:id])
     @nest_images = Image.get_nest_images(params[:id])
@@ -75,8 +71,6 @@ class VisitationFormsController < ApplicationController
       redirect_to @visitation_form
     else
       @uuid = SecureRandom.uuid
-      @bird1_images = Image.get_bird1_images(params[:id])
-      @bird2_images = Image.get_bird2_images(params[:id])
       @young_images = Image.get_young_images(params[:id])
       @landscape_images = Image.get_landscape_images(params[:id])
       @nest_images = Image.get_nest_images(params[:id])
@@ -161,8 +155,7 @@ class VisitationFormsController < ApplicationController
   def destroy
     if @visitation_form.images.count > 0
       flash[:notice] = I18n.t('form_has_images')
-      redirect_to @visitation_form
-      return
+      redirect_to @visitation_form and return
     end
 
     @visitation_form.destroy
@@ -215,12 +208,10 @@ class VisitationFormsController < ApplicationController
       bird.visitation_form_id = form.id
       bird.save
     end
-
   end
 
   def add_owners(owner_array,formId)
     Owner.where("visitation_form_id= ?", formId).destroy_all
-
     owner_array.each do |owner_info|
       owner = Owner.new
       owner.owner_name=owner_info[:name]
@@ -228,7 +219,6 @@ class VisitationFormsController < ApplicationController
       owner.visitation_form_id=formId
       owner.save
     end
-
   end
 
   def attach_images(uuid, form)
@@ -245,7 +235,6 @@ class VisitationFormsController < ApplicationController
         image.bird_id = bird.id
         image.save
       end
-
       i += 1
     end
   end
