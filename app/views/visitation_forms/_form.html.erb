@@ -134,18 +134,17 @@
 
               <div class="field">
                 <%= f.label"files[]", t('file') %>
-                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
+                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "birdIndex": <%= index-1 %>, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
               </div>
               <div class="images">
 
-                <% if !@bird1_images.nil? && index == 1 %>
-                    <% @bird1_images.reverse_each do |img| %>
-                        <div class="image">
-                          <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete", id: img[:id] %>)<br />
-                          <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
-                        </div>
-                    <% end %>
+                <% bird.images.reverse_each do |img| %>
+                    <div class="image">
+                      <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete", id: img[:id] %>)<br />
+                      <%= link_to image_tag( url_for(:controller => 'images', :action => 'thumbnail', :id => img.id) ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
+                    </div>
                 <% end %>
+
                 <% index += 1 %>
               </div>
             </div>
@@ -166,7 +165,7 @@
 
               <div class="field">
                 <%= f.label"files[]", t('file') %>
-                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
+                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "birdIndex": 0, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
               </div>
               <div class="images">
                 <% if defined? @bird1_images %>
@@ -277,16 +276,20 @@
 
     $(function() {
         $("#addbird").on("click", function () {
-            var count = $("#birds-div .bird-div").length + 1;
+            var count = $("#birds-div .bird-div").length;
             var newDiv =
                     '<div>\
                     <label for="birds[][gender]">\
                     <input type="text" name="birds[][gender]">\
                     <label for="birds[][shyness]">\
                     <input type="text" name="birds[][shyness]">\
+                    </div>\
+                     <div class="field">\
+                    <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data=\'{ "imageType": 1, "birdIndex": ' + count + ', "uuid": "<%= @uuid %>" }\' multiple="multiple" accept="image/*" />\
                     </div>'
 
             $("#birds-div").append(newDiv);
+            add_fileupload();
         })
     });
 
@@ -378,7 +381,7 @@
         });
     });
 
-    $(function () {
+    function add_fileupload() {
         $('.fileupload').fileupload({
             dataType: 'json',
             beforeSend: function(xhr) {
@@ -391,7 +394,14 @@
                     imagediv.append($('<a class="delete">Poista</a>').attr({ 'href': '<%= url_for(:controller => 'images', :action => 'delete', :id => nil) %>/' + file.id + '?uuid=<%= @uuid %>' }).attr({ 'id': file.id}));
                     imagediv.append(")<br/>");
                     imagediv.append($('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail', :id => nil) %>/' + file.id, 'alt': file.name }));
-                    $("#birds_" + file.imageType).append(imagediv);
+
+                    if(file.imageType == 1) {
+                        alert($(".bird_div").eq(file.birdIndex));
+                        $(".bird_div").eq(file.birdIndex).append(imagediv);
+                    }
+                    else {
+                        $("#birds_" + file.imageType).append(imagediv);
+                    }
                 });
             },
             error: function(xhr) {
@@ -399,7 +409,9 @@
                 alert("<%= t('error_while_uploading') %>" +"\n" + json.errors);
             }
         });
-    });
+    }
+
+    add_fileupload();
 
     $(function () {
         $("#insert_name_button").on("click", function (e) {

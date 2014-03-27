@@ -123,9 +123,9 @@ class VisitationFormsController < ApplicationController
     # first save without validation
     if @visitation_form.save :validate => false
       # upload images now that our form has an ID
-      attach_images params[:visitation_form][:uuid], @visitation_form.id
+      add_birds params[:birds], @visitation_form
+      attach_images params[:visitation_form][:uuid], @visitation_form
       add_owners params[:owners], @visitation_form.id
-      add_birds params[:birds], @visitation_form.id
 
       # then save again with validation if needed. Beautiful!
       if @visitation_form.save :validate => params[:save].nil?
@@ -225,16 +225,15 @@ class VisitationFormsController < ApplicationController
     @visitation_form = VisitationForm.find(params[:id])
   end
 
-  def add_birds(bird_array, formId)
-    Bird.where("visitation_form_id= ?", formId).destroy_all
-
-    bird_array.each do |bird_info|
+  def add_birds(bird_array, form)
+    for i in form.birds.count...bird_array.count do
       bird = Bird.new
-      bird.shyness = bird_info[:shyness]
-      bird.gender = bird_info[:gender]
-      bird.visitation_form_id = formId
+      bird.shyness = bird_array[i][:shyness]
+      bird.gender = bird_array[i][:gender]
+      bird.visitation_form_id = form.id
       bird.save
     end
+
   end
 
   def add_owners(owner_array,formId)
@@ -250,13 +249,22 @@ class VisitationFormsController < ApplicationController
 
   end
 
-  def attach_images(uuid, formId)
+  def attach_images(uuid, form)
     images = Image.where "upload_id = ?", uuid
-
     images.each do |img|
-      img.visitation_form_id = formId
+      img.visitation_form_id = form.id
       img.upload_id = NIL
       img.save
+    end
+
+    i = 0
+    form.birds.each do |bird|
+      images.select { |img| img.temp_index == i }.each do |image|
+        image.bird_id = bird.id
+        image.save
+      end
+
+      i += 1
     end
   end
 

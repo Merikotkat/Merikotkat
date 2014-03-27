@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327090639) do
+ActiveRecord::Schema.define(version: 20140327102855) do
 
   create_table "audit_log_entries", force: true do |t|
     t.string   "username"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140327090639) do
     t.binary   "thumbnaildata"
     t.string   "content_type"
     t.integer  "bird_id"
+    t.integer  "temp_index"
   end
 
   add_index "images", ["bird_id"], name: "index_images_on_bird_id"
