@@ -27,12 +27,7 @@ class VisitationFormsController < ApplicationController
     # Find the forms the user has access to
     forms = Array.new
     VisitationForm.find_each do |form|
-      if @user[:type] == 'admin'
-        # Admin has access to all forms
-        forms.push form
-      else
-        forms.push(form) if user_has_access_to_form form
-      end
+      forms.push(form) if user_has_access_to_form form
     end
 
     # Filter the forms
@@ -186,6 +181,8 @@ class VisitationFormsController < ApplicationController
   end
 
   def user_has_access_to_form form
+    return true if @user[:type] == 'admin'
+
     form.owners.each do |owner|
       return true if owner.owner_id == @user[:login_id]
     end
