@@ -266,6 +266,7 @@
             var div = $(".bird-div:last").clone(false);
             $("h2", div).html('<%= t('bird') %> ' + (count + 1));
             $(".image", div).html('');
+            $("input[type=text]", div).val('');
             $("input[class=fileupload]", div).attr('data-form-data', '{ "imageType": 1, "birdIndex": ' + count + ', "uuid": "<%= @uuid %>" }');
             $("#birds-div").append(div);
         })
@@ -316,7 +317,7 @@
 
     $(function() {
         $("#visitation_form_photographer_name").autocomplete({
-            source: function( request, response ) {
+            source: function(request, response) {
                 $.ajax({
                     url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + request.term,
                     success: function( data ) {
@@ -332,10 +333,10 @@
                 });
             },
             minLength: 3,
-            select: function( event, ui ) {
+            select: function(event, ui) {
                 $("#visitation_form_photographer_id").val(ui.item.value);
                 $("#visitation_form_photographer_name").val(ui.item.label);
-                return false; // prevent jquery from setting hurr to value...
+                return false; // prevent jquery from overwriting the value
             }
         });
 
@@ -396,10 +397,8 @@
     $(function () {
         $("#insert_name_button").on("click", function (e) {
             e.preventDefault();
-            var userid = "<%= @user[:login_id] %>";
-            var username = "<%= @user[:user_name] %>";
-            $("#visitation_form_photographer_name").val(username + " (" + userid + ")");
-            $("#visitation_form_photographer_id").val(userid);
+            $("#visitation_form_photographer_name").val("<%= @user[:login_id] %> (<%= @user[:login_id] %>)");
+            $("#visitation_form_photographer_id").val("<%= @user[:login_id] %>");
         });
 
         // Id needs to be cleared if not a valid photographer
