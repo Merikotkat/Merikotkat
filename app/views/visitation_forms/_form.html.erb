@@ -30,17 +30,9 @@
       <h2><%=t('form_owners')%></h2>
       <ul id="owners_list">
         <% if @visitation_form.owners.count > 0 %>
-            <% count = 1 %>
-
             <% @visitation_form.owners.each  do |owner| %>
-                <% if count== 1%>
-                    <li><input name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" name="owners[][id]" type="hidden"></li>
-                <% else %>
-                    <li><input name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>
-                <% end %>
-                <%count = count + 1 %>
+                <li><input name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>
             <% end %>
-
         <% else %>
             <li><input value="<%=@user[:user_name] %>"  name="owners[][name]" type="text"><input value="<%=@user[:login_id] %>" name="owners[][id]" type="hidden"></li>
         <% end %>
@@ -283,12 +275,18 @@
        $("#add_owner_button").on("click", function() {
            var newInput = '<li><input name="owners[][name]" type="text"><input name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>';
            $("#owners_list").append(newInput);
+           $("#owners_list a").show();
        })
     });
 
     $(document).on("click", ".delete_owner", function(e) {
         e.preventDefault();
         $(this).closest("li").remove();
+
+        // If there is only one owner left, hide the delete link
+        if ($("#owners_list li").length == 1) {
+            $("#owners_list a").hide();
+        }
     });
 
 
