@@ -78,16 +78,25 @@
       <div id="content-wrapper">
         <div id="sidebar">
           <ul>
-            <li><%= t("forms") %></li>
+            <li><%= t("forms").upcase %></li>
 
             <ul>
-                <li><%=link_to(t('unsubmitted'), {controller: 'visitation_forms', action: "index", type: "unsubmitted"})   %></li>
-                <li><%=link_to(t('submitted'), {controller: 'visitation_forms', action: "index", type: "submitted"})   %></li>
+                <li>
+                  <%= image_tag "folder_unsubmitted.png" %>
+                  <%=link_to(t('unsubmitted') + " (" + VisitationForm.get_forms_of_type(@user, "unsubmitted").count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "unsubmitted"})   %>
+                </li>
+                <li>
+                  <%= image_tag "folder_submitted.png" %>
+                  <%=link_to(t('submitted') + " (" + VisitationForm.get_forms_of_type(@user, "submitted").count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "submitted"})   %>
+                </li>
                 <% if @user[:type] == 'admin' %>
-                    <li><%=link_to(t('archive'), {controller: 'visitation_forms', action: "index", type: "archive"})   %></li>
+                    <li>
+                      <%= image_tag "folder_archive.png" %>
+                      <%=link_to(t('archive') + " (" + VisitationForm.get_forms_of_type(@user, "archive").count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "archive"})   %>
+                    </li>
                 <% end %>
               </ul>
-            <li><%= link_to "Luo uusi lomake", new_visitation_form_path %></li>
+            <li><%= link_to t("new_visitation_form").upcase, new_visitation_form_path %></li>
           </ul>
         </div>
         <div id="content" class="page-content">

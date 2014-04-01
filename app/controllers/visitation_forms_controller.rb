@@ -18,30 +18,31 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
-    #todo this should be done in a query instead...
-    # Find the forms the user has access to
-    forms = Array.new
-    VisitationForm.find_each do |form|
-      forms.push(form) if user_has_access_to_form form
-    end
-
     # Filter the forms
     if (defined? params[:type] and !params[:type].nil?)
       @header = t(params[:type])
       @type = params[:type]
-      if(params[:type] == "submitted")
-        @visitation_forms = forms.select { |f| f.sent == true && f.approved != true }
-      elsif (params[:type] == "unsubmitted")
-        @visitation_forms = forms.select { |f| f.sent != true && f.approved != true }
-      elsif(params[:type] == "archive")
-        if @user[:type] == 'admin'
-          @visitation_forms = forms.select { |f| f.approved == true }
-        else
-          not_found
-        end
+      if (@visitation_forms = VisitationForm.get_forms_of_type @user, params[:type]) == false
+        not_found
       end
     else
-      @visitation_forms = forms.select { |f| f.sent != true }
+      @visitation_forms = Array.new
+    end
+
+    @total_visitation_forms = @visitation_forms.count
+
+    if (not defined? params[:per_page] or params[:per_page].nil?)
+      per_page = 5
+    else
+      per_page = params[:per_page].to_i
+    end
+
+    if (not defined? params[:page] or params[:page].nil?)
+      @visitation_forms = @visitation_forms.first(per_page)
+    else
+      start_index = (params[:page].to_i - 1) * per_page
+      end_index = start_index + per_page - 1
+      @visitation_forms = @visitation_forms[start_index..end_index]
     end
   end
 
@@ -91,6 +92,8 @@ class VisitationFormsController < ApplicationController
 
   def save_form
     @visitation_form.sent = false
+
+    @visitation_form.approved = false if @visitation_form.approved == nil
 
     destroy_deleted_images
 

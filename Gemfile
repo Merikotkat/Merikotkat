@@ -47,6 +47,7 @@ gem 'hpricot'
 gem 'activeresource'
 gem "unicode_utils"
 gem 'mini_magick'
+gem 'will_paginate'
 
 group :production do 
   gem 'ruby-oci8'

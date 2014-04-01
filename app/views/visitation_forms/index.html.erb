@@ -29,12 +29,19 @@
     }
 </style>
 
+<div id="pagination">
+
+</div>
+
+<div class="clear"></div>
+
 <table class="imagetable">
   <thead>
     <tr>
-      <th><%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %></th>
-      <th><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %></th>
+      <th><%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %></th>
       <th><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %></th>
+      <th><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %></th>
+      <th><%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %></th>
 
       <% if @visitation_forms.count > 0 %>
           <th></th>
@@ -50,9 +57,10 @@
     <% @visitation_forms.each do |visitation_form| %>
 
       <tr>
-        <td><%= visitation_form.photographer_name %></td>
-        <td><%= visitation_form.visit_date.strftime("%d.%m.%Y")  unless visitation_form.visit_date.nil?  %></td>
+        <td><%= visitation_form.nest_id  %></td>
         <td><%= visitation_form.nest %></td>
+        <td><%= visitation_form.visit_date.strftime("%d.%m.%Y")  unless visitation_form.visit_date.nil?  %></td>
+        <td><%= visitation_form.photographer_name %></td>
 
         <% if @visitation_forms.count > 0 %>
             <td><%= link_to t('show'), visitation_form %></td>
@@ -71,3 +79,34 @@
 <br>
 
 <%= link_to t('new_visitation_form'), new_visitation_form_path %>
+
+<script>
+  $(function() {
+      var count = <%= @total_visitation_forms %>;
+      var current_page = <%= params[:page].nil? ? 1 : params[:page] %>
+      var per_page = 5;
+
+      var pages = Math.ceil(count / per_page);
+
+      if(pages > 1) {
+          var url = "<%= url_for action:"index", type: params[:type] %>";
+
+          if(current_page > 1) {
+              $("#pagination").append('<a href="' + url + '?page=' + (current_page-1) + '&per_page=' + per_page + '">' + '<<' + '</a>');
+          }
+
+          for(var i = 0; i < pages; i++) {
+              if(i == (current_page-1)) {
+                $("#pagination").append('<div id="pagination-active">' + (i+1) + '</div>');
+              }
+              else {
+                $("#pagination").append('<a href="' + url + '?page=' + (i+1) + '&per_page=' + per_page + '">' + (i+1) + '</a>');
+              }
+          }
+
+          if(current_page < pages) {
+              $("#pagination").append('<a href="' + url + '?page=' + (current_page+1) + '&per_page=' + per_page + '">' + '>>' + '</a>');
+          }
+      }
+  });
+</script>

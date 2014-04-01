@@ -1,30 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<%= t('form_status') %>
-<% if @visitation_form.approved %>
-    <%= t('form_already_approved') %>
-<% elsif @visitation_form.sent %>
-    <%= t('form_already_sent') %> <br />
-    <%= link_to t('unsubmit_visitation_form'), "unsubmit/" + @visitation_form.id.to_s %>
-<% else %>
-    <%= t('form_not_sent') %> <br />
-    <%= link_to t('edit'), edit_visitation_form_path(@visitation_form) %> |
-    <%= link_to t('delete'), destroy_visitation_form_url(@visitation_form) %> |
-    <%= link_to t('submit_visitation_form'), "submit/" + @visitation_form.id.to_s %>
-<% end %>
+<div id="form-status-div">
+      <%= t('form_status') %>
+      <% if @visitation_form.approved %>
+          <%= t('form_already_approved') %>
+      <% elsif @visitation_form.sent %>
+          <%= t('form_already_sent') %>
+      <% else %>
+          <%= t('form_not_sent') %>
+      <% end %>
+</div>
 
-<% if @user[:type] == 'admin' && !@visitation_form.approved %>
-    <br /><%= link_to t('approve_visitation_form'), action: "approve_form" %>
-<% end %>
+<div>
+    <% if @visitation_form.approved %>
+
+    <% elsif @visitation_form.sent %>
+        <%= link_to t('unsubmit_visitation_form'), "unsubmit/" + @visitation_form.id.to_s, class: "button-link" %>
+    <% else %>
+        <%= link_to t('edit'), edit_visitation_form_path(@visitation_form), class: "button-link" %>
+        <%= link_to t('delete'), destroy_visitation_form_url(@visitation_form), class: "button-link" %>
+        <%= link_to t('submit_visitation_form'), "submit/" + @visitation_form.id.to_s, class: "button-link" %>
+    <% end %>
+
+    <% if @user[:type] == 'admin' && !@visitation_form.approved %>
+        <%= link_to t('approve_visitation_form'), { action: "approve_form" }, class: "button-link" %>
+    <% end %>
+</div>
 
 
-
-<h2><%= t('form_history') %></h2>
-<table>
-  <% @visitation_form.audit_log_entries.reverse_each do |entry| %>
-      <tr><td><%= entry.timestamp.strftime("%d.%m.%Y")  %></td><td><%= entry.username %></td><td><%= t(entry.operation) %></td></tr>
-  <% end %>
-</table>
+<div class="log">
+    <h2><%= t('form_history') %></h2>
+    <table>
+      <% @visitation_form.audit_log_entries.reverse_each do |entry| %>
+          <tr><td><%= entry.timestamp.strftime("%d.%m.%Y")  %></td><td><%= entry.username %></td><td><%= t(entry.operation) %></td></tr>
+      <% end %>
+    </table>
+</div>
 
 
 <h2><%= t('form_owners') %></h2>
