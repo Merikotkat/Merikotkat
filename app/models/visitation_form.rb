@@ -58,4 +58,36 @@ class VisitationForm < ActiveRecord::Base
       end
     end
   end
+
+  def self.get_forms_of_type(user, type)
+    #todo this should be done in a query instead...
+    forms = Array.new
+    VisitationForm.find_each do |form|
+      forms.push(form) if user_has_access_to_form user, form
+    end
+
+    if(type == "submitted")
+      @visitation_forms = forms.select { |f| f.sent == true && f.approved != true }
+    elsif (type == "unsubmitted")
+      @visitation_forms = forms.select { |f| f.sent != true && f.approved != true }
+    elsif(type == "archive")
+      if user[:type] == 'admin'
+        @visitation_forms = forms.select { |f| f.approved == true }
+      else
+        return false
+      end
+    end
+  end
+
+  def self.user_has_access_to_form user, form
+    return true if user[:type] == 'admin'
+
+    form.owners.each do |owner|
+      return true if owner.owner_id == user[:login_id]
+    end
+
+    return true if form.photographer_id == user[:login_id]
+
+    return false
+  end
 end
