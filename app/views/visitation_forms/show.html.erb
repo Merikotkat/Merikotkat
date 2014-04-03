@@ -18,7 +18,7 @@
         <%= link_to t('unsubmit_visitation_form'), "unsubmit/" + @visitation_form.id.to_s, class: "button-link" %>
     <% else %>
         <%= link_to t('edit'), edit_visitation_form_path(@visitation_form), class: "button-link" %>
-        <%= link_to t('delete'), destroy_visitation_form_url(@visitation_form), class: "button-link" %>
+        <%= link_to t('delete'), destroy_visitation_form_url(@visitation_form), class: "button-link delete" %>
         <%= link_to t('submit_visitation_form'), "submit/" + @visitation_form.id.to_s, class: "button-link" %>
     <% end %>
 
@@ -139,3 +139,9 @@
       <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br />
   <% end %>
 </p>
+
+<script>
+  $("a.delete").on("click", function() {
+     return confirm("<%= t('confirm_delete') %>");
+  });
+</script>
