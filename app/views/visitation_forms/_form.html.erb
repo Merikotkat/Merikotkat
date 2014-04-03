@@ -34,7 +34,7 @@
                 <li><input name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>
             <% end %>
         <% else %>
-            <li><input value="<%=@user[:user_name] %>"  name="owners[][name]" type="text"><input value="<%=@user[:login_id] %>" name="owners[][id]" type="hidden"></li>
+            <li><input value="<%=@user[:user_name] %>"  name="owners[][name]" type="text"><input value="<%=@user[:login_id] %>" name="owners[][id]" type="hidden"> <a class="delete_owner" style="display: none" href="#"><%=t('delete')%></a></li>
         <% end %>
       </ul>
 
