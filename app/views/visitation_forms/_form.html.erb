@@ -103,12 +103,15 @@
     <h1><%= t('images') %></h1>
 
     <div id="birds-div">
-      <% if @visitation_form.birds.count > 0 %>
         <% index = 1 %>
         <% @visitation_form.birds.each do |bird| %>
           <div class="bird-div boxed">
+            <%= link_to t('delete') + " " + t('bird'), {action: :delete_bird, bird_id: bird.id.to_s}, class: "delete_bird" %>
             <div class="birds" id="birds_1">
               <h2><%= t('bird') %> <%= index %></h2>
+
+              <input type="hidden" name="birds[][id]" value="<%= bird.id %>">
+
               <div class="field">
                 <%= f.label "birds[][gender]", t('gender') %>
                 <input type="text" name="birds[][gender]" value="<%= bird.gender %>">
@@ -136,7 +139,7 @@
 
               <div class="field">
                 <%= f.label"files[]", t('file') %>
-                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "birdIndex": <%= index-1 %>, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
+                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "birdId": <%= bird.id %>, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
               </div>
               <div class="images">
 
@@ -152,52 +155,6 @@
             </div>
           </div>
         <% end %>
-      <% else %>
-          <div class="bird-div boxed">
-            <div class="birds" id="birds_1">
-              <h2><%= t('bird') %> 1</h2>
-              <div class="field">
-                <%= f.label "birds[][gender]", t('gender') %>
-                <input type="text" name="birds[][gender]">
-              </div>
-              <div class="field">
-                <%= f.label "birds[][shyness]", t('shyness') %>
-                <input type="text" name="birds[][shyness]">
-              </div>
-              <div class="field">
-                <%= f.label "birds[][left_ring_code]", t('left_ring_code') %>
-                <input type="text" name="birds[][left_ring_code]">
-              </div>
-              <div class="field">
-                <%= f.label "birds[][left_ring_color]", t('left_ring_color') %>
-                <input type="text" name="birds[][left_ring_color]">
-              </div>
-              <div class="field">
-                <%= f.label "birds[][right_ring_code]", t('right_ring_code') %>
-                <input type="text" name="birds[][right_ring_code]">
-              </div>
-              <div class="field">
-                <%= f.label "birds[][right_ring_color]", t('right_ring_color') %>
-                <input type="text" name="birds[][right_ring_color]">
-              </div>
-
-              <div class="field">
-                <%= f.label"files[]", t('file') %>
-                <input class="fileupload" type="file" name="files[]" data-url="<%= images_url %>" data-form-data='{ "imageType": 1, "birdIndex": 0, "uuid": "<%= @uuid %>" }' multiple="multiple" accept="image/*" />
-              </div>
-              <div class="images">
-                <% if defined? @bird1_images %>
-                    <% @bird1_images.reverse_each do |img| %>
-                        <div class="image">
-                          <%= img[:original_filename] %> (<%= link_to t("delete"), { action: "delete", controller:"images", id: img[:id] }, class: "delete", id: img[:id] %>)<br />
-                          <%= link_to image_tag( img[:temp_path] ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
-                        </div>
-                    <% end %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-      <% end %>
     </div>
     <button type="button" id="addbird"><%= t('add_bird') %></button>
 
@@ -267,6 +224,13 @@
 <% end %>
 
 <script type="text/javascript">
+    function updateBirdHeaders() {
+        var divs = $("#birds-div .bird-div");
+        for(var i = 0; i < divs.length; i++) {
+            $("h2", divs[i]).html("<%= t('bird') %> " + (i+1));
+        }
+    }
+
     $(document).on("click", "a.delete", function(e) {
         e.preventDefault();
         if(confirm("<%= t('confirm_delete') %>"))
@@ -284,14 +248,42 @@
 
     $(function() {
         $("#addbird").on("click", function () {
-            var count = $("#birds-div .bird-div").length;
-            var div = $(".bird-div:last").clone(false);
-            $("h2", div).html('<%= t('bird') %> ' + (count + 1));
-            $(".image", div).html('');
-            $("input[type=text]", div).val('');
-            $("input[class=fileupload]", div).attr('data-form-data', '{ "imageType": 1, "birdIndex": ' + count + ', "uuid": "<%= @uuid %>" }');
-            $("#birds-div").append(div);
-        })
+            $.ajax({
+                url: "<%= url_for ({action: :create_bird, form_id: @visitation_form.id.to_s}) %>",
+                success: function( data ) {
+                    var count = $("#birds-div .bird-div").length;
+                    var div = $(".bird-div:last").clone(false);
+                    $("h2", div).html('<%= t('bird') %> ' + (count + 1));
+                    $(".image", div).html('');
+                    $("a.delete_bird", div).attr("href", "<%= url_for action: :delete_bird %>?bird_id=" + data.bird_id);
+                    $("input[type=hidden]", div).val(data.bird_id);
+                    $("input[type=text]", div).val('');
+                    $("input[class=fileupload]", div).attr('data-form-data', '{ "imageType": 1, "birdId": ' + data.bird_id + ', "uuid": "<%= @uuid %>" }');
+                    $("#birds-div").append(div);
+                }
+            });
+        });
+    });
+
+    $(document).on("click", "a.delete_bird", function(e) {
+        e.preventDefault();
+        if(confirm("<%= t('confirm_delete') %>"))
+        {
+            if($("#birds-div .bird-div").length == 1) {
+                alert("<%= t('error_must_have_one_bird') %>");
+            }
+            else {
+                var url = $(e.target).attr("href");
+                var jqxhr = $.ajax(url)
+                        .done(function() {
+                            $(e.target).closest("div").remove();
+                            updateBirdHeaders();
+                        })
+                        .fail(function() {
+                            alert( "Failed deleting =/" );
+                        });
+            }
+        }
     });
 
     $(function() {

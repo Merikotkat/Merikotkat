@@ -17,6 +17,8 @@ Merikotkat::Application.routes.draw do
   root 'welcome#index'
 
   resources :images
+  get 'visitation_forms/birds/create' => 'visitation_forms#create_bird'
+  get 'visitation_forms/birds/delete' => 'visitation_forms#delete_bird'
   get 'visitation_forms/approve/:id' => 'visitation_forms#approve_form'
   get 'visitation_forms/unsubmit/:id' => 'visitation_forms#unsubmit_form'
   get 'visitation_forms/submit/:id' => 'visitation_forms#submit_form'

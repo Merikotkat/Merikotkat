@@ -1,7 +1,7 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
   before_action :check_permission, except: [:index, :new, :create]
-  after_action :update_audit_log, except: [:index, :new, :show, :edit]
+  after_action :update_audit_log, except: [:index, :new, :show, :edit, :create_bird, :delete_bird]
   before_action :set_municipalities_api
 
   def set_municipalities_api
@@ -13,8 +13,6 @@ class VisitationFormsController < ApplicationController
       @species = TipuApiHelper.GetSpecies
     end
   end
-
-
 
 
   # GET /visitation_forms
@@ -66,7 +64,9 @@ class VisitationFormsController < ApplicationController
   def new
     @uuid = SecureRandom.uuid
     @visitation_form = VisitationForm.new
+    @visitation_form.save :validate => false
     @visitation_form.species_id = 'HALALB'  # set merikotka as default...
+    @visitation_form.birds << Bird.new
   end
 
   # GET /visitation_forms/1/edit
@@ -98,6 +98,19 @@ class VisitationFormsController < ApplicationController
    save_form
   end
 
+  def create_bird
+    bird = Bird.new
+    bird.visitation_form_id = params[:form_id]
+    bird.save
+    render json: { bird_id: bird.id }
+  end
+
+  def delete_bird
+    bird = Bird.find(params[:bird_id])
+    bird.destroy
+    render json: {status: "ok" } and return
+  end
+
   def save_form
     @visitation_form.sent = false
 
@@ -105,26 +118,20 @@ class VisitationFormsController < ApplicationController
 
     destroy_deleted_images
 
-    # first save without validation
-    if @visitation_form.save :validate => false
-      # upload images now that our form has an ID
-      add_birds params[:birds], @visitation_form
-      attach_images params[:visitation_form][:uuid], @visitation_form
-      add_owners params[:owners], @visitation_form.id
+    update_birds params[:birds], @visitation_form
+    attach_images params[:visitation_form][:uuid], @visitation_form
+    add_owners params[:owners], @visitation_form.id
 
-      # then save again with validation if needed. Beautiful!
-      if @visitation_form.save :validate => params[:save].nil?
-        # and lastly, mark form as 'sent' if needed
-        if params[:submit]
-          @visitation_form.sent = true
-          # look, another save!
-          @visitation_form.save
-        end
-
-        redirect_to @visitation_form
-      else
-        render action: 'new'
+    # save with validation if needed.
+    if @visitation_form.save :validate => params[:save].nil?
+      # mark form as 'sent' if needed
+      if params[:submit]
+        @visitation_form.sent = true
+        # look, another save!
+        @visitation_form.save
       end
+
+      redirect_to @visitation_form
     else
       render action: 'new'
     end
@@ -205,16 +212,15 @@ class VisitationFormsController < ApplicationController
     @visitation_form = VisitationForm.find(params[:id])
   end
 
-  def add_birds(bird_array, form)
-    for i in form.birds.count...bird_array.count do
-      bird = Bird.new
-      bird.shyness = bird_array[i][:shyness]
-      bird.gender = bird_array[i][:gender]
-      bird.left_ring_code = bird_array[i][:left_ring_code]
-      bird.left_ring_color = bird_array[i][:left_ring_color]
-      bird.right_ring_code = bird_array[i][:right_ring_code]
-      bird.right_ring_color = bird_array[i][:right_ring_color]
-      bird.visitation_form_id = form.id
+  def update_birds(bird_array, form)
+    bird_array.each do |bird_info|
+      bird = Bird.find(bird_info[:id])
+      bird.shyness = bird_info[:shyness]
+      bird.gender = bird_info[:gender]
+      bird.left_ring_code = bird_info[:left_ring_code]
+      bird.left_ring_color = bird_info[:left_ring_color]
+      bird.right_ring_code = bird_info[:right_ring_code]
+      bird.right_ring_color = bird_info[:right_ring_color]
       bird.save
     end
   end

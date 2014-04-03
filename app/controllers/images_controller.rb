@@ -40,7 +40,8 @@ class ImagesController < ApplicationController
         img.upload_id = params[:uuid]
         img.image_type = params[:imageType]
         img.content_type = data.content_type
-        img.temp_index = params[:birdIndex]
+        #img.temp_index = params[:birdIndex]
+        img.bird_id = params[:birdId]
 
         if !img.save
           #todo should an error halt and/or rollback the entire upload?
