@@ -28,6 +28,8 @@ Merikotkat::Application.routes.draw do
   get 'images/thumbnail/:id' => 'images#thumbnail'
   get 'images/thumbnail/' => 'images#thumbnail'
 
+  get 'external_api' => 'external_apis#index'
+
 
 
 

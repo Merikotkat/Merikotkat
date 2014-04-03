@@ -96,19 +96,24 @@
   <%= @visitation_form.nest %>
 </p>
 
+<% bird_no = 1 %>
 <% @visitation_form.birds.each do |bird| %>
 
-    <h2><%= t('bird') %></h2>
+    <h2><%= t('bird') + " " + bird_no.to_s %></h2>
     <p>
       <strong><%= t('gender') %>:</strong> <%= bird.gender %> <br />
       <strong><%= t('shyness') %>:</strong> <%= bird.shyness %> <br />
+      <strong><%= t('left_ring_code') %>:</strong> <%= bird.left_ring_code %> <br />
+      <strong><%= t('left_ring_color') %>:</strong> <%= bird.left_ring_color %> <br />
+      <strong><%= t('right_ring_code') %>:</strong> <%= bird.right_ring_code %> <br />
+      <strong><%= t('right_ring_color') %>:</strong> <%= bird.right_ring_color %> <br />
     </p>
 
     <% bird.images.reverse_each do |img| %>
         <%= img.filename %> <br />
         <%= link_to image_tag( url_for(:controller => 'images', :action => 'thumbnail', :id => img.id) ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %> <br />
     <% end %>
-
+    <% bird_no += 1 %>
 <% end %>
 
 <h2><%= t('young_images') %></h2>

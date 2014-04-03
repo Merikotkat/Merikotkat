@@ -83,16 +83,16 @@
             <ul>
                 <li>
                   <%= image_tag "folder_unsubmitted.png" %>
-                  <%=link_to(t('unsubmitted') + " (" + VisitationForm.get_forms_of_type(@user, "unsubmitted").count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "unsubmitted"})   %>
+                  <%=link_to(t('unsubmitted') + " (" + VisitationForm.get_forms_of_type(@user, "unsubmitted", nil, nil).count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "unsubmitted"})   %>
                 </li>
                 <li>
                   <%= image_tag "folder_submitted.png" %>
-                  <%=link_to(t('submitted') + " (" + VisitationForm.get_forms_of_type(@user, "submitted").count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "submitted"})   %>
+                  <%=link_to(t('submitted') + " (" + VisitationForm.get_forms_of_type(@user, "submitted", nil, nil).count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "submitted"})   %>
                 </li>
                 <% if @user[:type] == 'admin' %>
                     <li>
                       <%= image_tag "folder_archive.png" %>
-                      <%=link_to(t('archive') + " (" + VisitationForm.get_forms_of_type(@user, "archive").count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "archive"})   %>
+                      <%=link_to(t('archive') + " (" + VisitationForm.get_forms_of_type(@user, "archive", nil, nil).count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "archive"})   %>
                     </li>
                 <% end %>
               </ul>
