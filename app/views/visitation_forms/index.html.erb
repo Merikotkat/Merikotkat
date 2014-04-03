@@ -38,10 +38,10 @@
 <table class="imagetable">
   <thead>
     <tr>
-      <th><%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %></th>
-      <th><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %></th>
-      <th><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %></th>
-      <th><%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %></th>
+      <th><%= create_link t('nest_id', scope: [:activerecord, :attributes, :visitation_form]), "nest_id" %></th>
+      <th><%= create_link t('nest', scope: [:activerecord, :attributes, :visitation_form]), "nest" %></th>
+      <th><%= create_link t('visit_date', scope: [:activerecord, :attributes, :visitation_form]), "visit_date" %></th>
+      <th><%= create_link t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]), "photographer_name" %></th>
 
       <% if @visitation_forms.count > 0 %>
           <th></th>
@@ -84,7 +84,8 @@
   $(function() {
       var count = <%= @total_visitation_forms %>;
       var current_page = <%= params[:page].nil? ? 1 : params[:page] %>
-      var per_page = 5;
+      var per_page = <%= @per_page %>;
+      var sorting = "<%= @sortby_order %>";
 
       var pages = Math.ceil(count / per_page);
 
@@ -92,7 +93,7 @@
           var url = "<%= url_for action:"index", type: params[:type] %>";
 
           if(current_page > 1) {
-              $("#pagination").append('<a href="' + url + '?page=' + (current_page-1) + '&per_page=' + per_page + '">' + '<<' + '</a>');
+              $("#pagination").append('<a href="' + url + '?page=' + (current_page-1) + sorting +'">' + '<<' + '</a>');
           }
 
           for(var i = 0; i < pages; i++) {
@@ -100,12 +101,12 @@
                 $("#pagination").append('<div id="pagination-active">' + (i+1) + '</div>');
               }
               else {
-                $("#pagination").append('<a href="' + url + '?page=' + (i+1) + '&per_page=' + per_page + '">' + (i+1) + '</a>');
+                $("#pagination").append('<a href="' + url + '?page=' + (i+1) +sorting +'">' + (i+1) + '</a>');
               }
           }
 
           if(current_page < pages) {
-              $("#pagination").append('<a href="' + url + '?page=' + (current_page+1) + '&per_page=' + per_page + '">' + '>>' + '</a>');
+              $("#pagination").append('<a href="' + url + '?page=' + (current_page+1) +sorting + '">' + '>>' + '</a>');
           }
       }
   });

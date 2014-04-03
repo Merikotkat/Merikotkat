@@ -59,10 +59,20 @@ class VisitationForm < ActiveRecord::Base
     end
   end
 
-  def self.get_forms_of_type(user, type)
+  def self.get_forms_of_type(user, type, sortby, order)
     #todo this should be done in a query instead...
     forms = Array.new
-    VisitationForm.find_each do |form|
+
+    if (not defined? sortby or sortby.nil? or not VisitationForm.column_names.include? sortby )
+      allForms = VisitationForm.order("created_at desc")
+    else
+      if not defined? order or order.nil?
+        order = "asc"
+      end
+      allForms = VisitationForm.order(sortby + " " + order)
+    end
+
+    allForms.each do |form|
       forms.push(form) if user_has_access_to_form user, form
     end
 

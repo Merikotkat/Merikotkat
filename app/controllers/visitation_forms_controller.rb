@@ -15,6 +15,8 @@ class VisitationFormsController < ApplicationController
   end
 
 
+
+
   # GET /visitation_forms
   # GET /visitation_forms.json
   def index
@@ -22,7 +24,17 @@ class VisitationFormsController < ApplicationController
     if (defined? params[:type] and !params[:type].nil?)
       @header = t(params[:type])
       @type = params[:type]
-      if (@visitation_forms = VisitationForm.get_forms_of_type @user, params[:type]) == false
+
+      if ((defined? params[:sortby] and !params[:sortby].nil?) and defined? params[:order] and !params[:order].nil?)
+        @sortby_order = "&sortby=" + params[:sortby] + "&order=" + params[:order]
+      else
+        @sortby_order = ""
+        params[:sortby] = nil
+        params[:order] = nil
+      end
+
+
+      if (@visitation_forms = VisitationForm.get_forms_of_type @user, params[:type], params[:sortby], params[:order]) == false
         not_found
       end
     else
@@ -31,17 +43,13 @@ class VisitationFormsController < ApplicationController
 
     @total_visitation_forms = @visitation_forms.count
 
-    if (not defined? params[:per_page] or params[:per_page].nil?)
-      per_page = 5
-    else
-      per_page = params[:per_page].to_i
-    end
+    @per_page = 5
 
     if (not defined? params[:page] or params[:page].nil?)
-      @visitation_forms = @visitation_forms.first(per_page)
+      @visitation_forms = @visitation_forms.first(@per_page)
     else
-      start_index = (params[:page].to_i - 1) * per_page
-      end_index = start_index + per_page - 1
+      start_index = (params[:page].to_i - 1) * @per_page
+      end_index = start_index + @per_page - 1
       @visitation_forms = @visitation_forms[start_index..end_index]
     end
   end
