@@ -210,6 +210,10 @@ class VisitationFormsController < ApplicationController
       bird = Bird.new
       bird.shyness = bird_array[i][:shyness]
       bird.gender = bird_array[i][:gender]
+      bird.left_ring_code = bird_array[i][:left_ring_code]
+      bird.left_ring_color = bird_array[i][:left_ring_color]
+      bird.right_ring_code = bird_array[i][:right_ring_code]
+      bird.right_ring_color = bird_array[i][:right_ring_color]
       bird.visitation_form_id = form.id
       bird.save
     end

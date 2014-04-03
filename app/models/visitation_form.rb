@@ -63,6 +63,7 @@ class VisitationForm < ActiveRecord::Base
     #todo this should be done in a query instead...
     forms = Array.new
 
+    # If no sorting is given, results are sorted by creation timestamp and newest first (desc)
     if (not defined? sortby or sortby.nil? or not VisitationForm.column_names.include? sortby )
       allForms = VisitationForm.order("created_at desc")
     else
