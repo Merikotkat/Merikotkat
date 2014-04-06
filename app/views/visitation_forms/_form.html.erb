@@ -114,7 +114,7 @@
 
               <div class="field">
                 <%= f.label "birds[][gender]", t('gender') %>
-                <input type="text" name="birds[][gender]" value="<%= bird.gender %>">
+                <%= select_tag "birds[][gender]",  options_for_select(@genders['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.gender) %>
               </div>
               <div class="field">
                 <%= f.label "birds[][shyness]", t('shyness') %>

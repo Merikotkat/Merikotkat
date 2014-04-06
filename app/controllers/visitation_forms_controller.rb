@@ -10,6 +10,9 @@ class VisitationFormsController < ApplicationController
     else
       @municipalities = TipuApiHelper.GetMunicipalities
       @species = TipuApiHelper.GetSpecies
+      @genders = TipuApiHelper.GetGenders
+      puts 'hurr'
+      puts @genders
     end
   end
 

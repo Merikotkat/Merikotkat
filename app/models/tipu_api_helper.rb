@@ -37,8 +37,18 @@ class TipuApiHelper
         puts 'Refreshing species cache'
         species = JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/species?format=json"))
 
-        Rails.cache.write('tipuapispecies', species['species'], :expires_in => 30.minutes)
+        Rails.cache.write('tipuapispecies', species['species'], :expires_in => 2.hours)
       end
       return Rails.cache.read('tipuapispecies')
+    end
+
+
+    def self.GetGenders
+      if Rails.cache.read('tipuapigenders').nil?
+        puts 'Refreshing genders cache'
+        genders = JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/codes/9?format=json"))
+        Rails.cache.write('tipuapigenders', genders['codes'], :expires_in => 2.hours)
+      end
+      return Rails.cache.read('tipuapigenders')
     end
 end

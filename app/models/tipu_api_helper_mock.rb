@@ -45,4 +45,7 @@ class TipuApiHelperMock
     return {"ringers"=>""}
   end
 
+  def self.GetGenders
+    return nil
+  end
 end
