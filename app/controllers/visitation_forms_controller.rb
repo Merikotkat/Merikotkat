@@ -1,7 +1,6 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
   before_action :check_permission, except: [:index, :new, :create]
-  after_action :update_audit_log, except: [:index, :new, :show, :edit, :create_bird, :delete_bird]
   before_action :set_municipalities_api
 
   def set_municipalities_api
@@ -86,7 +85,6 @@ class VisitationFormsController < ApplicationController
   def create
     @visitation_form = VisitationForm.new(visitation_form_params)
     @visitation_form.form_saver_id = @user[:login_id]
-
     save_form
   end
 
@@ -94,8 +92,7 @@ class VisitationFormsController < ApplicationController
   # PATCH/PUT /visitation_forms/1.json
   def update
     @visitation_form.attributes = visitation_form_params
-
-   save_form
+    save_form
   end
 
   def create_bird
@@ -129,6 +126,9 @@ class VisitationFormsController < ApplicationController
         @visitation_form.sent = true
         # look, another save!
         @visitation_form.save
+        update_audit_log 'submit_form'
+      else
+        update_audit_log 'update'
       end
 
       redirect_to @visitation_form
@@ -142,6 +142,7 @@ class VisitationFormsController < ApplicationController
       @visitation_form.sent = true
       @visitation_form.approved = true
       @visitation_form.save :validate => false
+      update_audit_log
     end
     redirect_to @visitation_form
   end
@@ -149,6 +150,7 @@ class VisitationFormsController < ApplicationController
   def submit_form
     @visitation_form.sent = true
     if @visitation_form.save
+      update_audit_log
       redirect_to @visitation_form
     else
       render action: 'edit'
@@ -158,6 +160,7 @@ class VisitationFormsController < ApplicationController
   def unsubmit_form
     @visitation_form.sent = false
     @visitation_form.save validate: false
+    update_audit_log
     redirect_to @visitation_form
   end
 
@@ -171,6 +174,7 @@ class VisitationFormsController < ApplicationController
     end
 
     @visitation_form.destroy
+    update_audit_log
     respond_to do |format|
       format.html { redirect_to action: 'index', :type => "unsubmitted" }
       format.json { head :no_content }
@@ -197,13 +201,13 @@ class VisitationFormsController < ApplicationController
     return false
   end
 
-  def update_audit_log
+  def update_audit_log action = action_name
     entry = AuditLogEntry.new
     entry.timestamp = Time.now
     entry.userid = @user[:login_id]
     entry.username = @user[:user_name]
     entry.visitation_form_id = @visitation_form.id
-    entry.operation = action_name
+    entry.operation = action
     entry.save
   end
 
