@@ -46,6 +46,6 @@ class TipuApiHelperMock
   end
 
   def self.GetGenders
-    return nil
+    return {"code"=>[{"id"=>9, "desc"=>[{"content"=>"Naaras", "lang"=>"FI"}, {"content"=>"Hona", "lang"=>"SV"}, {"content"=>"Female", "lang"=>"EN"}], "code"=>"N", "metadata"=>1}, {"id"=>9, "desc"=>[{"content"=>"Koiras", "lang"=>"FI"}, {"content"=>"Hane", "lang"=>"SV"}, {"content"=>"Male", "lang"=>"EN"}], "code"=>"K", "metadata"=>2}, {"id"=>9, "desc"=>[{"content"=>"Otaksuttavasti naaras", "lang"=>"FI"}, {"content"=>"Antagligen hona", "lang"=>"SV"}, {"content"=>"Presumably female", "lang"=>"EN"}], "code"=>"O", "metadata"=>3}, {"id"=>9, "desc"=>[{"content"=>"Luultavasti koiras", "lang"=>"FI"}, {"content"=>"Antagligen hane", "lang"=>"SV"}, {"content"=>"Presumably male", "lang"=>"EN"}], "code"=>"L", "metadata"=>4}, {"id"=>9, "desc"=>[{"content"=>"Naaraspukuinen", "lang"=>"FI"}, {"content"=>"Honafärgad", "lang"=>"SV"}, {"content"=>"Female type plumage", "lang"=>"EN"}], "code"=>"P", "metadata"=>5}, {"id"=>9, "desc"=>[{"content"=>"Intersukupuolinen", "lang"=>"FI"}, {"content"=>"Intersex", "lang"=>"SV"}, {"content"=>"Intersex", "lang"=>"EN"}], "code"=>"I", "metadata"=>6}]}
   end
 end
