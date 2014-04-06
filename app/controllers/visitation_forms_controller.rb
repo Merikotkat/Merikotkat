@@ -7,12 +7,11 @@ class VisitationFormsController < ApplicationController
     if Rails.env.test?
       @municipalities = TipuApiHelperMock.GetMunicipalities
       @species = TipuApiHelperMock.GetSpecies
+      @genders = TipuApiHelperMock.GetGenders
     else
       @municipalities = TipuApiHelper.GetMunicipalities
       @species = TipuApiHelper.GetSpecies
       @genders = TipuApiHelper.GetGenders
-      puts 'hurr'
-      puts @genders
     end
   end
 
