@@ -23,7 +23,7 @@ describe "In Linssi" do
 
   it "once on the Luo uusi lomake - page, pedobear form fields are present" do
     visit root_path
-    click_link I18n.t('new_visitation_form').upcase
+    click_link I18n.t('new_visitation_form')
 
     expect(page).to have_content I18n.t('photographer_name', scope: [:activerecord, :attributes, :visitation_form])
     expect(page).to have_content I18n.t('visit_date', scope: [:activerecord, :attributes, :visitation_form])
