@@ -71,6 +71,7 @@ fi:
   activerecord:
     attributes:
       visitation_form:
+        additional_info: "Lisätiedot"
         nest_id: "Pesän id"
         municipality: "Kunta"
         camera: "Kamera"

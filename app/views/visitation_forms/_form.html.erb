@@ -214,6 +214,13 @@
       </div>
     </div>
 
+    <div class="boxed">
+      <h2><%= t('additional_info', scope: [:activerecord, :attributes, :visitation_form]) %></h2>
+      <div class="field">
+        <%= f.text_area :additional_info %>
+      </div>
+    </div>
+
 
     <div class="actions">
       <%= f.submit(t('save_visitation_form'), :name => 'save') %>
@@ -380,6 +387,7 @@
     });
 
     $(document).on("click", ".fileupload", function () {
+        var targetDiv = $(this).closest( ".bird-div" );
         $('.fileupload').fileupload({
             dataType: 'json',
             beforeSend: function(xhr) {
@@ -394,7 +402,7 @@
                     imagediv.append($('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail', :id => nil) %>/' + file.id, 'alt': file.name }));
 
                     if(file.imageType == 1) {
-                        $( ".bird-div" ).eq(file.birdIndex).append(imagediv);
+                        targetDiv.append(imagediv);
                     }
                     else {
                         $("#birds_" + file.imageType).append(imagediv);
