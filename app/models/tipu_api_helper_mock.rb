@@ -36,10 +36,11 @@ class TipuApiHelperMock
 
   # not very pretty, but its a mock class, so like, whatever
   def self.GetRingerById(ringer_id)
-    if ringer_id == 2890
+
+    if ringer_id.to_s == 2890.to_s
       return {"ringers"=>{"ringer"=>{"id"=>2890, "mobile-phone"=>"", "recovery-letter-method"=>"kihla", "yearofbirth"=>1983, "email"=>"aallonmatti@hotmail.com", "address"=>{"street"=>"KORPELANTIE 153", "postcode"=>42800, "city"=>"HAAPAMÄKI"}, "name"=>"MATTI AALTO (2890)", "permit"=>{"content"=>"R: Larfus, fl / Perinf", "codes"=>"HR", "year"=>2014}, "lastname"=>"AALTO", "permission"=>1, "firstname"=>"MATTI", "language"=>"fi"}}}
     end
-    if ringer_id == 1010
+    if ringer_id.to_s == 1010.to_s
       return {"ringers"=>{"ringer"=>{"id"=>1010, "mobile-phone"=>"", "recovery-letter-method"=>"paper", "yearofbirth"=>"", "email"=>"", "address"=>{"street"=>"", "postcode"=>"", "city"=>""}, "name"=>"MATTI AHO (1010)", "permit"=>{"codes"=>"", "year"=>""}, "lastname"=>"AHO", "permission"=>0, "firstname"=>"MATTI", "language"=>"fi"}}}
     end
     return {"ringers"=>""}
