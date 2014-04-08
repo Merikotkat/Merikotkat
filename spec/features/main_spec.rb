@@ -16,7 +16,7 @@ describe "In Linssi" do
 
   it "once clicking 'Luo uusi lomake', sees the new form" do
     visit root_path
-    click_link I18n.t('new_visitation_form').upcase
+    click_link I18n.t('new_visitation_form')
 
 #    save_and_open_page
   end
@@ -36,7 +36,7 @@ describe "In Linssi" do
 
   it "one can save temporarily the visitation form" do
     visit root_path
-    click_link I18n.t('new_visitation_form').upcase
+    click_link I18n.t('new_visitation_form')
     click_button I18n.t('save_visitation_form')
 
     expect(page).to have_content I18n.t('form_not_sent')
@@ -45,7 +45,7 @@ describe "In Linssi" do
 
   it "one cannot send forms without mandatory information" do
     visit root_path
-    click_link I18n.t('new_visitation_form').upcase
+    click_link I18n.t('new_visitation_form')
     click_button I18n.t('submit_visitation_form')
 
     expect(page).to have_content I18n.t('errors_in_form')
@@ -54,7 +54,7 @@ describe "In Linssi" do
 
   it "Once sending an invalid form, system displays appropriate error messages" do
     visit root_path
-    click_link I18n.t('new_visitation_form').upcase
+    click_link I18n.t('new_visitation_form')
     click_button I18n.t('submit_visitation_form')
 
     #expect(page).to have_content I18n.t('error_value_must_be_number')
@@ -66,7 +66,7 @@ describe "In Linssi" do
 
   it "Once temporarily saved, is visible in appropriate view" do
     visit root_path
-    click_link I18n.t('new_visitation_form').upcase
+    click_link I18n.t('new_visitation_form')
     fill_in(I18n.t('nest', scope: [:activerecord, :attributes, :visitation_form]), :with => 'Funky')
 
     click_button I18n.t('save_visitation_form')

@@ -2,17 +2,6 @@ require 'net/http'
 require 'active_support/cache/memory_store'
 
 class TipuApiHelper
-    def self.GetMunicipalities
-      if Rails.cache.read('municipalitiesdropdown').nil?
-          puts 'Refreshing municipalities cache'
-          @municipalities = JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/municipalities?format=json"))
-          @municipalities = @municipalities["municipalities"]["municipality"]
-          Rails.cache.write('municipalitiesdropdown', @municipalities, :expires_in => 30.minutes)
-      end
-      return Rails.cache.read('municipalitiesdropdown')
-    end
-
-
     def self.GetApiData(uri)
       req = ::Net::HTTP::Get.new(uri)
       req.basic_auth Lintuvaara::ApiConfig::SERVER_ACCOUNT, Lintuvaara::ApiConfig::SERVER_PASSWORD
@@ -21,6 +10,18 @@ class TipuApiHelper
       end
       return res.body
     end
+
+
+    def self.GetApiDataFromCache(uri)
+      if Rails.cache.read(uri).nil?
+        puts 'Refreshing cache for uri: ' + uri
+        data = JSON.parse GetApiData(URI(uri))
+
+        Rails.cache.write(uri, data, :expires_in => 2.hours)
+      end
+      return Rails.cache.read(uri)
+    end
+
 
     def self.GetRingerById(ringer_id)
       #todo remove before production! SRIZLY!
@@ -33,22 +34,34 @@ class TipuApiHelper
 
 
     def self.GetSpecies
-      if Rails.cache.read('tipuapispecies').nil?
-        puts 'Refreshing species cache'
-        species = JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/species?format=json"))
-
-        Rails.cache.write('tipuapispecies', species['species'], :expires_in => 2.hours)
-      end
-      return Rails.cache.read('tipuapispecies')
+      data = GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/species?format=json");
+      return data['species']
     end
 
 
     def self.GetGenders
-      if Rails.cache.read('tipuapigenders').nil?
-        puts 'Refreshing genders cache'
-        genders = JSON.parse GetApiData(URI("https://h92.it.helsinki.fi/tipu-api/codes/9?format=json"))
-        Rails.cache.write('tipuapigenders', genders['codes'], :expires_in => 2.hours)
-      end
-      return Rails.cache.read('tipuapigenders')
+      data = GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/codes/9?format=json");
+      return data['codes']
+    end
+
+
+    def self.GetMunicipalities
+      data = GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/municipalities?format=json");
+      return data["municipalities"]["municipality"]
+    end
+
+
+    def self.GetShyness
+      return GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/codes/801?format=json");
+    end
+
+
+    def self.GetRingColors
+      return GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/codes/303?format=json");
+    end
+
+
+    def self.GetGenderDeterminationMethod
+      return GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/codes/10?format=json");
     end
 end
