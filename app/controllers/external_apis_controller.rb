@@ -7,5 +7,10 @@ class ExternalApisController < BasicauthController
 
   end
 
-
+  def getimageurls
+    #todo json format? required fields? hurr?
+    images = Image.where "visitation_form_id = ?",  params[:id]
+    hurr = images.to_json(:only => [ :id, :filename, :category_id ])
+    render json: hurr
+  end
 end
