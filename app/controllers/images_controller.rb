@@ -38,6 +38,7 @@ class ImagesController < ApplicationController
         img.filename = data.original_filename
         img.data = data.read
         img.upload_id = params[:uuid]
+        img.visitation_form_id = params[:formId]
         img.image_type = params[:imageType]
         img.content_type = data.content_type
         #img.temp_index = params[:birdIndex]
