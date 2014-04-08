@@ -1,4 +1,4 @@
-class ExternalApisController < ApplicationController
+class ExternalApisController < BasicauthController
   respond_to :json
 
   def index

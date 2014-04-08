@@ -420,7 +420,7 @@
     $(function () {
         $("#insert_name_button").on("click", function (e) {
             e.preventDefault();
-            $("#visitation_form_photographer_name").val("<%= @user[:login_id] %> (<%= @user[:login_id] %>)");
+            $("#visitation_form_photographer_name").val("<%= @user[:user_name] %> (<%= @user[:login_id] %>)");
             $("#visitation_form_photographer_id").val("<%= @user[:login_id] %>");
         });
 
