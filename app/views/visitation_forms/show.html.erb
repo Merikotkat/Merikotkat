@@ -140,6 +140,11 @@
   <% end %>
 </p>
 
+<p>
+  <strong><%= t('additional_info', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
+  <%= @visitation_form.additional_info %>
+</p>
+
 <script>
   $("a.delete").on("click", function() {
      return confirm("<%= t('confirm_delete') %>");

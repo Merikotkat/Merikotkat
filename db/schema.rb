@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327102855) do
+ActiveRecord::Schema.define(version: 20140408074303) do
 
   create_table "audit_log_entries", force: true do |t|
     t.string   "username"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20140327102855) do
     t.boolean  "sent"
     t.boolean  "approved"
     t.string   "species_id"
+    t.string   "additional_info"
   end
 
 end

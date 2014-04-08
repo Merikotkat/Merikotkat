@@ -106,6 +106,12 @@ class VisitationFormsController < ApplicationController
 
   def delete_bird
     bird = Bird.find(params[:bird_id])
+
+    # delete all images attached to the bird
+    bird.images.each do |img|
+      img.destroy
+    end
+
     bird.destroy
     render json: {status: "ok" } and return
   end
@@ -135,6 +141,9 @@ class VisitationFormsController < ApplicationController
 
       redirect_to @visitation_form
     else
+      @young_images = Image.get_young_images(params[:id])
+      @landscape_images = Image.get_landscape_images(params[:id])
+      @nest_images = Image.get_nest_images(params[:id])
       render action: 'new'
     end
   end
@@ -254,6 +263,7 @@ class VisitationFormsController < ApplicationController
     form.birds.each do |bird|
       images.select { |img| img.temp_index == i }.each do |image|
         image.bird_id = bird.id
+        img.visitation_form_id = form.id
         image.save
       end
       i += 1
@@ -270,6 +280,6 @@ class VisitationFormsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def visitation_form_params
-    params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :form_saver_id, :species_id)
+    params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :form_saver_id, :species_id, :additional_info)
   end
 end
