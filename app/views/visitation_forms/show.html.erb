@@ -50,55 +50,64 @@
 <div class="boxed">
     <h2><%= t('visit_info') %></h2>
     <p>
-      <strong><%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <%= @visitation_form.photographer_name %>
-    </p>
-
-    <p>
-      <strong><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <%= @visitation_form.visit_date.strftime("%d.%m.%Y") unless @visitation_form.visit_date.nil? %>
+      <table class="info-table">
+        <tr>
+          <td><strong><%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.photographer_name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.visit_date.strftime("%d.%m.%Y") unless @visitation_form.visit_date.nil? %></td>
+        </tr>
+      </table>
     </p>
 </div>
 
 <div class="boxed">
     <h2><%= t('camera_info') %></h2>
     <p>
-      <strong><%= t('camera', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <%= @visitation_form.camera %>
-    </p>
-
-    <p>
-      <strong><%= t('lens', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <%= @visitation_form.lens %>
-    </p>
-
-    <p>
-      <strong><%= t('teleconverter', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <%= @visitation_form.teleconverter %>
+      <table class="info-table">
+        <tr>
+          <td><strong><%= t('camera', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.camera %></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('lens', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.lens %></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('teleconverter', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.teleconverter %></td>
+        </tr>
+      </table>
     </p>
 </div>
 
 <div class="boxed">
     <h2><%= t('nest_info') %></h2>
     <p>
-      <strong><%= t('species_id', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <%= @visitation_form.species_id %>
-    </p>
-    <p>
-      <strong><%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <%= @visitation_form.nest_id %>
-    </p>
-
-    <p>
-      <strong><%= t('municipality', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <% municipality = @municipalities.select do |m| m["id"] == @visitation_form.municipality end %>
-      <% # todo currently always shows the Finnish municipality name %>
-      <%= municipality[0]["name"][0]["content"] unless municipality[0].nil? %>
-    </p>
-
-    <p>
-      <strong><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %>:</strong>
-      <%= @visitation_form.nest %>
+      <table class="info-table">
+        <tr>
+          <td><strong><%= t('species_id', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.species_id %></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.nest_id %></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('municipality', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td>
+            <% municipality = @municipalities.select do |m| m["id"] == @visitation_form.municipality end %>
+            <% # todo currently always shows the Finnish municipality name %>
+            <%= municipality[0]["name"][0]["content"] unless municipality[0].nil? %>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.nest %></td>
+        </tr>
+      </table>
     </p>
 </div>
 
@@ -107,7 +116,7 @@
     <div class="boxed">
         <h2><%= t('bird') + " " + bird_no.to_s %></h2>
         <p>
-          <table class="bird-info-table">
+          <table class="info-table">
             <tr>
               <td><strong><%= t('gender') %></strong></td>
               <td><%= bird.gender %></td>
