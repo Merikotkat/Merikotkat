@@ -4,30 +4,6 @@
 <h1><%= @header %></h1>
 
 
-<style type="text/css">
-    table.imagetable {
-        font-family: verdana,arial,sans-serif;
-        font-size:11px;
-        color:#333333;
-        border-width: 1px;
-        border-color: #999999;
-        border-collapse: collapse;
-    }
-    table.imagetable th {
-        background:#b5cfd2 url(<%= asset_path 'cell-blue.jpg'%>);
-        border-width: 1px;
-        padding: 8px;
-        border-style: solid;
-        border-color: #999999;
-    }
-    table.imagetable td {
-        background:#dcddc0 url(<%= asset_path 'cell-grey.jpg'%>);
-        border-width: 1px;
-        padding: 8px;
-        border-style: solid;
-        border-color: #999999;
-    }
-</style>
 
 <div id="pagination">
 
@@ -35,7 +11,7 @@
 
 <div class="clear"></div>
 
-<table class="imagetable">
+<table id="formList">
   <thead>
     <tr>
       <th><%= create_link t('nest_id', scope: [:activerecord, :attributes, :visitation_form]), "nest_id" %></th>
@@ -57,10 +33,10 @@
     <% @visitation_forms.each do |visitation_form| %>
 
       <tr>
-        <td><%= visitation_form.nest_id  %></td>
-        <td><%= visitation_form.nest %></td>
-        <td><%= visitation_form.visit_date.strftime("%d.%m.%Y")  unless visitation_form.visit_date.nil?  %></td>
-        <td><%= visitation_form.photographer_name %></td>
+        <td class="nestid"><%= visitation_form.nest_id  %></td>
+        <td class="nestname"><%= visitation_form.nest %></td>
+        <td class="visitdate"><%= visitation_form.visit_date.strftime("%d.%m.%Y")  unless visitation_form.visit_date.nil?  %></td>
+        <td class="photographer"><%= visitation_form.photographer_name %></td>
 
         <% if @visitation_forms.count > 0 %>
             <td><%= link_to t('show'), visitation_form %></td>
