@@ -21,7 +21,6 @@ class ExternalApisController < BasicauthController
     speciesid = params[:speciesid]
     datefrom = params[:datefrom]
     dateto = params[:dateto]
-
     forms = VisitationForm.where(nest_id: nestid).where(species_id: speciesid).where(visit_date: datefrom..dateto)
     render json: forms.to_json(:include => [:birds, { :images => { :except => [ :data, :thumbnaildata ]}}])
   end
