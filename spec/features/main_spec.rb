@@ -219,6 +219,7 @@ describe "In Linssi" do
     click_button I18n.t('submit_visitation_form')
 
     expect(page).to have_content I18n.t('form_already_sent')
+    page.should_not have_content "keksimonsteri"
 
   end
 

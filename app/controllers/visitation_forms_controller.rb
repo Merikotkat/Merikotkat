@@ -42,7 +42,12 @@ class VisitationFormsController < ApplicationController
 
     @total_visitation_forms = @visitation_forms.count
 
-    @per_page = 5
+    if Rails.env.test?
+      @per_page = 5
+    else
+      @per_page = 15
+    end
+
 
     if (not defined? params[:page] or params[:page].nil?)
       @visitation_forms = @visitation_forms.first(@per_page)

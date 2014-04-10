@@ -750,3 +750,69 @@ form label {
     display: inline;
     float: left;
 }
+
+#formList {
+    font-family: verdana,arial,sans-serif;
+    font-size:13px;
+    color:#333333;
+
+    border-collapse: collapse;
+    width:100%;
+    margin-top: 20px;
+
+
+}
+#formList th {
+    background: rgba(142, 150, 168, 0.41);
+
+    padding: 8px;
+
+
+}
+
+#formList td {
+    background: rgba(184, 204, 222, 0.44);
+    padding: 8px;
+    border-bottom-width: 0px;
+    border-top-width: 2px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-style:solid;
+    border-color: #cdcbca;
+}
+
+#formList tr:hover td {
+    background: #64a4de;
+}
+
+td.nestid {
+    width:10%;
+    text-align: center;
+}
+
+td.nestname {
+    width:20%;
+}
+
+td.visitdate {
+    width:17%;
+    text-align: center;
+}
+
+td.photographer {
+    width:35%;
+
+}
+
+thead tr:first-child th:first-child {
+    border-radius: 0.6em 0 0 0;
+}
+thead tr:first-child th:last-child {
+    border-radius: 0 0.6em 0 0;
+}
+tbody tr:last-child td:first-child {
+    border-radius: 0 0 0 0.6em;
+}
+tbody tr:last-child td:last-child {
+    border-radius: 0 0 0.6em 0;
+}
