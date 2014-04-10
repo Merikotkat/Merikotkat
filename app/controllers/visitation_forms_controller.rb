@@ -1,6 +1,6 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
-  before_action :check_permission, except: [:index, :new, :create]
+  before_action :check_permission, except: [:index, :new, :create, :add_owners]
   before_action :set_municipalities_api
 
   def set_municipalities_api
@@ -73,6 +73,7 @@ class VisitationFormsController < ApplicationController
     @visitation_form.save :validate => false
     @visitation_form.species_id = 'HALALB'  # set merikotka as default...
     @visitation_form.birds << Bird.new
+    @visitation_form.owners << Owner.new(owner_name: @user[:user_name], owner_id: @user[:login_id])
   end
 
   # GET /visitation_forms/1/edit
@@ -128,9 +129,9 @@ class VisitationFormsController < ApplicationController
 
     destroy_deleted_images
 
+    add_owners params[:owners], @visitation_form.id
     update_birds params[:birds], @visitation_form
     attach_images params[:visitation_form][:uuid], @visitation_form
-    add_owners params[:owners], @visitation_form.id
 
     # save with validation if needed.
     if @visitation_form.save :validate => params[:save].nil?

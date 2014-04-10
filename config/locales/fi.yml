@@ -69,6 +69,7 @@ fi:
   unsubmit_visitation_form: "Peruuta lähetys"
   unsubmit_form: "Peruttu"
   update: "Tallennettu"
+  visit_info: "Käynnin tiedot"
   welcome_to_linssi: "Tervetuloa Linssiin"
   young_images: "Poikaskuvat"
 
