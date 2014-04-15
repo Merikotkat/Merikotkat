@@ -442,6 +442,17 @@
                 var json = $.parseJSON(xhr.responseText);
                 alert("<%= t('error_while_uploading') %>" +"\n" + json.errors);
             }
+        }).on('fileuploadprogress', function (e, data) {
+            //var progress = parseInt(data.loaded / data.total * 100, 10);
+            //alert("hurr" + progress);
+
+            /*if (data.tmpl){
+                data.tmpl.find('.bar').css('width', progress + '%')
+            }
+            if (data.loaded == data.total) {
+                $('#progress').hide();
+                $('#progress .bar').css('width', '0%');
+            }*/
         });
     });
 
