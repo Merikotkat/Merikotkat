@@ -2,6 +2,7 @@ class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
   before_action :check_permission, except: [:index, :new, :create, :add_owners]
   before_action :set_municipalities_api
+  before_action :set_images, only: [:show, :edit, :new]
 
   def set_municipalities_api
     if Rails.env.test?
@@ -15,6 +16,12 @@ class VisitationFormsController < ApplicationController
       @genders = TipuApiHelper.GetGenders
       @shyness = TipuApiHelper.GetShyness
     end
+  end
+
+  def set_images
+    @young_images = Image.get_young_images(params[:id])
+    @landscape_images = Image.get_landscape_images(params[:id])
+    @nest_images = Image.get_nest_images(params[:id])
   end
 
 
@@ -63,9 +70,7 @@ class VisitationFormsController < ApplicationController
   # GET /visitation_forms/1
   # GET /visitation_forms/1.json
   def show
-    @young_images = Image.get_young_images(params[:id])
-    @landscape_images = Image.get_landscape_images(params[:id])
-    @nest_images = Image.get_nest_images(params[:id])
+
   end
 
   # GET /visitation_forms/new
@@ -84,9 +89,7 @@ class VisitationFormsController < ApplicationController
       redirect_to @visitation_form
     else
       @uuid = SecureRandom.uuid
-      @young_images = Image.get_young_images(params[:id])
-      @landscape_images = Image.get_landscape_images(params[:id])
-      @nest_images = Image.get_nest_images(params[:id])
+
     end
   end
 
@@ -133,7 +136,7 @@ class VisitationFormsController < ApplicationController
 
     add_owners params[:owners], @visitation_form.id
     update_birds params[:birds], @visitation_form
-    attach_images params[:visitation_form][:uuid], @visitation_form
+    #attach_images params[:visitation_form][:uuid], @visitation_form
 
     # save with validation if needed.
     if @visitation_form.save :validate => params[:save].nil?
