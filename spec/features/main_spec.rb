@@ -202,7 +202,7 @@ describe "In Linssi" do
     page.execute_script %Q{ $('##{field}').trigger('focus') }
     page.execute_script %Q{ $('##{field}').trigger('keydown') }
     selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{options[:select]}")}
-    sleep(1)
+
     page.should have_selector('ul.ui-autocomplete li.ui-menu-item a')
     page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
   end
@@ -215,7 +215,7 @@ describe "In Linssi" do
     field = I18n.t('photographer_name', scope: [:activerecord, :attributes, :visitation_form])
     selector = 'MATTI AALTO'
 
-    fill_autocomplete(field, with: 'AALTO', select: selector)
+    fill_autocomplete("visitation_form_photographer_name", with: 'AALTO', select: selector)
 
   # fill_in(I18n.t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]), :with => 'MATTI AALTO (2890)')
   #  fill_in('#visitation_form_photographer_id', :with => 2890)
@@ -224,8 +224,6 @@ describe "In Linssi" do
     fill_in(I18n.t('lens', scope: [:activerecord, :attributes, :visitation_form]), :with => 'Lenzman 4000')
     fill_in(I18n.t('teleconverter', scope: [:activerecord, :attributes, :visitation_form]), :with => 'Teleconv II')
     fill_in(I18n.t('nest_id', scope: [:activerecord, :attributes, :visitation_form]), :with => '223')
-
-    save_and_open_page
 
     fill_in(I18n.t('nest', scope: [:activerecord, :attributes, :visitation_form]), :with => 'Funky')
     fill_in(I18n.t('municipality', scope: [:activerecord, :attributes, :visitation_form]), :with => 'AITOLA')
@@ -236,11 +234,7 @@ describe "In Linssi" do
 
     sleep(3)
 
-    save_and_open_page
-
     click_button I18n.t('submit_visitation_form')
-
-    save_and_open_page
 
     expect(page).to have_content I18n.t('form_already_sent')
     page.should_not have_content "keksimonsteri"
