@@ -12,8 +12,8 @@ class Image < ActiveRecord::Base
 
 
   validate do |image|
-    extension = File.extname(image.filename)
-    accepted_formats = [".png", ".jpg"]
+    extension = File.extname(image.filename).downcase
+    accepted_formats = [".png", ".jpg", ".jpeg"]
     if !accepted_formats.include? extension
       image.errors[:content_type] << I18n.t('error_file_type_unsupported') + extension
     end

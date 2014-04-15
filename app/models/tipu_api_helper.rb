@@ -40,8 +40,7 @@ class TipuApiHelper
 
 
     def self.GetGenders
-      data = GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/codes/9?format=json");
-      return data['codes']
+      return GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/codes/9?format=json");
     end
 
 
