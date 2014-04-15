@@ -1,11 +1,7 @@
 module SortLinkHelper
-  def create_link title, column
-    if params[:order] == "asc"
-      order = "desc"
-    else
-      order = "asc"
-    end
-    link_to raw(title + arrow(column)), action:"index", type: params[:type], sortby: column, order: order
+  def create_link title, column, order
+
+    link_to raw(title), action:"index", type: params[:type], sortby: column, order: order
   end
 
 

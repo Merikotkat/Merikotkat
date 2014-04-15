@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+    <div id="error_explanation"><h2><%= notice %></h2></div>
+<% end %>
 
 <div id="form-status-div">
       <%= t('form_status') %>
