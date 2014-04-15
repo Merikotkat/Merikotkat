@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415091305) do
+ActiveRecord::Schema.define(version: 20140415092136) do
 
   create_table "audit_log_entries", force: true do |t|
     t.string   "username"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20140415091305) do
     t.integer  "visitation_form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "gender_determination_method"
+    t.integer  "ringed"
   end
 
   add_index "birds", ["visitation_form_id"], name: "index_birds_on_visitation_form_id"
