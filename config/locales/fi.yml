@@ -40,6 +40,7 @@ fi:
   form_status: "Lomakkeen tila:"
   fill_own_info: "Käytä omia tietoja"
   gender: "Sukupuoli"
+  gender_determination_method: "Sukupuolen määritysperuste"
   images: "Kuvat"
   landscape_images: "Maastokuvat"
   leave_without_saving: "Poistu tallentamatta"

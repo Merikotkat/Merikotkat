@@ -9,6 +9,7 @@ class VisitationFormsController < ApplicationController
       @tipuapi = TipuApiHelperMock
     else
       @tipuapi = TipuApiHelper
+      puts @tipuapi.GetGenderDeterminationMethod
     end
   end
 
@@ -237,6 +238,7 @@ class VisitationFormsController < ApplicationController
       bird = Bird.find(bird_info[:id])
       bird.shyness = bird_info[:shyness]
       bird.gender = bird_info[:gender]
+      bird.gender_determination_method = bird_info[:gender_determination_method]
       bird.left_ring_code = bird_info[:left_ring_code]
       bird.left_ring_color = bird_info[:left_ring_color]
       bird.right_ring_code = bird_info[:right_ring_code]
@@ -285,6 +287,6 @@ class VisitationFormsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def visitation_form_params
-    params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :species_id, :additional_info)
+    params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :species_id, :additional_info, :gender_determination_method)
   end
 end

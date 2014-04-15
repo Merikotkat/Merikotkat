@@ -40,6 +40,7 @@ en:
   fill_own_info: "Use my own credentials"
   forms: "Forms"
   form_already_sent: "This form has been submitted and cannot be edited"
+  gender_determination_method: "Gender determination basis"
   images: "Images"
   leave_without_saving: "Leave without saving"
   lens: "Lens"
