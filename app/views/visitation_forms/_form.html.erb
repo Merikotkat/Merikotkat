@@ -83,7 +83,6 @@
       <div class="field">
         <%= f.label :species_id %>
         <%= f.text_field :species_id %>
-        <%# f.select :species_id, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
       </div>
       <div class="field">
         <%= f.label :nest_id %>
@@ -115,11 +114,11 @@
 
               <div class="field">
                 <%= f.label "birds[][gender]", t('gender') %>
-                <%= select_tag "birds[][gender]",  options_for_select(@genders['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.gender) %>
+                <%= select_tag "birds[][gender]",  options_for_select(@tipuapi.GetGenders['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.gender) %>
               </div>
               <div class="field">
                 <%= f.label "birds[][shyness]", t('shyness') %>
-                <%= select_tag "birds[][shyness]",  options_for_select(@shyness['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.shyness) %>
+                <%= select_tag "birds[][shyness]",  options_for_select(@tipuapi.GetShyness['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.shyness) %>
               </div>
               <div class="field">
                 <%= f.label "birds[][left_ring_code]", t('left_ring_code') %>

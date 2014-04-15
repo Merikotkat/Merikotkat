@@ -6,15 +6,9 @@ class VisitationFormsController < ApplicationController
 
   def set_municipalities_api
     if Rails.env.test?
-      @municipalities = TipuApiHelperMock.GetMunicipalities
-      @species = TipuApiHelperMock.GetSpecies
-      @genders = TipuApiHelperMock.GetGenders
-      @shyness = TipuApiHelperMock.GetShyness
+      @tipuapi = TipuApiHelperMock
     else
-      @municipalities = TipuApiHelper.GetMunicipalities
-      @species = TipuApiHelper.GetSpecies
-      @genders = TipuApiHelper.GetGenders
-      @shyness = TipuApiHelper.GetShyness
+      @tipuapi = TipuApiHelper
     end
   end
 

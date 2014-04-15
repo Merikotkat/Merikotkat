@@ -8,27 +8,25 @@ class VisitationForm < ActiveRecord::Base
   validates :nest_id, length: { maximum: 5, message: I18n.t('error_value_too_long') }
   validates :nest, presence: { precence: true, message: I18n.t('error_must_be_present') }
 
-  # municipalities
   if Rails.env.test?
-    validates :municipality, inclusion: { in: TipuApiHelperMock.GetMunicipalities.map {|v| v['id'] }, message: I18n.t('error_invalid_municipality')}
+    @tipuapi = TipuApiHelperMock
   else
-    validates :municipality, inclusion: { in: TipuApiHelper.GetMunicipalities.map {|v| v['id'] }, message: I18n.t('error_invalid_municipality')}
+    @tipuapi = TipuApiHelper
   end
 
-  # species id validation
-  if Rails.env.test?
-    validates :species_id, inclusion: { in: TipuApiHelperMock.GetSpecies['species'].map {|v| v['id'] }, message: I18n.t('error_invalid_species')}
-  else
-    validates :species_id, inclusion: { in: TipuApiHelper.GetSpecies['species'].map {|v| v['id'] }, message: I18n.t('error_invalid_species')}
-  end
+  validates :municipality, inclusion: { in: @tipuapi.GetMunicipalities.map {|v| v['id'] }, message: I18n.t('error_invalid_municipality')}
+  validates :species_id, inclusion: { in: @tipuapi.GetSpecies['species'].map {|v| v['id'] }, message: I18n.t('error_invalid_species')}
 
   validates :photographer_id, presence: { message: I18n.t('error_must_be_present') }
   validate do |form|
     if Rails.env.test?
-      ringers = TipuApiHelperMock.GetRingerById(form.photographer_id)
+      @tipuapi = TipuApiHelperMock
     else
-      ringers = TipuApiHelper.GetRingerById(form.photographer_id)
+      @tipuapi = TipuApiHelper
     end
+
+    ringers = @tipuapi.GetRingerById(form.photographer_id)
+
 
     if !ringers['ringers']['ringer']
       form.errors[:photographer_id] << I18n.t('error_invalid_photographer_id')
