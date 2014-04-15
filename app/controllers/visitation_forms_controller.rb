@@ -291,6 +291,6 @@ class VisitationFormsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def visitation_form_params
-    params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :form_saver_id, :species_id, :additional_info)
+    params.require(:visitation_form).permit(:photographer_name, :visit_date, :camera, :lens, :teleconverter, :municipality, :nest, :nest_id, :photographer_id, :species_id, :additional_info)
   end
 end
