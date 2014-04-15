@@ -17,7 +17,11 @@ class ApplicationController < ActionController::Base
 
 
   def set_locale
-    I18n.locale = params[:locale]
+    if !params[:locale].nil?
+      session[:user_locale] = params[:locale]
+    end
+    puts "set locale"
+    I18n.locale = session[:user_locale]
   end
 
   #todo REMOVE BEFORE PRODUCTION... SERIOUSLY!

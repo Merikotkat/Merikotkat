@@ -114,11 +114,15 @@
 
               <div class="field">
                 <%= f.label "birds[][gender]", t('gender') %>
-                <%= select_tag "birds[][gender]",  options_for_select(@tipuapi.GetGenders['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.gender) %>
+                <%= select_tag "birds[][gender]",  options_for_select(@tipuapi.GetGenders['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.gender), :include_blank => true %>
+              </div>
+              <div class="field">
+                <%= f.label "birds[][gender_determination_method]", t('gender_determination_method') %>
+                <%= select_tag "birds[][gender_determination_method]",  options_for_select(@tipuapi.GetGenderDeterminationMethod['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.gender_determination_method), :include_blank => true %>
               </div>
               <div class="field">
                 <%= f.label "birds[][shyness]", t('shyness') %>
-                <%= select_tag "birds[][shyness]",  options_for_select(@tipuapi.GetShyness['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.shyness) %>
+                <%= select_tag "birds[][shyness]",  options_for_select(@tipuapi.GetShyness['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.shyness), :include_blank => true %>
               </div>
               <div class="field">
                 <%= f.label "birds[][left_ring_code]", t('left_ring_code') %>
@@ -282,12 +286,10 @@
             }
             else {
                 var url = $(e.target).attr("href");
-                var jqxhr = $.ajax(url)
-                        .done(function() {
+                $.ajax(url).done(function() {
                             $(e.target).closest("div").remove();
                             updateBirdHeaders();
-                        })
-                        .fail(function() {
+                        }).fail(function() {
                             alert( "Failed deleting =/" );
                         });
             }
