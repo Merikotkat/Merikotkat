@@ -18,10 +18,9 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     if !params[:locale].nil?
-      session[:user_locale] = params[:locale]
+      cookies[:user_locale] = { value: params[:locale], expires: 1.year.from_now }
     end
-    puts "set locale"
-    I18n.locale = session[:user_locale]
+    I18n.locale = cookies[:user_locale]
   end
 
   #todo REMOVE BEFORE PRODUCTION... SERIOUSLY!
