@@ -187,6 +187,7 @@
 
 
     <div class="birds boxed" id="birds_5">
+      <!-- <div class="pbar"><span class="pbarprogress" style="width: 0%;">0 %</span></div> -->
       <h2><%= t('nest_images') %></h2>
       <div class="field">
         <%= f.label "images[nest][img1]", t('file') %>
@@ -416,11 +417,13 @@
     });
 
     $(document).on("click", ".fileupload", function () {
-        var targetDiv = $(this).closest( ".bird-div" );
+        var targetDiv = $(this).closest(".bird-div");
+        var foo = $(this).closest(".fileupload").parent();
         $('.fileupload').fileupload({
             dataType: 'json',
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                foo.append('<div class="pbar"><span class="pbarprogress" style="width: 0%;">hjkkjh</span></div>');
             },
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
@@ -438,21 +441,18 @@
                     }
                 });
             },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $(".pbarprogress").width(progress + "%").html(progress + " %");
+
+            },
             error: function(xhr) {
                 var json = $.parseJSON(xhr.responseText);
                 alert("<%= t('error_while_uploading') %>" +"\n" + json.errors);
+            },
+            always: function (e, data) {
+                $(".pbar").delay(800).fadeOut(1000);
             }
-        }).on('fileuploadprogress', function (e, data) {
-            //var progress = parseInt(data.loaded / data.total * 100, 10);
-            //alert("hurr" + progress);
-
-            /*if (data.tmpl){
-                data.tmpl.find('.bar').css('width', progress + '%')
-            }
-            if (data.loaded == data.total) {
-                $('#progress').hide();
-                $('#progress .bar').css('width', '0%');
-            }*/
         });
     });
 
