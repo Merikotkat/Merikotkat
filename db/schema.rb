@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140408074303) do
+ActiveRecord::Schema.define(version: 20140415092136) do
 
   create_table "audit_log_entries", force: true do |t|
     t.string   "username"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20140408074303) do
     t.integer  "visitation_form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "gender_determination_method"
+    t.integer  "ringed"
   end
 
   add_index "birds", ["visitation_form_id"], name: "index_birds_on_visitation_form_id"
@@ -45,19 +47,11 @@ ActiveRecord::Schema.define(version: 20140408074303) do
     t.datetime "updated_at"
     t.string   "checksum"
     t.integer  "category_id"
-    t.boolean  "ringed"
-    t.string   "gender"
-    t.integer  "shyness"
-    t.string   "left_ring_code"
-    t.string   "left_ring_color"
-    t.string   "right_ring_code"
-    t.string   "right_ring_color"
     t.integer  "image_type"
     t.string   "upload_id"
     t.binary   "thumbnaildata"
     t.string   "content_type"
     t.integer  "bird_id"
-    t.integer  "temp_index"
   end
 
   add_index "images", ["bird_id"], name: "index_images_on_bird_id"
@@ -83,7 +77,6 @@ ActiveRecord::Schema.define(version: 20140408074303) do
     t.string   "nest"
     t.integer  "nest_id"
     t.string   "photographer_id"
-    t.string   "form_saver_id"
     t.boolean  "sent"
     t.boolean  "approved"
     t.string   "species_id"
