@@ -467,5 +467,9 @@
                 return false;
             }
         });
+
+        if ($("#owners_list li").length == 1) {
+            $("#owners_list a").hide();
+        }
     });
 </script>
