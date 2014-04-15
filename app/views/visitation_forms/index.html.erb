@@ -79,31 +79,32 @@
 <script>
   $(function() {
       var count = <%= @total_visitation_forms %>;
-      var current_page = <%= params[:page].nil? ? 1 : params[:page] %>
+      var current_page = <%= @current_page %>
       var per_page = <%= @per_page %>;
-      var sorting = "<%= @sortby_order %>";
+      var sorting = "&sortby=<%= @sortby %>&order=<%= @order %>";
 
-      var pages = Math.ceil(count / per_page);
+      var pages = <%= @pages %>
 
-      if(pages > 1) {
-          var url = "<%= url_for action:"index", type: params[:type] %>";
+      <% if @pages > 1 %>
+        <% if @current_page > 1 %>
+            var link = '<%= link_to "<<", action:"index", type: params[:type], page: (@current_page.to_i-1), sortby: @sortby, order: @order %>';
+            $("#pagination").append(link);
+        <% end %>
 
-          if(current_page > 1) {
-              $("#pagination").append('<a href="' + url + '?page=' + (current_page-1) + sorting +'">' + '<<' + '</a>');
-          }
+        <% for i in 0...@pages %>
+          <% if (i+1) == @current_page %>
+            $("#pagination").append('<div id="pagination-active">' + (<%=i%>+1) + '</div>');
+          <% else %>
+            var link = '<%= link_to (i+1).to_s, action:"index", type: params[:type], page: (i+1), sortby: @sortby, order: @order %>';
+            $("#pagination").append(link);
+          <% end %>
+        <% end %>
 
-          for(var i = 0; i < pages; i++) {
-              if(i == (current_page-1)) {
-                $("#pagination").append('<div id="pagination-active">' + (i+1) + '</div>');
-              }
-              else {
-                $("#pagination").append('<a href="' + url + '?page=' + (i+1) +sorting +'">' + (i+1) + '</a>');
-              }
-          }
+        <% if @current_page < @pages %>
+            var link = '<%= link_to ">>", action:"index", type: params[:type], page: (@current_page.to_i+1), sortby: @sortby, order: @order %>';
+            $("#pagination").append(link);
+        <% end %>
+      <% end %>
 
-          if(current_page < pages) {
-              $("#pagination").append('<a href="' + url + '?page=' + (current_page+1) +sorting + '">' + '>>' + '</a>');
-          }
-      }
   });
 </script>
