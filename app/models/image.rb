@@ -29,7 +29,7 @@ class Image < ActiveRecord::Base
       image.resize "x150"
       self.thumbnaildata = image.to_blob
     rescue
-      puts 'Couldnt create thumbnail from image, perhaps this is a test environment?'
+      #puts 'Couldnt create thumbnail from image, perhaps this is a test environment?'
     end
   end
 
