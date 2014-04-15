@@ -9,7 +9,6 @@ class VisitationFormsController < ApplicationController
       @tipuapi = TipuApiHelperMock
     else
       @tipuapi = TipuApiHelper
-      puts @tipuapi.GetGenderDeterminationMethod
     end
   end
 
