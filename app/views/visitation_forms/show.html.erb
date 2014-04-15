@@ -121,15 +121,27 @@
           <table class="info-table">
             <tr>
               <td><strong><%= t('gender') %></strong></td>
-              <td><%= @tipuapi.GetGenders["codes"]["code"].select{|s| s["code"] == bird.gender}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
+              <td>
+                    <% if bird.gender != "" %>
+                        <%= @tipuapi.GetGenders["codes"]["code"].select{|s| s["code"] == bird.gender}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %>
+                    <% end %>
+              </td>
             </tr>
             <tr>
               <td><strong><%= t('gender_determination_method') %></strong></td>
-              <td><%= @tipuapi.GetGenderDeterminationMethod["codes"]["code"].select{|s| s["code"] == bird.gender_determination_method}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
+              <td>
+                <% if bird.gender_determination_method != "" %>
+                    <%= @tipuapi.GetGenderDeterminationMethod["codes"]["code"].select{|s| s["code"] == bird.gender_determination_method}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %>
+                <% end %>
+              </td>
             </tr>
             <tr>
               <td><strong><%= t('shyness') %></strong></td>
-              <td><%= @tipuapi.GetShyness["codes"]["code"].select{|s| s["code"] == bird.shyness}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
+              <td>
+                <% if !bird.shyness.nil? %>
+                    <%= @tipuapi.GetShyness["codes"]["code"].select{|s| s["code"] == bird.shyness}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %>
+                <% end %>
+              </td>
             </tr>
             <tr>
               <td><strong><%= t('ringed') %></strong></td>
