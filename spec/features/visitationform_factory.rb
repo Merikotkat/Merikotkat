@@ -11,7 +11,6 @@ class Visitationform_factory
       formi.nest = "Roni's nest for children"
       formi.nest_id = 268
       formi.photographer_id = 2890
-      formi.form_saver_id = 2890
       formi.species_id = 'HALALB'
 
       formi.owners << Owner.new( owner_name: "Matti", owner_id: "111" )

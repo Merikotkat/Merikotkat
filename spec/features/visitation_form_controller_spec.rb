@@ -36,9 +36,7 @@ describe VisitationForm do
     form2 = Visitationform_factory.GetValidVisitationForm
 
     form2.photographer_id=1010
-    form2.form_saver_id=1010
     form.photographer_id=1010
-    form.form_saver_id=1010
 
     form.save
     form2.save
@@ -61,7 +59,6 @@ describe VisitationForm do
     form2 = Visitationform_factory.GetValidVisitationForm
 
     form.photographer_id=1010
-    form.form_saver_id=1010
 
     form.save
     form2.save
@@ -84,9 +81,6 @@ describe VisitationForm do
     form2 = Visitationform_factory.GetValidVisitationForm
 
     form.photographer_id=1010
-    form.form_saver_id=1010
-
-    form2.form_saver_id=1010
 
     form.save
     form2.save
