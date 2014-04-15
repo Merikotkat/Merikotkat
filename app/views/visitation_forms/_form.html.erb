@@ -125,6 +125,10 @@
                 <%= select_tag "birds[][shyness]",  options_for_select(@tipuapi.GetShyness['codes']['code'].map {|v| [ v['desc'][0]['content'], v['code'] ] }, bird.shyness), :include_blank => true %>
               </div>
               <div class="field">
+                <%= f.label "birds[][ringed]", t('ringed') %>
+                <%= select_tag "birds[][ringed]", options_for_select({ "Kyllä" => "1", "Ei" => "0", "???" => "-1" }, bird.ringed) %>
+              </div>
+              <div class="field">
                 <%= f.label "birds[][left_ring_code]", t('left_ring_code') %>
                 <input type="text" name="birds[][left_ring_code]" value="<%= bird.left_ring_code %>">
               </div>
