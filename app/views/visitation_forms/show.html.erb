@@ -121,19 +121,19 @@
           <table class="info-table">
             <tr>
               <td><strong><%= t('gender') %></strong></td>
-              <td><%= bird.gender %></td>
+              <td><%= @tipuapi.GetGenders["codes"]["code"].select{|s| s["code"] == bird.gender}[0]["desc"][0]["content"] %></td>
             </tr>
             <tr>
               <td><strong><%= t('gender_determination_method') %></strong></td>
-              <td><%= bird.gender_determination_method %></td>
+              <td><%= @tipuapi.GetGenderDeterminationMethod["codes"]["code"].select{|s| s["code"] == bird.gender_determination_method}[0]["desc"][0]["content"] %></td>
             </tr>
             <tr>
               <td><strong><%= t('shyness') %></strong></td>
-              <td><%= bird.shyness %></td>
+              <td><%= @tipuapi.GetShyness["codes"]["code"].select{|s| s["code"] == bird.shyness}[0]["desc"][0]["content"] %></td>
             </tr>
             <tr>
               <td><strong><%= t('ringed') %></strong></td>
-              <td><%= bird.ringed %></td>
+              <td><%= @tipuapi.GetRingedStatus["codes"]["code"].select{|s| s["id"] == bird.ringed}[0]["desc"] %></td>
             </tr>
             <tr>
               <td><strong><%= t('left_ring_code') %></strong></td>

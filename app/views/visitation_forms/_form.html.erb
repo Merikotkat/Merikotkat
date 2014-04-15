@@ -126,7 +126,7 @@
               </div>
               <div class="field">
                 <%= f.label "birds[][ringed]", t('ringed') %>
-                <%= select_tag "birds[][ringed]", options_for_select({ "Kyllä" => "1", "Ei" => "0", "???" => "-1" }, bird.ringed) %>
+                <%= select_tag "birds[][ringed]", options_for_select(@tipuapi.GetRingedStatus['codes']['code'].map {|v| [ v['desc'], v['id'] ] }, bird.ringed) %>
               </div>
               <div class="field">
                 <%= f.label "birds[][left_ring_code]", t('left_ring_code') %>

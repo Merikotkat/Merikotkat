@@ -57,4 +57,8 @@ class TipuApiHelperMock
   def self.GetGenderDeterminationMethod
     return {"codes"=>{"code"=>[{"id"=>10, "desc"=>[{"content"=>"Hautomalaikku", "lang"=>"FI"}, {"content"=>"Ruvningsfläck", "lang"=>"SV"}, {"content"=>"Brood Patch", "lang"=>"EN"}], "code"=>"H", "metadata"=>""}, {"id"=>10, "desc"=>[{"content"=>"Linnun koko", "lang"=>"FI"}, {"content"=>"Fågelns storlek", "lang"=>"SV"}, {"content"=>"Size", "lang"=>"EN"}], "code"=>"K", "metadata"=>""}, {"id"=>10, "desc"=>[{"content"=>"Laulu tai muu käyttäytymispiirre", "lang"=>"FI"}, {"content"=>"Sång eller annat beteende", "lang"=>"SV"}, {"content"=>"Song or Display", "lang"=>"EN"}], "code"=>"L", "metadata"=>""}, {"id"=>10, "desc"=>[{"content"=>"Muu peruste", "lang"=>"FI"}, {"content"=>"Annan grund", "lang"=>"SV"}, {"content"=>"Other justification", "lang"=>"EN"}], "code"=>"M", "metadata"=>""}, {"id"=>10, "desc"=>[{"content"=>"Nokan, silmien tai jalkojen väri", "lang"=>"FI"}, {"content"=>"Näbbens, ögonens eller fötternas färg", "lang"=>"SV"}, {"content"=>"Colour of bare parts", "lang"=>"EN"}], "code"=>"N", "metadata"=>""}, {"id"=>10, "desc"=>[{"content"=>"Peräaukko", "lang"=>"FI"}, {"content"=>"Kloak", "lang"=>"SV"}, {"content"=>"Cloacal protuberance", "lang"=>"EN"}], "code"=>"P", "metadata"=>""}, {"id"=>10, "desc"=>[{"content"=>"Höyhenpuvun väri", "lang"=>"FI"}, {"content"=>"Fjäderdräktens färg", "lang"=>"SV"}, {"content"=>"Plumage colouration", "lang"=>"EN"}], "code"=>"V", "metadata"=>""}]}}
   end
+
+  def self.GetRingedStatus
+    return {"codes"=>{"code"=>[{"id"=>1, "desc"=>"Kyllä"}, {"id"=>0, "desc"=>"Ei"}, {"id"=>-1, "desc"=>"???"}]}}
+  end
 end

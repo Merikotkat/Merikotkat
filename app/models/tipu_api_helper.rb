@@ -63,4 +63,8 @@ class TipuApiHelper
     def self.GetGenderDeterminationMethod
       return GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/codes/10?format=json");
     end
+
+    def self.GetRingedStatus
+      return {"codes"=>{"code"=>[{"id"=>1, "desc"=>"Kyllä"}, {"id"=>0, "desc"=>"Ei"}, {"id"=>-1, "desc"=>"???"}]}}
+    end
 end
