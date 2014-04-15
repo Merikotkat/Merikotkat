@@ -18,9 +18,19 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     if !params[:locale].nil?
-      cookies[:user_locale] = { value: params[:locale], expires: 1.year.from_now }
+      cookies[:user_locale] = { value: params[:locale].downcase, expires: 1.year.from_now }
     end
     I18n.locale = cookies[:user_locale]
+  end
+
+  helper_method :get_userlocaleforapi
+  def get_userlocaleforapi
+    if !cookies[:user_locale].nil?
+      return "EN" if cookies[:user_locale] == "en"
+      return "FI" if cookies[:user_locale] == "fi"
+    end
+
+    return "FI"
   end
 
   #todo REMOVE BEFORE PRODUCTION... SERIOUSLY!

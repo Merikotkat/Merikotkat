@@ -91,7 +91,7 @@
       <table class="info-table">
         <tr>
           <td><strong><%= t('species_id', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
-          <td><%= @visitation_form.species_id %></td>
+          <td><%= @tipuapi.GetSpecies["species"].select{|s| s["id"] == @visitation_form.species_id}[0]["name"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
         </tr>
         <tr>
           <td><strong><%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
@@ -121,15 +121,15 @@
           <table class="info-table">
             <tr>
               <td><strong><%= t('gender') %></strong></td>
-              <td><%= @tipuapi.GetGenders["codes"]["code"].select{|s| s["code"] == bird.gender}[0]["desc"][0]["content"] %></td>
+              <td><%= @tipuapi.GetGenders["codes"]["code"].select{|s| s["code"] == bird.gender}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
             </tr>
             <tr>
               <td><strong><%= t('gender_determination_method') %></strong></td>
-              <td><%= @tipuapi.GetGenderDeterminationMethod["codes"]["code"].select{|s| s["code"] == bird.gender_determination_method}[0]["desc"][0]["content"] %></td>
+              <td><%= @tipuapi.GetGenderDeterminationMethod["codes"]["code"].select{|s| s["code"] == bird.gender_determination_method}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
             </tr>
             <tr>
               <td><strong><%= t('shyness') %></strong></td>
-              <td><%= @tipuapi.GetShyness["codes"]["code"].select{|s| s["code"] == bird.shyness}[0]["desc"][0]["content"] %></td>
+              <td><%= @tipuapi.GetShyness["codes"]["code"].select{|s| s["code"] == bird.shyness}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
             </tr>
             <tr>
               <td><strong><%= t('ringed') %></strong></td>
