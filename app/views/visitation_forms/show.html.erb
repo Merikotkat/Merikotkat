@@ -91,7 +91,11 @@
       <table class="info-table">
         <tr>
           <td><strong><%= t('species_id', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
-          <td><%= @tipuapi.GetSpecies["species"].select{|s| s["id"] == @visitation_form.species_id}[0]["name"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
+          <td>
+            <% if @visitation_form.species_id != "" %>
+                <%= @tipuapi.GetSpecies["species"].select{|s| s["id"] == @visitation_form.species_id}[0]["name"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %>
+            <% end %>
+          </td>
         </tr>
         <tr>
           <td><strong><%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
@@ -145,7 +149,7 @@
             </tr>
             <tr>
               <td><strong><%= t('ringed') %></strong></td>
-              <td><%= @tipuapi.GetRingedStatus["codes"]["code"].select{|s| s["id"] == bird.ringed}[0]["desc"] %></td>
+              <td><%= @tipuapi.GetRingedStatus["codes"]["code"].select{|s| s["id"] == bird.ringed}[0]["desc"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %></td>
             </tr>
             <tr>
               <td><strong><%= t('left_ring_code') %></strong></td>

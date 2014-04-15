@@ -65,6 +65,11 @@ class TipuApiHelper
     end
 
     def self.GetRingedStatus
-      return {"codes"=>{"code"=>[{"id"=>1, "desc"=>"Kyllä"}, {"id"=>0, "desc"=>"Ei"}, {"id"=>-1, "desc"=>"???"}]}}
+      return {"codes"=>
+                  {"code"=>[
+                      {"id"=>1, "desc"=>[{"content"=>"Kyllä", "lang"=>"FI"}, {"content"=>"Ja", "lang"=>"SV"}, {"content"=>"Yes", "lang"=>"EN"}]},
+                      {"id"=>0, "desc"=>[{"content"=>"Ei", "lang"=>"FI"}, {"content"=>"Nej", "lang"=>"SV"}, {"content"=>"No", "lang"=>"EN"}]},
+                      {"id"=>-1, "desc"=>[{"content"=>"Evt", "lang"=>"FI"}, {"content"=>"wut?", "lang"=>"SV"}, {"content"=>"dunno", "lang"=>"EN"}]}
+                  ]}}
     end
 end
