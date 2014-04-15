@@ -8,10 +8,14 @@ class VisitationFormsController < ApplicationController
       @municipalities = TipuApiHelperMock.GetMunicipalities
       @species = TipuApiHelperMock.GetSpecies
       @genders = TipuApiHelperMock.GetGenders
+      @shyness = TipuApiHelperMock.GetShyness
     else
       @municipalities = TipuApiHelper.GetMunicipalities
       @species = TipuApiHelper.GetSpecies
       @genders = TipuApiHelper.GetGenders
+      @shyness = TipuApiHelper.GetShyness
+      puts @genders
+      puts @shyness
     end
   end
 
