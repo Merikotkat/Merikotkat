@@ -82,7 +82,8 @@
       <h2><%= t('nest_info') %></h2>
       <div class="field">
         <%= f.label :species_id %>
-        <%= f.select :species_id, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
+        <%= f.text_field :species_id %>
+        <%# f.select :species_id, @species['species'].map {|v| [ v['id'], v['id'] ] } %>
       </div>
       <div class="field">
         <%= f.label :nest_id %>
@@ -370,6 +371,29 @@
                     success: function( data ) {
                         if(data.municipalities != ''){
                             response( $.map( data.municipalities.municipality, function( item ) {
+                                return {
+                                    label: item.name[0].content + " (" + item.id + ")",
+                                    value: item.id
+                                }
+                            }));
+                        }
+                    }
+                });
+            },
+            minLength: 1,
+            select: function( event, ui ) {
+                // Do something else?
+            }
+        });
+
+
+        $("#visitation_form_species_id").autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url: "<%= url_for(action:"getspecies", controller:"api") %>.json?filter=" + request.term,
+                    success: function( data ) {
+                        if(data.species != ''){
+                            response( $.map( data.species, function( item ) {
                                 return {
                                     label: item.name[0].content + " (" + item.id + ")",
                                     value: item.id

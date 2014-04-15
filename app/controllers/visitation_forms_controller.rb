@@ -14,8 +14,6 @@ class VisitationFormsController < ApplicationController
       @species = TipuApiHelper.GetSpecies
       @genders = TipuApiHelper.GetGenders
       @shyness = TipuApiHelper.GetShyness
-      puts @genders
-      puts @shyness
     end
   end
 

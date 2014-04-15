@@ -19,13 +19,15 @@ class ApiController < ApplicationController
     filter = UnicodeUtils.upcase(params['filter'])
     municipalities = TipuApiHelper.GetMunicipalities
 
-    #todo determine which fields should be searched
-    @data = municipalities.select{ |herp| herp['id'].start_with?(filter) || herp['name'][0]['content'].start_with?(filter) }
-    render json: {municipalities: { municipality: @data }}
+    #todo determine which fields should be searched, should it depend on locale?
+    data = municipalities.select{ |herp| herp['id'].start_with?(filter) || herp['name'][0]['content'].start_with?(filter) }
+    render json: {municipalities: { municipality: data }}
   end
 
   def getspecies
+    filter = UnicodeUtils.upcase(params['filter'])
     species = TipuApiHelper.GetSpecies
-    render json: species
+    data = species['species'].select{ |herp| herp['id'].start_with?(filter) || herp['name'][0]['content'].upcase.start_with?(filter) }
+    render json: { species: data }
   end
 end
