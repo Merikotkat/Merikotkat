@@ -28,7 +28,8 @@ class VisitationFormsController < ApplicationController
       @type = params[:type]
 
       if ((defined? params[:sortby] and !params[:sortby].nil?) and defined? params[:order] and !params[:order].nil?)
-        @sortby_order = "&sortby=" + params[:sortby] + "&order=" + params[:order]
+        @sortby = params[:sortby]
+        @order = params[:order]
       else
         @sortby_order = ""
         params[:sortby] = nil
@@ -51,6 +52,8 @@ class VisitationFormsController < ApplicationController
       @per_page = 15
     end
 
+    @pages = (@total_visitation_forms.to_f / @per_page.to_f).ceil
+    @current_page = params[:page].nil? ? 1 : params[:page].to_i
 
     if (not defined? params[:page] or params[:page].nil?)
       @visitation_forms = @visitation_forms.first(@per_page)
