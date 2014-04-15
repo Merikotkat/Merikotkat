@@ -33,7 +33,7 @@
 <div class="log">
     <h2><%= t('form_history') %></h2>
     <table>
-      <% @visitation_form.audit_log_entries.reverse_each do |entry| %>
+      <% @visitation_form.audit_log_entries.order(:timestamp).reverse_each do |entry| %>
           <tr><td><%= entry.timestamp.strftime("%d.%m.%Y")  %></td><td><%= entry.username %></td><td><%= t('log_' + entry.operation) %></td></tr>
       <% end %>
     </table>
@@ -100,7 +100,7 @@
         <tr>
           <td><strong><%= t('municipality', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
           <td>
-            <% municipality = @municipalities.select do |m| m["id"] == @visitation_form.municipality end %>
+            <% municipality = @tipuapi.GetMunicipalities.select do |m| m["id"] == @visitation_form.municipality end %>
             <% # todo currently always shows the Finnish municipality name %>
             <%= municipality[0]["name"][0]["content"] unless municipality[0].nil? %>
           </td>
