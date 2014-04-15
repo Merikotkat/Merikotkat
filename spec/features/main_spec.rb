@@ -116,7 +116,10 @@ describe "In Linssi" do
     click_button I18n.t('save_visitation_form')
 
     click_link I18n.t('unsubmitted')
-    click_link I18n.t('nest_id', scope: [:activerecord, :attributes, :visitation_form])
+    within('thead tr:nth-child(1) th:nth-child(1)') do
+      all('a')[1].click
+      # click_link '&#9650;'
+    end
 
     for i in 1..3 do
       within('tbody tr:nth-child(' + i.to_s +  ') td:nth-child(1)') do
@@ -124,7 +127,10 @@ describe "In Linssi" do
       end
     end
 
-    click_link I18n.t('nest_id', scope: [:activerecord, :attributes, :visitation_form])
+    within('thead tr:nth-child(1) th:nth-child(1)') do
+      all('a')[0].click
+      #click_link '&#9660;'
+    end
 
     for i in 1..3 do
       within('tbody tr:nth-child(' + i.to_s +  ') td:nth-child(1)') do
@@ -190,17 +196,26 @@ describe "In Linssi" do
     end
   end
 
+  def fill_autocomplete(field, options = {})
+    fill_in field, with: options[:with]
+
+    page.execute_script %Q{ $('##{field}').trigger('focus') }
+    page.execute_script %Q{ $('##{field}').trigger('keydown') }
+    selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{options[:select]}")}
+    sleep(1)
+    page.should have_selector('ul.ui-autocomplete li.ui-menu-item a')
+    page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
+  end
+
+
   it "Can send a form with appropriate information", js: true do
     visit root_path
     click_link I18n.t('new_visitation_form')
 
     field = I18n.t('photographer_name', scope: [:activerecord, :attributes, :visitation_form])
-    selector = '.ui-menu-item a:contains(\"MATTI AALTO\")'
-    fill_in field, :with => 'AALTO'
-    sleep(2)
-    page.execute_script " $('#{selector}').trigger(\"mouseenter\").click();"
-    sleep(1)
+    selector = 'MATTI AALTO'
 
+    fill_autocomplete(field, with: 'AALTO', select: selector)
 
   # fill_in(I18n.t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]), :with => 'MATTI AALTO (2890)')
   #  fill_in('#visitation_form_photographer_id', :with => 2890)
@@ -210,13 +225,22 @@ describe "In Linssi" do
     fill_in(I18n.t('teleconverter', scope: [:activerecord, :attributes, :visitation_form]), :with => 'Teleconv II')
     fill_in(I18n.t('nest_id', scope: [:activerecord, :attributes, :visitation_form]), :with => '223')
 
+    save_and_open_page
+
     fill_in(I18n.t('nest', scope: [:activerecord, :attributes, :visitation_form]), :with => 'Funky')
     fill_in(I18n.t('municipality', scope: [:activerecord, :attributes, :visitation_form]), :with => 'AITOLA')
 
     within("#birds_3") do
       attach_file("files[]",'spec/features/img/Lolcat.jpg')
     end
+
+    sleep(3)
+
+    save_and_open_page
+
     click_button I18n.t('submit_visitation_form')
+
+    save_and_open_page
 
     expect(page).to have_content I18n.t('form_already_sent')
     page.should_not have_content "keksimonsteri"
