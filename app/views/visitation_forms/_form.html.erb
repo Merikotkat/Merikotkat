@@ -286,12 +286,10 @@
             }
             else {
                 var url = $(e.target).attr("href");
-                var jqxhr = $.ajax(url)
-                        .done(function() {
+                $.ajax(url).done(function() {
                             $(e.target).closest("div").remove();
                             updateBirdHeaders();
-                        })
-                        .fail(function() {
+                        }).fail(function() {
                             alert( "Failed deleting =/" );
                         });
             }
