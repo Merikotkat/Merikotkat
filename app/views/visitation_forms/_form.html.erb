@@ -187,7 +187,6 @@
 
 
     <div class="birds boxed" id="birds_5">
-      <!-- <div class="pbar"><span class="pbarprogress" style="width: 0%;">0 %</span></div> -->
       <h2><%= t('nest_images') %></h2>
       <div class="field">
         <%= f.label "images[nest][img1]", t('file') %>
@@ -250,15 +249,16 @@
 
     $(document).on("click", "a.delete", function(e) {
         e.preventDefault();
-        if(confirm("<%= t('confirm_delete') %>"))
-        {
+        if (confirm("<%= t('confirm_delete') %>")) {
             var url = $(e.target).attr("href");
             var jqxhr = $.ajax(url)
-                    .done(function() {
-                        $(e.target).closest("div").remove();
+                    .done(function () {
+                        $(e.target).closest("div").fadeOut(300, function () {
+                            $(this).remove();
+                        });
                     })
-                    .fail(function() {
-                        alert( "Failed deleting =/" );
+                    .fail(function () {
+                        alert("Failed deleting =/");
                     });
         }
     });
@@ -267,9 +267,10 @@
         $("#addbird").on("click", function () {
             $.ajax({
                 url: "<%= url_for ({action: :create_bird, form_id: @visitation_form.id.to_s}) %>",
-                success: function( data ) {
+                success: function (data) {
                     var count = $("#birds-div .bird-div").length;
                     var div = $(".bird-div:last").clone(false);
+                    div.hide();
                     $("h2", div).html('<%= t('bird') %> ' + (count + 1));
                     $(".image", div).html('');
                     $("a.delete_bird", div).attr("href", "<%= url_for action: :delete_bird %>?bird_id=" + data.bird_id);
@@ -277,6 +278,7 @@
                     $("input[type=text]", div).val('');
                     $("input[class=fileupload]", div).attr('data-form-data', '{ "imageType": 1, "birdId": ' + data.bird_id + ', "uuid": "<%= @uuid %>", "formId": <%= @visitation_form.id %> }');
                     $("#birds-div").append(div);
+                    $(".bird-div:last").fadeIn(500);
                 }
             });
         });
@@ -284,29 +286,30 @@
 
     $(document).on("click", "a.delete_bird", function(e) {
         e.preventDefault();
-        if(confirm("<%= t('confirm_delete') %>"))
-        {
-            if($("#birds-div .bird-div").length == 1) {
+        if (confirm("<%= t('confirm_delete') %>")) {
+            if ($("#birds-div .bird-div").length == 1) {
                 alert("<%= t('error_must_have_one_bird') %>");
             }
             else {
                 var url = $(e.target).attr("href");
-                $.ajax(url).done(function() {
-                            $(e.target).closest("div").remove();
-                            updateBirdHeaders();
-                        }).fail(function() {
-                            alert( "Failed deleting =/" );
-                        });
+                $.ajax(url).done(function () {
+                    $(e.target).closest("div").fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                    updateBirdHeaders();
+                }).fail(function () {
+                    alert("Failed deleting =/");
+                });
             }
         }
     });
 
     $(function() {
-       $("#add_owner_button").on("click", function() {
-           var newInput = '<li><input name="owners[][name]" type="text"><input name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>';
-           $("#owners_list").append(newInput);
-           $("#owners_list a").show();
-       })
+        $("#add_owner_button").on("click", function () {
+            var newInput = '<li><input name="owners[][name]" type="text"><input name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>';
+            $("#owners_list").append(newInput);
+            $("#owners_list a").show();
+        })
     });
 
     $(document).on("click", ".delete_owner", function(e) {
@@ -322,12 +325,12 @@
 
     $(document).on("click", "#owners input[type=text]", function () {
         $("#owners input[type=text]").autocomplete({
-            source: function(request, response) {
+            source: function (request, response) {
                 $.ajax({
                     url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + request.term,
-                    success: function( data ) {
-                        if(data.ringers != ''){
-                            response( $.map( data.ringers.ringer, function( item ) {
+                    success: function (data) {
+                        if (data.ringers != '') {
+                            response($.map(data.ringers.ringer, function (item) {
                                 return { label: item.name, value: item.id }
                             }));
                         }
@@ -335,7 +338,7 @@
                 });
             },
             minLength: 3,
-            select: function( event, ui ) {
+            select: function (event, ui) {
                 $(event.target).closest("input[type=text]").val(ui.item.label);
                 $(event.target).next("input[type=hidden]").val(ui.item.value);
                 return false;
@@ -346,12 +349,12 @@
 
     $(function() {
         $("#visitation_form_photographer_name").autocomplete({
-            source: function(request, response) {
+            source: function (request, response) {
                 $.ajax({
                     url: "<%= url_for(action:"getringer", controller:"api") %>.json?filter=" + request.term,
-                    success: function( data ) {
-                        if(data.ringers != ''){
-                            response( $.map( data.ringers.ringer, function( item ) {
+                    success: function (data) {
+                        if (data.ringers != '') {
+                            response($.map(data.ringers.ringer, function (item) {
                                 return {
                                     label: item.name,
                                     value: item.id
@@ -362,7 +365,7 @@
                 });
             },
             minLength: 3,
-            select: function(event, ui) {
+            select: function (event, ui) {
                 $("#visitation_form_photographer_id").val(ui.item.value);
                 $("#visitation_form_photographer_name").val(ui.item.label);
                 return false; // prevent jquery from overwriting the value
@@ -371,12 +374,12 @@
 
 
         $("#visitation_form_municipality").autocomplete({
-            source: function( request, response ) {
+            source: function (request, response) {
                 $.ajax({
                     url: "<%= url_for(action:"getmunicipalities", controller:"api") %>.json?filter=" + request.term,
-                    success: function( data ) {
-                        if(data.municipalities != ''){
-                            response( $.map( data.municipalities.municipality, function( item ) {
+                    success: function (data) {
+                        if (data.municipalities != '') {
+                            response($.map(data.municipalities.municipality, function (item) {
                                 return {
                                     label: item.name[0].content + " (" + item.id + ")",
                                     value: item.id
@@ -386,20 +389,17 @@
                     }
                 });
             },
-            minLength: 1,
-            select: function( event, ui ) {
-                // Do something else?
-            }
+            minLength: 1
         });
 
 
         $("#visitation_form_species_id").autocomplete({
-            source: function( request, response ) {
+            source: function (request, response) {
                 $.ajax({
                     url: "<%= url_for(action:"getspecies", controller:"api") %>.json?filter=" + request.term,
-                    success: function( data ) {
-                        if(data.species != ''){
-                            response( $.map( data.species, function( item ) {
+                    success: function (data) {
+                        if (data.species != '') {
+                            response($.map(data.species, function (item) {
                                 return {
                                     label: item.name[0].content + " (" + item.id + ")",
                                     value: item.id
@@ -409,21 +409,19 @@
                     }
                 });
             },
-            minLength: 1,
-            select: function( event, ui ) {
-                // Do something else?
-            }
+            minLength: 1
         });
     });
 
     $(document).on("click", ".fileupload", function () {
         var targetDiv = $(this).closest(".bird-div");
-        var foo = $(this).closest(".fileupload").parent();
         $('.fileupload').fileupload({
             dataType: 'json',
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                foo.append('<div class="pbar"><span class="pbarprogress" style="width: 0%;">hjkkjh</span></div>');
+            },
+            start: function (e) {
+                $(this).closest(".fileupload").parent().append('<div class="pbar"><span class="pbarprogress" style="width: 0%;"></span></div>');
             },
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
@@ -433,7 +431,7 @@
                     imagediv.append(")<br/>");
                     imagediv.append($('<img />').attr({ 'src': '<%= url_for(:controller => 'images', :action => 'thumbnail', :id => nil) %>/' + file.id, 'alt': file.name }));
 
-                    if(file.imageType == 1) {
+                    if (file.imageType == 1) {
                         targetDiv.append(imagediv);
                     }
                     else {
@@ -446,9 +444,9 @@
                 $(".pbarprogress").width(progress + "%").html(progress + " %");
 
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 var json = $.parseJSON(xhr.responseText);
-                alert("<%= t('error_while_uploading') %>" +"\n" + json.errors);
+                alert("<%= t('error_while_uploading') %>" + "\n" + json.errors);
             },
             always: function (e, data) {
                 $(".pbar").delay(800).fadeOut(1000);
@@ -470,14 +468,14 @@
         });
 
         // Forcing nest id to only numbers
-        $('#visitation_form_nest_id').on("keydown keydown change", function() {
+        $('#visitation_form_nest_id').on("keydown keydown change", function () {
             this.value = this.value.replace(/\D/g, '');
         });
 
         $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });
 
         // Prevent submitting on enter
-        $('form').on("keypress keyup keydown", function(e) {
+        $('form').on("keypress keyup keydown", function (e) {
             if (e.keyCode == 13) {
                 e.preventDefault();
                 return false;
