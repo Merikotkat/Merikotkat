@@ -49,6 +49,7 @@ fi:
   left_ring_color: "Vasen rengas, väri"
   list_forms: "Listaa lomakkeet"
   log_approve_form: "Lomake arkistoitiin"
+  log_create: "Lomake luotiin"
   log_submit_form: "Lomake lähetettiin"
   log_unsubmit_form: "Lomakkeen lähetys peruttiin"
   log_update: "Lomake tallennettiin"

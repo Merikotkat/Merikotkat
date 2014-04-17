@@ -102,6 +102,10 @@
           <td><%= @visitation_form.nest_id %></td>
         </tr>
         <tr>
+          <td><strong><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.nest %></td>
+        </tr>
+        <tr>
           <td><strong><%= t('municipality', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
           <td>
             <% municipality = @tipuapi.GetMunicipalities.select do |m| m["id"] == @visitation_form.municipality end %>
@@ -109,13 +113,11 @@
             <%= municipality[0]["name"][0]["content"] unless municipality[0].nil? %>
           </td>
         </tr>
-        <tr>
-          <td><strong><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
-          <td><%= @visitation_form.nest %></td>
-        </tr>
       </table>
     </p>
 </div>
+
+<h1 id="images-header"><%= t('images') %></h1>
 
 <% bird_no = 1 %>
 <% @visitation_form.birds.each do |bird| %>
@@ -175,7 +177,7 @@
         </p>
 
         <% bird.images.reverse_each do |img| %>
-            <div class="image-div">
+            <div class="image">
                 <%= img.filename %> <br />
                 <%= link_to image_tag( url_for(:controller => 'images', :action => 'thumbnail', :id => img.id) ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
             </div>
@@ -189,7 +191,7 @@
     <h2><%= t('young_images') %></h2>
     <p>
       <% @young_images.reverse_each do |img| %>
-          <div class="image-div">
+          <div class="image">
             <%= img.filename %> <br />
             <%= link_to image_tag( url_for(:controller => 'images', :action => 'thumbnail', :id => img.id) ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
           </div>
@@ -202,7 +204,7 @@
     <h2><%= t('landscape_images') %></h2>
     <p>
       <% @landscape_images.reverse_each do |img| %>
-          <div class="image-div">
+          <div class="image">
             <%= img.filename %> <br />
             <%= link_to image_tag( url_for(:controller => 'images', :action => 'thumbnail', :id => img.id) ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
           </div>
@@ -215,7 +217,7 @@
     <h2><%= t('nest_images') %></h2>
     <p>
       <% @nest_images.reverse_each do |img| %>
-          <div class="image-div">
+          <div class="image">
             <%= img.filename %> <br />
             <%= link_to image_tag( url_for(:controller => 'images', :action => 'thumbnail', :id => img.id) ), { controller: 'images', action: 'show', id: img[:id] }, target: "_blank" %>
           </div>

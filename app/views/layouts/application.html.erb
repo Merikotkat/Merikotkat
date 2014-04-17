@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Merikotkat</title>
+  <title>Linssi</title>
   <meta charset="UTF-8">
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag  "application", media: "all", "data-turbolinks-track" => true %>
   <%# javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <%= favicon_link_tag 'favicon.ico'%>
+
+  <%= javascript_include_tag 'jquery-2.1.0.min' %>
+  <%= javascript_include_tag 'jquery-ui.min' %>
   <%= javascript_include_tag "jquery.ui.datepicker-fi" %>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+  <%= stylesheet_link_tag 'jquery-ui-smoothness' %>
+
 </head>
 
 

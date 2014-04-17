@@ -89,18 +89,16 @@
         <%= f.number_field :nest_id %>
       </div>
       <div class="field">
-        <%= f.label :municipality %>
-        <%= f.text_field :municipality %>
-      </div>
-      <div class="field">
         <%= f.label :nest %>
         <%= f.text_field :nest %>
       </div>
+      <div class="field">
+        <%= f.label :municipality %>
+        <%= f.text_field :municipality %>
+      </div>
     </div>
 
-
-
-    <h1><%= t('images') %></h1>
+    <h1 id="images-header"><%= t('images') %></h1>
 
     <div id="birds-div">
         <% index = 1 %>
