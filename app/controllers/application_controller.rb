@@ -10,13 +10,11 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
-  if Rails.env.development?
-   # unless Rails.application.config.consider_all_requests_local
+  if Rails.env.production?
       rescue_from Exception, with: :render_404
       rescue_from ActionController::RoutingError, with: :render_404
       rescue_from ActionController::UnknownController, with: :render_404
       rescue_from ActiveRecord::RecordNotFound, with: :render_404
-    #end
   end
 
   def render_404(exception)
