@@ -69,7 +69,7 @@ class TipuApiHelper
                   {"code"=>[
                       {"id"=>1, "desc"=>[{"content"=>"Kyllä", "lang"=>"FI"}, {"content"=>"Ja", "lang"=>"SV"}, {"content"=>"Yes", "lang"=>"EN"}]},
                       {"id"=>0, "desc"=>[{"content"=>"Ei", "lang"=>"FI"}, {"content"=>"Nej", "lang"=>"SV"}, {"content"=>"No", "lang"=>"EN"}]},
-                      {"id"=>-1, "desc"=>[{"content"=>"Evt", "lang"=>"FI"}, {"content"=>"wut?", "lang"=>"SV"}, {"content"=>"dunno", "lang"=>"EN"}]}
+                      {"id"=>-1, "desc"=>[{"content"=>"Ei tietoa", "lang"=>"FI"}, {"content"=>"Okänd", "lang"=>"SV"}, {"content"=>"Not known", "lang"=>"EN"}]}
                   ]}}
     end
 end
