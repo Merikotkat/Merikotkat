@@ -78,16 +78,9 @@
 
 <script>
   $(function() {
-      var count = <%= @total_visitation_forms %>;
-      var current_page = <%= @current_page %>
-      var per_page = <%= @per_page %>;
-      var sorting = "&sortby=<%= @sortby %>&order=<%= @order %>";
-
-      var pages = <%= @pages %>
-
       <% if @pages > 1 %>
         <% if @current_page > 1 %>
-            var link = '<%= link_to "<<", action:"index", type: params[:type], page: (@current_page.to_i-1), sortby: @sortby, order: @order %>';
+            var link = '<%= create_pagination_link "<<", (@current_page.to_i-1), @sortby, @order %>'
             $("#pagination").append(link);
         <% end %>
 
@@ -95,13 +88,13 @@
           <% if (i+1) == @current_page %>
             $("#pagination").append('<div id="pagination-active">' + (<%=i%>+1) + '</div>');
           <% else %>
-            var link = '<%= link_to (i+1).to_s, action:"index", type: params[:type], page: (i+1), sortby: @sortby, order: @order %>';
+            var link = '<%= create_pagination_link (i+1).to_s, (i+1), @sortby, @order %>'
             $("#pagination").append(link);
           <% end %>
         <% end %>
 
         <% if @current_page < @pages %>
-            var link = '<%= link_to ">>", action:"index", type: params[:type], page: (@current_page.to_i+1), sortby: @sortby, order: @order %>';
+            var link = '<%= create_pagination_link ">>", (@current_page.to_i+1), @sortby, @order %>'
             $("#pagination").append(link);
         <% end %>
       <% end %>
