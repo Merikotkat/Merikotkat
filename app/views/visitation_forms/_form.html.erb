@@ -130,19 +130,19 @@
               </div>
               <div class="field">
                 <%= f.label "birds[][left_ring_code]", t('left_ring_code') %>
-                <input type="text" name="birds[][left_ring_code]" value="<%= bird.left_ring_code %>">
+                <input type="text" class="ringcolor" name="birds[][left_ring_code]" value="<%= bird.left_ring_code %>">
               </div>
               <div class="field">
                 <%= f.label "birds[][left_ring_color]", t('left_ring_color') %>
-                <input type="text" name="birds[][left_ring_color]" value="<%= bird.left_ring_color %>">
+                <input type="text" class="ringcolor" name="birds[][left_ring_color]" value="<%= bird.left_ring_color %>">
               </div>
               <div class="field">
                 <%= f.label "birds[][right_ring_code]", t('right_ring_code') %>
-                <input type="text" name="birds[][right_ring_code]" value="<%= bird.right_ring_code %>">
+                <input type="text" class="ringcolor" name="birds[][right_ring_code]" value="<%= bird.right_ring_code %>">
               </div>
               <div class="field">
                 <%= f.label "birds[][right_ring_color]", t('right_ring_color') %>
-                <input type="text" name="birds[][right_ring_color]" value="<%= bird.right_ring_color %>">
+                <input type="text" class="ringcolor" name="birds[][right_ring_color]" value="<%= bird.right_ring_color %>">
               </div>
 
               <div class="field">
@@ -383,6 +383,25 @@
                                 return {
                                     label: item.name[0].content + " (" + item.id + ")",
                                     value: item.id
+                                }
+                            }));
+                        }
+                    }
+                });
+            },
+            minLength: 1
+        });
+
+        $(".ringcolor").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<%= url_for(action:"getcolors", controller:"api") %>.json?filter=" + request.term,
+                    success: function (data) {
+                        if (data.codes != '') {
+                            response($.map(data.codes, function (item) {
+                                return {
+                                    label: item.desc[0].content + " (" + item.code + ")",
+                                    value: item.code
                                 }
                             }));
                         }
