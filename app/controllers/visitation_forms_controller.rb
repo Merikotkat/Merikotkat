@@ -78,6 +78,7 @@ class VisitationFormsController < ApplicationController
     @visitation_form.species_id = 'HALALB'  # set merikotka as default...
     @visitation_form.birds << Bird.new
     @visitation_form.owners << Owner.new(owner_name: @user[:user_name], owner_id: @user[:login_id])
+    update_audit_log 'create'
   end
 
   # GET /visitation_forms/1/edit

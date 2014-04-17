@@ -102,6 +102,10 @@
           <td><%= @visitation_form.nest_id %></td>
         </tr>
         <tr>
+          <td><strong><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
+          <td><%= @visitation_form.nest %></td>
+        </tr>
+        <tr>
           <td><strong><%= t('municipality', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
           <td>
             <% municipality = @tipuapi.GetMunicipalities.select do |m| m["id"] == @visitation_form.municipality end %>
@@ -109,13 +113,11 @@
             <%= municipality[0]["name"][0]["content"] unless municipality[0].nil? %>
           </td>
         </tr>
-        <tr>
-          <td><strong><%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
-          <td><%= @visitation_form.nest %></td>
-        </tr>
       </table>
     </p>
 </div>
+
+<h1 id="images-header"><%= t('images') %></h1>
 
 <% bird_no = 1 %>
 <% @visitation_form.birds.each do |bird| %>
