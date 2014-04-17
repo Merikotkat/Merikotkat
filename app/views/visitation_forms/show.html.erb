@@ -92,7 +92,7 @@
         <tr>
           <td><strong><%= t('species_id', scope: [:activerecord, :attributes, :visitation_form]) %></strong></td>
           <td>
-            <% if @visitation_form.species_id != "" %>
+            <% if !@visitation_form.species_id.nil? && @visitation_form.species_id != "" %>
                 <%= @tipuapi.GetSpecies["species"].select{|s| s["id"] == @visitation_form.species_id}[0]["name"].select{|s| s["lang"] == get_userlocaleforapi}[0]["content"] %>
             <% end %>
           </td>

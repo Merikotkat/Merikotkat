@@ -202,7 +202,7 @@ describe "In Linssi" do
     page.execute_script %Q{ $('##{field}').trigger('focus') }
     page.execute_script %Q{ $('##{field}').trigger('keydown') }
     selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{options[:select]}")}
-
+    sleep(3)
     page.should have_selector('ul.ui-autocomplete li.ui-menu-item a')
     page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
   end
