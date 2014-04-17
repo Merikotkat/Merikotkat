@@ -2,6 +2,7 @@ Merikotkat::Application.routes.draw do
   get "api/getringer"
   get "api/getmunicipalities"
   get "api/getspecies"
+  get "api/getcolors"
   resources :visitation_forms
 
 

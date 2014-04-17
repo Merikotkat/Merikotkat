@@ -72,4 +72,8 @@ class TipuApiHelper
                       {"id"=>-1, "desc"=>[{"content"=>"Ei tietoa", "lang"=>"FI"}, {"content"=>"Okänd", "lang"=>"SV"}, {"content"=>"Not known", "lang"=>"EN"}]}
                   ]}}
     end
+
+    def self.GetColors
+      return GetApiDataFromCache("https://h92.it.helsinki.fi/tipu-api/codes/303?format=json");
+    end
 end

@@ -30,4 +30,11 @@ class ApiController < ApplicationController
     data = species['species'].select{ |herp| herp['id'].start_with?(filter) || herp['name'][0]['content'].upcase.start_with?(filter) }
     render json: { species: data }
   end
+
+  def getcolors
+    filter = UnicodeUtils.downcase(params['filter'])
+    colors = TipuApiHelper.GetColors
+    data = colors['codes']['code'].select{ |herp| herp['code'].downcase.start_with?(filter) || herp['desc'][0]['content'].downcase.start_with?(filter)}
+    render json: { codes: data }
+  end
 end
