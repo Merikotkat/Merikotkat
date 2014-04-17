@@ -12,18 +12,8 @@ module Lintuvaara
     lintuvaara_auth_uri        = "/sessions"
     lintuvaara_preferences_uri = "/user_preferences"
     lintuvaara_logout_uri      = "/sessions/logout"
-    
-    # case Kihla.current_environment
-    # when 'live'
-    #   # Apply live settings
-    # when 'staging'
-    #   # Apply staging settings
-    # when 'petrus-devel'
-    #   # Use defaults
-    # else
-    #   raise "No environment available for Lintuvaara ApiConfig!"
-    # end
-    
+    lintuvaara_service_name    = "linssi_localhost" #todo change this to avoid redirect loops :p  "linssi_localhost" for localhost "linssi" for production
+
     
     ### No configuration below this point ###
     #              
@@ -35,6 +25,7 @@ module Lintuvaara
     SERVER_ACCOUNT    = api_account
     SERVER_PASSWORD   = api_password
     SERVER_PROTOCOL   = lintuvaara_api_proto
+    SERVER_SERVICE_NAME = lintuvaara_service_name
     
     SERVER_BASE_URL        = "#{SERVER_PROTOCOL}#{SERVER_HOST}"
     SERVER_API_ADDRESS     = "#{SERVER_BASE_URL}#{API_URI}"

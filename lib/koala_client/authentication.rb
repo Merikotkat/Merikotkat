@@ -52,7 +52,7 @@ module KoalaClient
       # Delivers the requested URI in order for Lintuvaara to redirect user back.
       def redirect_to_auth_service
         auth_service_url   = Lintuvaara::ApiConfig::SERVER_AUTH_ADDRESS
-        my_service_id      = Lintuvaara::ApiConfig::SERVER_ACCOUNT
+        my_service_id      = Lintuvaara::ApiConfig::SERVER_SERVICE_NAME
         request_uri        = CGI.escape(request.env['REQUEST_URI'])
         redirect_to "#{auth_service_url}?service=#{my_service_id}&service_uri=#{request_uri}"
       end
