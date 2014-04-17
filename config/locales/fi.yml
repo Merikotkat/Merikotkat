@@ -75,6 +75,7 @@ fi:
   visit_info: "Käynnin tiedot"
   welcome_to_linssi: "Tervetuloa Linssiin"
   young_images: "Poikaskuvat"
+  not_found: "Osoite on virheellinen"
 
   activerecord:
     attributes:
