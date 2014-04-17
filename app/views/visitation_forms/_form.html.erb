@@ -472,6 +472,7 @@
             this.value = this.value.replace(/\D/g, '');
         });
 
+        $.datepicker.setDefaults($.datepicker.regional['<%= I18n.locale %>']);
         $("#visitation_form_visit_date").datepicker({ dateFormat: 'dd.mm.yy', maxDate: new Date() });
 
         // Prevent submitting on enter
