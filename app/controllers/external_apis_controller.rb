@@ -7,6 +7,7 @@ class ExternalApisController < BasicauthController
 
   end
 
+  #todo remove?
   def getimageurls
     #todo json format? required fields? hurr?
     images = Image.where "visitation_form_id = ?",  params[:id]
@@ -28,5 +29,10 @@ class ExternalApisController < BasicauthController
     forms = forms.where(visit_date: datefrom..dateto) unless datefrom.nil? || dateto.nil?
 
     render json: forms.to_json(:include => [:birds, { :images => { :except => [ :data, :thumbnaildata ]}}])
+  end
+
+  def getimage
+    image = Image.find(params[:id])
+    send_data image.data, type: image.content_type, filename: image.filename, disposition: 'inline'
   end
 end

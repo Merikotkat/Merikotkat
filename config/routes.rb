@@ -34,7 +34,7 @@ Merikotkat::Application.routes.draw do
   get 'external_api' => 'external_apis#index'
   get 'external_api/getimageurls/:id' => 'external_apis#getimageurls'
   get 'external_api/getvisitationforms/' => 'external_apis#getvisitationforms'
-
+  get 'external_api/getimage/:id' => 'external_apis#getimage'
 
 
 
