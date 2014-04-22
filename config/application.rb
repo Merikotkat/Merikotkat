@@ -25,5 +25,8 @@ module Merikotkat
 
     #todo not needed for production hopefully...
     ENV['PATH'] += File::PATH_SEPARATOR + 'C:\Program Files\ImageMagick-6.8.8-Q16'
+
+    # Set devmode 'true' or 'false'
+    ENV['DEVMODE'] = 'true'
   end
 end
