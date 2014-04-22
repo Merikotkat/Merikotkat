@@ -2,6 +2,7 @@
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 ENV['NLS_LANG'] ||= 'AMERICAN_AMERICA.UTF8'
 
+
 require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 #require 'koala_client'
 #require_relative '../lib/koala_client'

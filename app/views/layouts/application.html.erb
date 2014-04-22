@@ -19,32 +19,24 @@
 
 
 <body>
-<script>
-    $(function() {
-        if ($("body").attr("class") === "oldie") {
-            var text = 'Your browser is not supported. Please use for example Mozilla Firefox or Google Chrome (both are reccomended) or newer version of IE (10,11) (not reccomended)';
-            $("html").html(text);
-            alert(text);
-        }
 
-        $(".button").button();
-    });
-</script>
 
 <div id="megacontainer">
   <div id="row-megacontainer">
     <div id="masthead" role="banner">
       <div id="masthead-inner">
-        <!-- if devmode --><span class="devmode">TEST ENVIROMENT</span><!-- end of if devmode-->
+        <% if ENV['DEVMODE'].eql? 'true' %>
+              <span class="devmode">TEST ENVIROMENT</span>
+        <% end %>
 
-        <!-- if user -->
+
         <div id="userinfo">
           <ul>
-            <li><%= link_to t('logout'), {controller: 'koala_client/external_authentication', action: 'logout'},  class: 'button' %></li>
+            <li><%= link_to t('logout'), {controller: 'koala_client/external_authentication', action: 'logout'},  class: 'button-link' %></li>
             <li><span class="name"><%= @user[:user_name] %></span> (<%= @user[:login_id] %>)</li>
           </ul>
         </div>
-        <!-- end of if user -->
+
 
         <a href="https://rengastus.helsinki.fi">
           <span id="logo">&nbsp;</span>
@@ -52,7 +44,7 @@
 
         <a href="<%= url_for(root_path)%>">
       <span id="sitetitle">
-       <!-- <%= image_tag('linssi.png') %>  -->&nbsp; Linssi
+      <%= image_tag('linssi.png') %> Linssi
       </span>
         </a>
 
