@@ -17,7 +17,7 @@ class ExternalApisController < BasicauthController
     forms = forms.where(species_id: speciesid) unless speciesid.nil?
     forms = forms.where(visit_date: datefrom..dateto) unless datefrom.nil? || dateto.nil?
 
-    render json: forms.to_json(:include => [:birds, { :images => { :except => [ :data, :thumbnaildata ]}}])
+    render json: forms.to_json(:include => [:birds, { :images => { :except => [ :data, :thumbnaildata ], :methods => [:image_type_name]}}])
   end
 
   def getimage

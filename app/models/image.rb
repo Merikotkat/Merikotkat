@@ -23,6 +23,14 @@ class Image < ActiveRecord::Base
     self.checksum = Digest::MD5.hexdigest(self.data)
   end
 
+  def image_type_name
+    return "Adult" if (image_type == 1)
+    return "Juvenile" if (image_type == 3)
+    return "Landscape" if (image_type == 4)
+    return "Nest" if (image_type == 5)
+    return ""
+  end
+
   def create_thumbnail
     begin
       image = MiniMagick::Image.read(self.data)
