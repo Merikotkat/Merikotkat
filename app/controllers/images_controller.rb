@@ -45,7 +45,6 @@ class ImagesController < ApplicationController
         img.bird_id = params[:birdId]
 
         if !img.save
-          #todo should an error halt and/or rollback the entire upload?
           render :json => { :errors => img.errors.full_messages }, :status => 400 and return
         else
           @results <<  { name: img.filename, imageType: img.image_type, id: img.id }

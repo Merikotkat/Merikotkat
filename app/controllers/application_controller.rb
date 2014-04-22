@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
     include KoalaClient::Authentication
     before_filter :update_session_expiry
     before_filter :authentication_required
-    before_filter :set_rengastaja_role
   end
 
   before_action :set_locale
@@ -48,13 +47,6 @@ class ApplicationController < ActionController::Base
     end
 
     return "FI"
-  end
-
-  #todo REMOVE BEFORE PRODUCTION... SERIOUSLY!
-  def set_rengastaja_role
-    if !@user.nil?  && @user[:login_id] == 'admin_linssitest'
-      @user[:type] = 'rengastaja'
-    end
   end
 
   # Prevent CSRF attacks by raising an exception.

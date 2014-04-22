@@ -48,15 +48,9 @@ class KoalaClient::ExternalAuthenticationController < ApplicationController
     render(&:html)
   end
 
-  ## TODO: Remove route
-  # def index
-  #   redirect_to admin_index_url
-  # end
 
   def logout
     reset_session
-    #todo fix this locale adding thingy...
-    #lintuvaara_logout_url = add_locale_param_to_uri(KoalaClient.configuration.server_logout_url, I18n.locale)
     redirect_to Lintuvaara::ApiConfig::SERVER_LOGOUT_URL
   end
 

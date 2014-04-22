@@ -32,12 +32,6 @@ class VisitationForm < ActiveRecord::Base
       form.errors[:photographer_id] << I18n.t('error_invalid_photographer_id')
     end
 
-    # Todo fix this shit. Integration tests require this removed and unit tests fail if removed.
-    if not Rails.env.test?
-      if form.images.count == 0
-        form.errors[:images] << I18n.t('error_must_have_one_image')
-      end
-    end
 
     if form.owners.count == 0
       form.errors[:owners] << I18n.t('error_must_have_one_owner')
@@ -58,7 +52,6 @@ class VisitationForm < ActiveRecord::Base
   end
 
   def self.get_forms_of_type(user, type, sortby, order)
-    #todo this should be done in a query instead...
     forms = Array.new
 
     # If no sorting is given, results are sorted by creation timestamp and newest first (desc)
