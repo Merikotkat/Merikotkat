@@ -13,10 +13,10 @@
       <td><%= t("activerecord.attributes.visitation_form.species_id") %></td><td><input type="text" name="speciesid" id="speciesid" value="<%= @speciesid %>" /></td>
     </tr>
     <tr>
-      <td>DateFrom</td><td><input type="date" name="datefrom" value="<%= @datefrom %>" /></td>
+      <td><%= t('date_from') %></td><td><input type="date" name="datefrom" value="<%= @datefrom %>" /></td>
     </tr>
     <tr>
-      <td>DateTo</td><td><input type="date" name="dateto" value="<%= @dateto %>" /></td>
+      <td><%= t('date_to') %></td><td><input type="date" name="dateto" value="<%= @dateto %>" /></td>
     </tr>
     <tr>
       <td></td>
@@ -53,27 +53,15 @@
   <tr>
     <th>
       <%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %>
-      <div>
-        <%= create_link "&#9650;", "nest_id", "desc" %> <%= create_link "&#9660;", "nest_id", "asc" %>
-      </div>
     </th>
     <th>
       <%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %>
-      <div>
-        <%= create_link "&#9650;", "nest", "desc" %> <%= create_link "&#9660;", "nest", "asc" %>
-      </div>
     </th>
     <th>
       <%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %>
-      <div>
-        <%= create_link "&#9650;", "visit_date", "desc" %> <%= create_link "&#9660;", "visit_date", "asc" %>
-      </div>
     </th>
     <th>
       <%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %>
-      <div>
-        <%= create_link "&#9650;", "photographer_name", "desc" %> <%= create_link "&#9660;", "photographer_name", "asc" %>
-      </div>
     </th>
 
     <% if @visitation_forms.count > 0 %>

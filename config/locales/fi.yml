@@ -12,6 +12,8 @@ fi:
   camera_info: "Kameran tiedot"
   confirm_delete: "Haluatko varmasti poistaa?"
   create: "Luotu"
+  date_from: "Alkaen päivästä"
+  date_to: "Päättyen päivään"
   delete: "Poista"
   edit: "Muokkaa"
   edit_visitation_form: "Muokkaa lomaketta"
