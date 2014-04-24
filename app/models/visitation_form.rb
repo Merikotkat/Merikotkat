@@ -52,7 +52,6 @@ class VisitationForm < ActiveRecord::Base
   end
 
   def self.get_forms_of_type(user, type, sortby, order, nestid, speciesid, datefrom, dateto, nestname)
-    forms = Array.new
 
     # If no sorting is given, results are sorted by creation timestamp and newest first (desc)
     if (not defined? sortby or sortby.nil? or not VisitationForm.column_names.include? sortby )
@@ -70,22 +69,25 @@ class VisitationForm < ActiveRecord::Base
     allForms = allForms.where('visit_date >= ?', datefrom) unless datefrom.nil? || datefrom == ''
     allForms = allForms.where('visit_date <= ?', dateto) unless dateto.nil? || dateto == ''
 
-    allForms.each do |form|
-      forms.push(form) if user_has_access_to_form user, form
+    if user[:type] != 'admin'
+      allForms = allForms.includes([:owners]).where(['owners.owner_id = ? OR photographer_id = ?', user[:login_id], user[:login_id]])
     end
 
     if(type == "submitted")
-      @visitation_forms = forms.select { |f| f.sent == true && f.approved != true }
+      @visitation_forms = allForms.select { |f| f.sent == true && f.approved != true }
     elsif (type == "unsubmitted")
-      @visitation_forms = forms.select { |f| f.sent != true && f.approved != true }
+      @visitation_forms = allForms.select { |f| f.sent != true && f.approved != true }
     elsif(type == "archive")
       if user[:type] == 'admin'
-        @visitation_forms = forms.select { |f| f.approved == true }
+        @visitation_forms = allForms.select { |f| f.approved == true }
       else
         return false
       end
     end
   end
+
+
+
 
   def self.user_has_access_to_form user, form
     return true if user[:type] == 'admin'
