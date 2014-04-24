@@ -51,7 +51,7 @@ class VisitationForm < ActiveRecord::Base
     end
   end
 
-  def self.get_forms_of_type(user, type, sortby, order, nestid, speciesid, datefrom, dateto, nestname)
+  def self.get_forms_of_type(user, type, sortby, order, nestid, speciesid, datefrom, dateto, nestname, photographername)
 
     # If no sorting is given, results are sorted by creation timestamp and newest first (desc)
     if (not defined? sortby or sortby.nil? or not VisitationForm.column_names.include? sortby )
@@ -68,6 +68,7 @@ class VisitationForm < ActiveRecord::Base
     allForms = allForms.where(species_id: speciesid) unless speciesid.nil? || speciesid == ''
     allForms = allForms.where('visit_date >= ?', datefrom) unless datefrom.nil? || datefrom == ''
     allForms = allForms.where('visit_date <= ?', dateto) unless dateto.nil? || dateto == ''
+    allForms = allForms.where("photographer_name LIKE ?", photographername + "%") unless photographername.nil? || photographername == ''
 
     if user[:type] != 'admin'
       allForms = allForms.includes([:owners]).where(['owners.owner_id = ? OR photographer_id = ?', user[:login_id], user[:login_id]])

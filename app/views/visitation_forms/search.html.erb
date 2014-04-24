@@ -1,16 +1,36 @@
 <form method="get" id="searchform">
-  <%= t("activerecord.attributes.visitation_form.nest_id") %><input type="text" name="nestid" value="<%= @nestid %>" /><br />
-  <%= t("activerecord.attributes.visitation_form.nest") %><input type="text" name="nestname" value="<%= @nestname %>" /><br />
-  <%= t("activerecord.attributes.visitation_form.species_id") %><input type="text" name="speciesid" value="<%= @speciesid %>" /><br />
-  DateFrom<input type="date" name="datefrom" value="<%= @datefrom %>" />
-  DateTo<input type="date" name="dateto" value="<%= @dateto %>" /><br />
-  <select name="type">
-    <option value="unsubmitted"><%= t('unsubmitted') %></option>
-    <option value="submitted"><%= t('submitted') %></option>
-    <% if @user[:type] == 'admin' %>
-        <option value="archive"><%= t('archive') %></option>
-    <% end %>
-  </select><br />
+  <table>
+    <tr>
+      <td><%= t("activerecord.attributes.visitation_form.photographer_name") %></td><td><input type="text" name="photographername" value="<%= @photographername %>" /></td>
+    </tr>
+    <tr>
+      <td><%= t("activerecord.attributes.visitation_form.nest_id") %></td><td><input type="text" name="nestid" value="<%= @nestid %>" /></td>
+    </tr>
+    <tr>
+      <td><%= t("activerecord.attributes.visitation_form.nest") %></td><td><input type="text" name="nestname" value="<%= @nestname %>" /></td>
+    </tr>
+    <tr>
+      <td><%= t("activerecord.attributes.visitation_form.species_id") %></td><td><input type="text" name="speciesid" id="speciesid" value="<%= @speciesid %>" /></td>
+    </tr>
+    <tr>
+      <td>DateFrom</td><td><input type="date" name="datefrom" value="<%= @datefrom %>" /></td>
+    </tr>
+    <tr>
+      <td>DateTo</td><td><input type="date" name="dateto" value="<%= @dateto %>" /></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+          <select name="type">
+            <option value="unsubmitted"><%= t('unsubmitted') %></option>
+            <option value="submitted"><%= t('submitted') %></option>
+            <% if @user[:type] == 'admin' %>
+                <option value="archive"><%= t('archive') %></option>
+            <% end %>
+          </select>
+      </td>
+    </tr>
+  </table>
   <button type="submit"><%= t("search") %></button>
 
   <script type="text/javascript">
@@ -82,3 +102,24 @@
   <% end %>
   </tbody>
 </table>
+
+<script>
+    $("#speciesid").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "<%= url_for(action:"getspecies", controller:"api") %>.json?filter=" + request.term,
+                success: function (data) {
+                    if (data.species != '') {
+                        response($.map(data.species, function (item) {
+                            return {
+                                label: item.name[0].content + " (" + item.id + ")",
+                                value: item.id
+                            }
+                        }));
+                    }
+                }
+            });
+        },
+        minLength: 1
+    });
+</script>
