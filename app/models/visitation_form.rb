@@ -51,7 +51,7 @@ class VisitationForm < ActiveRecord::Base
     end
   end
 
-  def self.get_forms_of_type(user, type, sortby, order, nestid, speciesid, datefrom, dateto)
+  def self.get_forms_of_type(user, type, sortby, order, nestid, speciesid, datefrom, dateto, nestname)
     forms = Array.new
 
     # If no sorting is given, results are sorted by creation timestamp and newest first (desc)
@@ -65,6 +65,7 @@ class VisitationForm < ActiveRecord::Base
     end
 
     allForms = allForms.where(nest_id: nestid) unless nestid.nil? || nestid == ''
+    allForms = allForms.where(nest: nestname) unless nestname.nil? || nestname == ''
     allForms = allForms.where(species_id: speciesid) unless speciesid.nil? || speciesid == ''
     allForms = allForms.where('visit_date >= ?', datefrom) unless datefrom.nil? || datefrom == ''
     allForms = allForms.where('visit_date <= ?', dateto) unless dateto.nil? || dateto == ''
