@@ -36,13 +36,7 @@ class VisitationFormsController < ApplicationController
         params[:order] = nil
       end
 
-      @nestid = params[:nestid]
-      @nestname = params[:nestname]
-      @speciesid = params[:speciesid]
-      @datefrom = params[:datefrom]
-      @dateto = params[:dateto]
-
-      if (@visitation_forms = VisitationForm.get_forms_of_type @user, params[:type], params[:sortby], params[:order], @nestid, @speciesid, @datefrom, @dateto, @nestname) == false
+      if (@visitation_forms = VisitationForm.get_forms_of_type @user, params[:type], params[:sortby], params[:order], nil, nil, nil, nil, nil, nil) == false
         not_found
       end
     else
