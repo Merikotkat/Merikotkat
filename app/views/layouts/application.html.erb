@@ -69,27 +69,10 @@
 
     <!-- Content section -->
     <div id="main-area" action="" role="main" >
-      <form method="get" id="searchform">
-        <%= t("activerecord.attributes.visitation_form.nest_id") %><input type="text" name="nestid" value="<%= @nestid %>" />
-        <%= t("activerecord.attributes.visitation_form.nest") %><input type="text" name="nestname" value="<%= @nestname %>" />
-        <%= t("activerecord.attributes.visitation_form.species_id") %><input type="text" name="speciesid" value="<%= @speciesid %>" />
-        DateFrom<input type="date" name="datefrom" value="<%= @datefrom %>" />
-        DateTo<input type="date" name="dateto" value="<%= @dateto %>" />
-        <button type="submit"><%= t("search") %></button>
-
-        <script type="text/javascript">
-            $(function () {
-                $.datepicker.setDefaults($.datepicker.regional['<%= I18n.locale %>']);
-                $("#searchform input[type='date']").datepicker({ dateFormat: 'yy-mm-dd' });
-            });
-        </script>
-      </form>
-
-
       <div id="content-wrapper">
         <div id="sidebar">
           <ul>
-            <li><%= t("forms").upcase %></li>
+                <li><%= t("forms").upcase %></li>
 
                 <li>
                   <%= image_tag "folder_unsubmitted.png" %>
@@ -105,10 +88,14 @@
                       <%=link_to(t('archive') + " (" + VisitationForm.get_forms_of_type(@user, "archive", nil, nil, nil, nil, nil, nil, nil).count.to_s + ")", {controller: 'visitation_forms', action: "index", type: "archive"})   %>
                     </li>
                 <% end %>
-                  <li>
-                    <%= image_tag "page_add.png" %>
-                    <%= link_to t("new_visitation_form"), new_visitation_form_path %>
-                  </li>
+                <li>
+                  <%= image_tag "search_bird.png" %>
+                  <%= link_to t("search"), {controller: "visitation_forms", action: "search"} %>
+                </li>
+                <li>
+                  <%= image_tag "page_add.png" %>
+                  <%= link_to t("new_visitation_form"), new_visitation_form_path %>
+                </li>
           </ul>
         </div>
         <div id="content" class="page-content">

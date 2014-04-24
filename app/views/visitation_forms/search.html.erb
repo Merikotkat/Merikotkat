@@ -1,0 +1,84 @@
+<form method="get" id="searchform">
+  <%= t("activerecord.attributes.visitation_form.nest_id") %><input type="text" name="nestid" value="<%= @nestid %>" /><br />
+  <%= t("activerecord.attributes.visitation_form.nest") %><input type="text" name="nestname" value="<%= @nestname %>" /><br />
+  <%= t("activerecord.attributes.visitation_form.species_id") %><input type="text" name="speciesid" value="<%= @speciesid %>" /><br />
+  DateFrom<input type="date" name="datefrom" value="<%= @datefrom %>" />
+  DateTo<input type="date" name="dateto" value="<%= @dateto %>" /><br />
+  <select name="type">
+    <option value="unsubmitted"><%= t('unsubmitted') %></option>
+    <option value="submitted"><%= t('submitted') %></option>
+    <% if @user[:type] == 'admin' %>
+        <option value="archive"><%= t('archive') %></option>
+    <% end %>
+  </select><br />
+  <button type="submit"><%= t("search") %></button>
+
+  <script type="text/javascript">
+      $(function () {
+          $.datepicker.setDefaults($.datepicker.regional['<%= I18n.locale %>']);
+          $("#searchform input[type='date']").datepicker({ dateFormat: 'yy-mm-dd' });
+      });
+  </script>
+</form>
+<h1><%= t('search_results') %></h1>
+
+<div id="pagination">
+
+</div>
+
+<div class="clear"></div>
+
+<table id="formList">
+  <thead>
+  <tr>
+    <th>
+      <%= t('nest_id', scope: [:activerecord, :attributes, :visitation_form]) %>
+      <div>
+        <%= create_link "&#9650;", "nest_id", "desc" %> <%= create_link "&#9660;", "nest_id", "asc" %>
+      </div>
+    </th>
+    <th>
+      <%= t('nest', scope: [:activerecord, :attributes, :visitation_form]) %>
+      <div>
+        <%= create_link "&#9650;", "nest", "desc" %> <%= create_link "&#9660;", "nest", "asc" %>
+      </div>
+    </th>
+    <th>
+      <%= t('visit_date', scope: [:activerecord, :attributes, :visitation_form]) %>
+      <div>
+        <%= create_link "&#9650;", "visit_date", "desc" %> <%= create_link "&#9660;", "visit_date", "asc" %>
+      </div>
+    </th>
+    <th>
+      <%= t('photographer_name', scope: [:activerecord, :attributes, :visitation_form]) %>
+      <div>
+        <%= create_link "&#9650;", "photographer_name", "desc" %> <%= create_link "&#9660;", "photographer_name", "asc" %>
+      </div>
+    </th>
+
+    <% if @visitation_forms.count > 0 %>
+        <th></th>
+        <th></th>
+    <% end %>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @visitation_forms.each do |visitation_form| %>
+
+      <tr>
+        <td class="nestid"><%= visitation_form.nest_id  %></td>
+        <td class="nestname"><%= visitation_form.nest %></td>
+        <td class="visitdate"><%= visitation_form.visit_date.strftime("%d.%m.%Y")  unless visitation_form.visit_date.nil?  %></td>
+        <td class="photographer"><%= visitation_form.photographer_name %></td>
+        <td><%= link_to t('show'), visitation_form %></td>
+        <% if @type.nil? || @type == "unsubmitted" %>
+            <td><%= link_to t('edit'), edit_visitation_form_path(visitation_form) %></td>
+        <% else %>
+            <td></td>
+        <% end %>
+      </tr>
+
+  <% end %>
+  </tbody>
+</table>

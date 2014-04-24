@@ -1,5 +1,4 @@
 fi:
-  search: "Hae"
   add_bird: "Lisää emolintu"
   add_file: "Lisää tiedosto"
   add_image: "Lisää kuva"
@@ -64,6 +63,8 @@ fi:
   right_ring_code: "Oikea rengas, koodi"
   right_ring_color: "Oikea rengas, väri"
   save_visitation_form: "Välitallenna"
+  search: "Hae"
+  search_results: "Haun tulokset"
   show: "Näytä"
   shyness: "Arkuus"
   submit_form: "Lähetetty"

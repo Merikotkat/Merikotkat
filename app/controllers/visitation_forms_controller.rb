@@ -1,6 +1,6 @@
 class VisitationFormsController < ApplicationController
   before_action :set_visitation_form, only: [:show, :edit, :update, :destroy, :submit_form, :unsubmit_form, :approve_form]
-  before_action :check_permission, except: [:index, :new, :create, :add_owners]
+  before_action :check_permission, except: [:index, :search, :new, :create, :add_owners]
   before_action :set_municipalities_api
   before_action :set_images, only: [:show, :edit, :new]
 
@@ -67,6 +67,18 @@ class VisitationFormsController < ApplicationController
       end_index = start_index + @per_page - 1
       @visitation_forms = @visitation_forms[start_index..end_index]
     end
+  end
+
+  def search
+    @nestid = params[:nestid]
+    @nestname = params[:nestname]
+    @speciesid = params[:speciesid]
+    @datefrom = params[:datefrom]
+    @dateto = params[:dateto]
+
+    params[:type] = 'unsubmitted' if params[:type].nil?
+
+    @visitation_forms = VisitationForm.get_forms_of_type @user, params[:type], nil, nil, @nestid, @speciesid, @datefrom, @dateto, @nestname
   end
 
   # GET /visitation_forms/1

@@ -1,4 +1,5 @@
 Merikotkat::Application.routes.draw do
+  get 'visitation_forms/search' => 'visitation_forms#search'
   get "api/getringer"
   get "api/getmunicipalities"
   get "api/getspecies"
