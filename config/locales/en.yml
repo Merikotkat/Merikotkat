@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  search: "Search"
   add_file: "Add file"
   add_image: "Add image"
   back: "Previous"

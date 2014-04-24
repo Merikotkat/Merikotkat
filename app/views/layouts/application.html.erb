@@ -68,7 +68,23 @@
     </div>
 
     <!-- Content section -->
-    <div id="main-area" role="main" >
+    <div id="main-area" action="" role="main" >
+      <form method="get" id="searchform">
+        <%= t("activerecord.attributes.visitation_form.nest_id") %><input type="text" name="nestid" value="<%= @nestid %>" />
+        <%= t("activerecord.attributes.visitation_form.species_id") %><input type="text" name="speciesid" value="<%= @speciesid %>" />
+        DateFrom<input type="date" name="datefrom" value="<%= @datefrom %>" />
+        DateTo<input type="date" name="dateto" value="<%= @dateto %>" />
+        <button type="submit"><%= t("search") %></button>
+
+        <script type="text/javascript">
+            $(function () {
+                $.datepicker.setDefaults($.datepicker.regional['<%= I18n.locale %>']);
+                $("#searchform input[type='date']").datepicker({ dateFormat: 'yy-mm-dd' });
+            });
+        </script>
+      </form>
+
+
       <div id="content-wrapper">
         <div id="sidebar">
           <ul>

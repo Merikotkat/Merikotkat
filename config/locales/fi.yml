@@ -1,4 +1,5 @@
 fi:
+  search: "Hae"
   add_bird: "Lisää emolintu"
   add_file: "Lisää tiedosto"
   add_image: "Lisää kuva"

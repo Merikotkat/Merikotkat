@@ -64,9 +64,10 @@ class VisitationForm < ActiveRecord::Base
       allForms = VisitationForm.order(sortby + " " + order)
     end
 
-    allForms = allForms.where(nest_id: nestid) unless nestid.nil?
-    allForms = allForms.where(species_id: speciesid) unless speciesid.nil?
-    allForms = allForms.where(visit_date: datefrom..dateto) unless datefrom.nil? || dateto.nil?
+    allForms = allForms.where(nest_id: nestid) unless nestid.nil? || nestid == ''
+    allForms = allForms.where(species_id: speciesid) unless speciesid.nil? || speciesid == ''
+    allForms = allForms.where('visit_date >= ?', datefrom) unless datefrom.nil? || datefrom == ''
+    allForms = allForms.where('visit_date <= ?', dateto) unless dateto.nil? || dateto == ''
 
     allForms.each do |form|
       forms.push(form) if user_has_access_to_form user, form
