@@ -51,7 +51,7 @@ class VisitationForm < ActiveRecord::Base
     end
   end
 
-  def self.get_forms_of_type(user, type, sortby, order)
+  def self.get_forms_of_type(user, type, sortby, order, nestid, speciesid, datefrom, dateto)
     forms = Array.new
 
     # If no sorting is given, results are sorted by creation timestamp and newest first (desc)
@@ -63,6 +63,10 @@ class VisitationForm < ActiveRecord::Base
       end
       allForms = VisitationForm.order(sortby + " " + order)
     end
+
+    allForms = allForms.where(nest_id: nestid) unless nestid.nil?
+    allForms = allForms.where(species_id: speciesid) unless speciesid.nil?
+    allForms = allForms.where(visit_date: datefrom..dateto) unless datefrom.nil? || dateto.nil?
 
     allForms.each do |form|
       forms.push(form) if user_has_access_to_form user, form
@@ -83,13 +87,8 @@ class VisitationForm < ActiveRecord::Base
 
   def self.user_has_access_to_form user, form
     return true if user[:type] == 'admin'
-
-    form.owners.each do |owner|
-      return true if owner.owner_id == user[:login_id]
-    end
-
+    return true if form.owners.any? |o| o.owner_id == user[:login_id]
     return true if form.photographer_id == user[:login_id]
-
     return false
   end
 end
