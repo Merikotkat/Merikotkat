@@ -79,7 +79,7 @@ class VisitationFormsController < ApplicationController
 
     params[:type] = 'unsubmitted' if params[:type].nil?
 
-    if @nestid.nil? && @nestname.nil? && @speciesid.nil? && @datefrom.nil? && @dateto.nil? && @photographername
+    if @nestid.nil? && @nestname.nil? && @speciesid.nil? && @datefrom.nil? && @dateto.nil? && @photographername.nil?
       @visitation_forms = []
     else
       @visitation_forms = VisitationForm.get_forms_of_type @user, params[:type], nil, nil, @nestid, @speciesid, @datefrom, @dateto, @nestname, @photographername
