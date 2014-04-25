@@ -63,12 +63,12 @@ class VisitationForm < ActiveRecord::Base
       allForms = VisitationForm.order(sortby + " " + order)
     end
 
-    allForms = allForms.where(nest_id: nestid) unless nestid.nil? || nestid == ''
-    allForms = allForms.where(nest: nestname) unless nestname.nil? || nestname == ''
+    allForms = allForms.where(:nest_id => nestid.split(',')) unless nestid.nil? || nestid == ''
+    allForms = allForms.where("upper(nest) LIKE upper(?)", nestname + "%") unless nestname.nil? || nestname == ''
     allForms = allForms.where(species_id: speciesid) unless speciesid.nil? || speciesid == ''
     allForms = allForms.where('visit_date >= ?', datefrom) unless datefrom.nil? || datefrom == ''
     allForms = allForms.where('visit_date <= ?', dateto) unless dateto.nil? || dateto == ''
-    allForms = allForms.where("photographer_name LIKE ?", photographername + "%") unless photographername.nil? || photographername == ''
+    allForms = allForms.where("upper(photographer_name) LIKE upper(?)", photographername + "%") unless photographername.nil? || photographername == ''
 
     if user[:type] != 'admin'
       allForms = allForms.includes([:owners]).where(['owners.owner_id = ? OR photographer_id = ?', user[:login_id], user[:login_id]])
