@@ -21,13 +21,11 @@
     <tr>
       <td></td>
       <td>
-          <select name="type">
-            <option value="unsubmitted"><%= t('unsubmitted') %></option>
-            <option value="submitted"><%= t('submitted') %></option>
-            <% if @user[:type] == 'admin' %>
-                <option value="archive"><%= t('archive') %></option>
-            <% end %>
-          </select>
+        <% if @user[:type] == 'admin' %>
+            <%= select_tag "type", options_for_select([ [t('unsubmitted'), 'unsubmitted'], [t('submitted'), 'submitted'], [t('archive'), 'archive'] ], @type) %>
+        <% else %>
+            <%= select_tag "type", options_for_select([ [t('unsubmitted'), 'unsubmitted'], [t('submitted'), 'submitted'] ], @type) %>
+        <% end %>
       </td>
     </tr>
   </table>
