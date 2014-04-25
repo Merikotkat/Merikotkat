@@ -71,7 +71,7 @@ class VisitationFormsController < ApplicationController
     @dateto = params[:dateto]
     @photographername = params[:photographername]
 
-    params[:type] = 'unsubmitted' if params[:type].nil?
+    params[:type] = 'archive' if params[:type].nil?
     @type = params[:type]
     if @nestid.nil? && @nestname.nil? && @speciesid.nil? && @datefrom.nil? && @dateto.nil? && @photographername.nil?
       @visitation_forms = []
