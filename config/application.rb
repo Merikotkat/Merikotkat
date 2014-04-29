@@ -26,7 +26,8 @@ module Merikotkat
     #todo not needed for production hopefully...
     ENV['PATH'] += File::PATH_SEPARATOR + 'C:\Program Files\ImageMagick-6.8.8-Q16'
 
-    # Set devmode 'true' if deployment is staging and 'false' if true production
-    ENV['DEVMODE'] = 'true'
+    # Set ProductionMode false if deployment is staging and true if real production
+    ENV['ProductionMode'] = 'false'
+
   end
 end
