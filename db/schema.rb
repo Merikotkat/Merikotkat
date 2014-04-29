@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20140415092136) do
     t.integer  "visitation_form_id"
   end
 
-  add_index "audit_log_entries", ["visitation_form_id"], name: "index_audit_log_entries_on_visitation_form_id", using: :btree
+  add_index "audit_log_entries", ["visitation_form_id"], name: "audit_log_entries_on_form_id", using: :btree
 
   create_table "birds", force: true do |t|
     t.string   "gender"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140415092136) do
     t.integer  "ringed"
   end
 
-  add_index "birds", ["visitation_form_id"], name: "index_birds_on_visitation_form_id", using: :btree
+  add_index "birds", ["visitation_form_id"], name: "birds_on_visitation_form_id", using: :btree
 
   create_table "images", force: true do |t|
     t.string   "filename"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 20140415092136) do
     t.integer  "bird_id"
   end
 
-  add_index "images", ["bird_id"], name: "index_images_on_bird_id", using: :btree
-  add_index "images", ["visitation_form_id"], name: "index_images_on_visitation_form_id", using: :btree
+  add_index "images", ["bird_id"], name: "images_on_bird_id", using: :btree
+  add_index "images", ["visitation_form_id"], name: "images_on_visitation_form_id", using: :btree
 
   create_table "owners", force: true do |t|
     t.string  "owner_name"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20140415092136) do
     t.integer "visitation_form_id"
   end
 
-  add_index "owners", ["visitation_form_id"], name: "index_owners_on_visitation_form_id", using: :btree
+  add_index "owners", ["visitation_form_id"], name: "owners_on_visitation_form_id", using: :btree
 
   create_table "visitation_forms", force: true do |t|
     t.string   "photographer_name"
