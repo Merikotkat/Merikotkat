@@ -10,14 +10,13 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   if Rails.env.production?
-      rescue_from Exception, with: :render_404
-      rescue_from ActionController::RoutingError, with: :render_404
-      rescue_from ActionController::UnknownController, with: :render_404
-      rescue_from ActiveRecord::RecordNotFound, with: :render_404
+    rescue_from Exception, with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
+    rescue_from ActionController::UnknownController, with: :render_404
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
   end
 
-  def render_404(exception)
-    @not_found_path = exception.message
+  def render_404
     respond_to do |format|
       format.html { render template: '404', layout: 'layouts/application', status: 404 }
       format.all { render nothing: true, status: 404 }

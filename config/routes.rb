@@ -37,7 +37,7 @@ Merikotkat::Application.routes.draw do
   get 'external_api/getvisitationforms/' => 'external_apis#getvisitationforms'
   get 'external_api/getimage/:id' => 'external_apis#getimage'
 
-
+  get '*hurrdurr' => 'application#render_404'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
