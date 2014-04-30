@@ -36,7 +36,7 @@ fi:
    fill_own_info: "Käytä omia tietoja"
    form_already_approved: "Tämä lomake on lähetetty ja hyväksytty. Sitä ei voi enää muokata."
    form_already_sent: "Tämä lomake on lähetetty tarkistettavaksi. Sitä ei voi enää muokata."
-   form_has_images: "Lomaketta ei voi poistaa koska siihen on liitetty kuvia"
+   form_has_images: "Lomaketta ei voi poistaa koska siihen on liitetty kuvia. Poista ensin lomakkeen kuvat"
    form_history: "Lomakkeen historia"
    form_not_sent: "Lomaketta ei ole lähetetty"
    form_owners: "Lomakkeen omistajat"
