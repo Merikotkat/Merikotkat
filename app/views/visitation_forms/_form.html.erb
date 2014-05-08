@@ -102,7 +102,7 @@
 
     <div id="birds-div">
         <% index = 1 %>
-        <% @visitation_form.birds.each do |bird| %>
+        <% @visitation_form.birds.order(:id).each do |bird| %>
           <div class="bird-div boxed">
             <%= link_to t('delete') + " " + t('bird'), {action: :delete_bird, bird_id: bird.id.to_s}, class: "delete_bird" %>
             <div class="birds" id="birds_1">

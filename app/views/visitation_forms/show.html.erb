@@ -120,7 +120,7 @@
 <h1 id="images-header"><%= t('images') %></h1>
 
 <% bird_no = 1 %>
-<% @visitation_form.birds.each do |bird| %>
+<% @visitation_form.birds.order(:id).each do |bird| %>
     <div class="boxed">
         <h2><%= t('bird') + " " + bird_no.to_s %></h2>
         <p>
