@@ -29,8 +29,8 @@
     <div class="boxed" id="owners">
       <h2><%=t('form_owners')%></h2>
       <ul id="owners_list">
-        <% if @visitation_form.owners.count > 0 %>
-            <% @visitation_form.owners.each  do |owner| %>
+        <% if @visitation_form.owners.any? %>
+            <% @visitation_form.owners.each do |owner| %>
                 <li><input name="owners[][name]" type="text" value="<%=owner.owner_name %>"><input value="<%=owner.owner_id %>" name="owners[][id]" type="hidden"> <a class="delete_owner" href="#"><%=t('delete')%></a></li>
             <% end %>
         <% else %>
@@ -102,7 +102,7 @@
 
     <div id="birds-div">
         <% index = 1 %>
-        <% @visitation_form.birds.order(:id).each do |bird| %>
+        <% @visitation_form.birds.each do |bird| %>
           <div class="bird-div boxed">
             <%= link_to t('delete') + " " + t('bird'), {action: :delete_bird, bird_id: bird.id.to_s}, class: "delete_bird" %>
             <div class="birds" id="birds_1">
