@@ -273,13 +273,12 @@ class VisitationFormsController < ApplicationController
   end
 
   def add_owners(owner_array,formId)
-    Owner.where("visitation_form_id= ?", formId).destroy_all
+    Owner.where("visitation_form_id = ?", formId).destroy_all
     owner_array.each do |owner_info|
       owner = Owner.new
       owner.owner_name=owner_info[:name]
       owner.owner_id=owner_info[:id]
-      owner.visitation_form_id=formId
-      owner.save
+      @visitation_form.owners << owner
     end
   end
 
