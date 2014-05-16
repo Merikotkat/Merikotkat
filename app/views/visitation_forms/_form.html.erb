@@ -241,6 +241,7 @@
     function updateBirdHeaders() {
         var divs = $("#birds-div .bird-div");
         for(var i = 0; i < divs.length; i++) {
+            console.log("derp" + i);
             $("h2", divs[i]).html("<%= t('bird') %> " + (i+1));
         }
     }
@@ -294,8 +295,8 @@
                 $.ajax(url).done(function () {
                     $(e.target).closest("div").fadeOut(300, function () {
                         $(this).remove();
+                        updateBirdHeaders();
                     });
-                    updateBirdHeaders();
                 }).fail(function () {
                     alert("Failed deleting =/");
                 });
