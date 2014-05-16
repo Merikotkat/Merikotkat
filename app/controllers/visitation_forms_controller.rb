@@ -116,7 +116,6 @@ class VisitationFormsController < ApplicationController
   # POST /visitation_forms.json
   def create
     @visitation_form = VisitationForm.new(visitation_form_params)
-    @visitation_form.form_saver_id = @user[:login_id]
     save_form
   end
 
